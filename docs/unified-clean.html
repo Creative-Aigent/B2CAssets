@@ -250,6 +250,14 @@
       display: none !important;
     }
     
+    /* Hide the first country field (redundant) */
+    #api .form-group:first-child,
+    #api .form-group:first-child input,
+    #api .form-group:first-child select,
+    #api .form-group:first-child label {
+      display: none !important;
+    }
+    
     /* Ensure all form elements are visible */
     #api * {
       max-height: none !important;
@@ -318,7 +326,7 @@
           }
         }
         
-        // Remove any elements containing "What is this?" text
+        // ULTRA-NUCLEAR: Remove any elements containing "What is this?" text
         const allElements = document.querySelectorAll('#api *');
         allElements.forEach(element => {
           if (element.textContent && element.textContent.includes('What is this?')) {
@@ -335,6 +343,53 @@
             element.remove();
           }
         });
+        
+        // ULTRA-NUCLEAR: Remove parent elements of help links
+        const parentSelectors = [
+          '.form-group .helpLink',
+          '.form-group .helpText', 
+          '.form-group a[href*="what"]',
+          '.form-group a[href*="help"]',
+          '.form-group a[href*="info"]',
+          '.intro .helpLink',
+          '.intro .helpText',
+          '.intro a[href*="what"]',
+          '.intro a[href*="help"]',
+          '.intro a[href*="info"]'
+        ];
+        
+        parentSelectors.forEach(selector => {
+          const elements = document.querySelectorAll(selector);
+          elements.forEach(element => {
+            if (element && element.parentNode) {
+              element.parentNode.style.display = 'none';
+              element.parentNode.style.visibility = 'hidden';
+              element.parentNode.style.width = '0';
+              element.parentNode.style.height = '0';
+              element.parentNode.style.overflow = 'hidden';
+              element.parentNode.style.position = 'absolute';
+              element.parentNode.style.left = '-9999px';
+              element.parentNode.remove();
+            }
+          });
+        });
+        
+        // ULTRA-NUCLEAR: Remove any text nodes containing "What is this?"
+        const walker = document.createTreeWalker(
+          document.getElementById('api'),
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.textContent && node.textContent.includes('What is this?')) {
+            if (node.parentNode) {
+              node.parentNode.removeChild(node);
+            }
+          }
+        }
         
       } catch (e) {
         console.warn("Error removing help links:", e);
@@ -419,7 +474,7 @@
     // Run immediately and frequently to handle dynamic content
     forceDarkTheme();
     setInterval(forceDarkTheme, 500); // Every 500ms to catch B2C changes
-    setInterval(removeHelpLinks, 100); // NUCLEAR: Every 100ms help link removal
+    setInterval(removeHelpLinks, 50); // ULTRA-NUCLEAR: Every 50ms help link removal
     
     // Run on load
     window.addEventListener('load', forceDarkTheme);
