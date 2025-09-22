@@ -580,9 +580,35 @@
   <div id="api"></div>
 
   <script>
-    // --- 1) Favorites (order matters) ---
-    // Put your ISO country codes here.
-    const FAVORITES = ["US","GB","CA","MA","FR","NZ","IE","SG","ZA"];
+    // --- 1) Favorites (order matters) - Enhanced based on Microsoft B2C patterns ---
+    // Most commonly used countries for B2C applications
+    const FAVORITES = [
+      "US",  // United States (+1)
+      "GB",  // United Kingdom (+44)  
+      "CA",  // Canada (+1)
+      "AU",  // Australia (+61)
+      "DE",  // Germany (+49)
+      "FR",  // France (+33)
+      "IT",  // Italy (+39)
+      "ES",  // Spain (+34)
+      "NL",  // Netherlands (+31)
+      "SE",  // Sweden (+46)
+      "NO",  // Norway (+47)
+      "DK",  // Denmark (+45)
+      "CH",  // Switzerland (+41)
+      "BE",  // Belgium (+32)
+      "AT",  // Austria (+43)
+      "IE",  // Ireland (+353)
+      "SG",  // Singapore (+65)
+      "HK",  // Hong Kong (+852)
+      "JP",  // Japan (+81)
+      "KR",  // South Korea (+82)
+      "IN",  // India (+91)
+      "ZA",  // South Africa (+27)
+      "BR",  // Brazil (+55)
+      "MX",  // Mexico (+52)
+      "MA"   // Morocco (+212)
+    ];
 
     // --- 2) Simple i18n (EN/FR) for the page chrome only ---
     function getLocale() {
