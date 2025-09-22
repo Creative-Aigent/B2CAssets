@@ -7,7 +7,80 @@
   <meta name="msapplication-config" content="none" />
   <style id="b2c-override" type="text/css">
     /* IMMEDIATE OVERRIDE - INJECTED BEFORE B2C */
-    html, body { background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important; }
+    html, body, 
+    /* B2C IFRAME CONTEXT OVERRIDES */
+    body[data-b2c], body[data-tenant], 
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding,
+    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"],
+    /* B2C IFRAME BODY OVERRIDES */
+    iframe body, iframe html,
+    /* B2C SPECIFIC SELECTORS */
+    .api, .api-container, .api-body, .api-content,
+    .b2c-container, .b2c-body, .b2c-content,
+    .unified, .unified-container, .unified-body,
+    .signin, .signin-container, .signin-body,
+    .signup, .signup-container, .signup-body,
+    .phone, .phone-container, .phone-body,
+    .otp, .otp-container, .otp-body,
+    .verification, .verification-container, .verification-body,
+    .confirmation, .confirmation-container, .confirmation-body,
+    .combined, .combined-container, .combined-body,
+    .localaccount, .localaccount-container, .localaccount-body,
+    .socialaccount, .socialaccount-container, .socialaccount-body,
+    .multifactor, .multifactor-container, .multifactor-body,
+    .passwordreset, .passwordreset-container, .passwordreset-body,
+    .profiledit, .profiledit-container, .profiledit-body,
+    .unifiedssp, .unifiedssp-container, .unifiedssp-body,
+    .unifiedssd, .unifiedssd-container, .unifiedssd-body,
+    .selfasserted, .selfasserted-container, .selfasserted-body,
+    .api, .api-container, .api-body, .api-content,
+    .b2c-container, .b2c-body, .b2c-content,
+    .unified, .unified-container, .unified-body,
+    .signin, .signin-container, .signin-body,
+    .signup, .signup-container, .signup-body,
+    .phone, .phone-container, .phone-body,
+    .otp, .otp-container, .otp-body,
+    .verification, .verification-container, .verification-body,
+    .confirmation, .confirmation-container, .confirmation-body,
+    .combined, .combined-container, .combined-body,
+    .localaccount, .localaccount-container, .localaccount-body,
+    .socialaccount, .socialaccount-container, .socialaccount-body,
+    .multifactor, .multifactor-container, .multifactor-body,
+    .passwordreset, .passwordreset-container, .passwordreset-body,
+    .profiledit, .profiledit-container, .profiledit-body,
+    .unifiedssp, .unifiedssp-container, .unifiedssp-body,
+    .unifiedssd, .unifiedssd-container, .unifiedssd-body,
+    .selfasserted, .selfasserted-container, .selfasserted-body,
+    /* B2C DYNAMIC CLASSES */
+    [class*="b2c"], [id*="b2c"], [class*="api"], [id*="api"],
+    [class*="unified"], [id*="unified"], [class*="signin"], [id*="signin"],
+    [class*="signup"], [id*="signup"], [class*="phone"], [id*="phone"],
+    [class*="otp"], [id*="otp"], [class*="verification"], [id*="verification"],
+    [class*="confirmation"], [id*="confirmation"], [class*="combined"], [id*="combined"],
+    [class*="localaccount"], [id*="localaccount"], [class*="socialaccount"], [id*="socialaccount"],
+    [class*="multifactor"], [id*="multifactor"], [class*="passwordreset"], [id*="passwordreset"],
+    [class*="profiledit"], [id*="profiledit"], [class*="unifiedssp"], [id*="unifiedssp"],
+    [class*="unifiedssd"], [id*="unifiedssd"], [class*="selfasserted"], [id*="selfasserted"],
+    /* B2C IFRAME CONTEXT */
+    iframe, iframe body, iframe html, iframe div,
+    iframe .ext-container, iframe .ext-container-margin, iframe .ext-container-padding,
+    iframe [class*="ext-"], iframe [id*="ext-"], iframe [class*="container"], iframe [id*="container"],
+    iframe [class*="b2c"], iframe [id*="b2c"], iframe [class*="api"], iframe [id*="api"],
+    iframe [class*="unified"], iframe [id*="unified"], iframe [class*="signin"], iframe [id*="signin"],
+    iframe [class*="signup"], iframe [id*="signup"], iframe [class*="phone"], iframe [id*="phone"],
+    iframe [class*="otp"], iframe [id*="otp"], iframe [class*="verification"], iframe [id*="verification"],
+    iframe [class*="confirmation"], iframe [id*="confirmation"], iframe [class*="combined"], iframe [id*="combined"],
+    iframe [class*="localaccount"], iframe [id*="localaccount"], iframe [class*="socialaccount"], iframe [id*="socialaccount"],
+    iframe [class*="multifactor"], iframe [id*="multifactor"], iframe [class*="passwordreset"], iframe [id*="passwordreset"],
+    iframe [class*="profiledit"], iframe [id*="profiledit"], iframe [class*="unifiedssp"], iframe [id*="unifiedssp"],
+    iframe [class*="unifiedssd"], iframe [id*="unifiedssd"], iframe [class*="selfasserted"], iframe [id*="selfasserted"] {
+      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-color: #0b0f1a !important;
+      background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-attachment: fixed !important;
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
