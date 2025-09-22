@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Continue</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #5855eb;
+      --primary-light: #8b5cf6;
+      --secondary: #22c55e;
+      --background: #111827;
+      --surface: #1f2937;
+      --text-primary: #f9fafb;
+      --text-secondary: #d1d5db;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-primary);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .wrap { 
+      max-width: 440px; 
+      margin: 6vh auto; 
+      padding: 0 16px; 
+    }
+
+    .card { 
+      background: rgba(17, 24, 39, 0.52) !important;
+      backdrop-filter: saturate(160%) blur(16px) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+      padding: 2rem !important;
+    }
+
+    h1 { 
+      font-size: 1.5rem !important;
+      margin: 0 0 2rem !important;
+      text-align: center !important;
+      color: var(--text-primary) !important;
+      font-weight: 600 !important;
+    }
+
+    .hint { 
+      color: var(--text-secondary) !important;
+      font-size: 1rem !important;
+      margin: 0 0 2rem !important;
+      text-align: center !important;
+    }
+
+    #api { 
+      margin-top: 8px; 
+    }
+
+    /* B2C Form Styling */
+    .api {
+      background: transparent !important;
+    }
+
+    .card-container {
+      background: rgba(17, 24, 39, 0.52) !important;
+      backdrop-filter: saturate(160%) blur(16px) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+      padding: 2rem !important;
+      margin: 2rem auto !important;
+      max-width: 400px !important;
+    }
+
+    input[type="text"], 
+    input[type="email"], 
+    input[type="password"],
+    input[type="tel"] {
+      background: rgba(17, 24, 39, 0.52) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      color: var(--text-primary) !important;
+      font-size: 1rem !important;
+      padding: 12px 16px !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin-bottom: 1rem !important;
+    }
+
+    input[type="text"]:focus, 
+    input[type="email"]:focus, 
+    input[type="password"]:focus,
+    input[type="tel"]:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+      outline: none !important;
+    }
+
+    input[type="text"]::placeholder, 
+    input[type="email"]::placeholder, 
+    input[type="password"]::placeholder,
+    input[type="tel"]::placeholder {
+      color: var(--text-secondary) !important;
+      opacity: 0.7 !important;
+    }
+
+    select {
+      background: rgba(17, 24, 39, 0.52) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      color: var(--text-primary) !important;
+      font-size: 1rem !important;
+      padding: 12px 16px !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin-bottom: 1rem !important;
+    }
+
+    select:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+      outline: none !important;
+    }
+
+    button[type="submit"], 
+    .primary-button {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      color: white !important;
+      font-weight: 500 !important;
+      padding: 12px 24px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      margin-top: 1rem !important;
+    }
+
+    button[type="submit"]:hover, 
+    .primary-button:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary)) !important;
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    button[type="submit"]:active, 
+    .primary-button:active {
+      transform: translateY(0) !important;
+    }
+
+    .secondary-button, 
+    .cancel-button {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      color: var(--text-primary) !important;
+      padding: 12px 24px !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      margin-top: 0.5rem !important;
+    }
+
+    .secondary-button:hover, 
+    .cancel-button:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-color: var(--border-hover) !important;
+    }
+
+    a {
+      color: var(--primary) !important;
+      text-decoration: none !important;
+      transition: color 0.2s ease !important;
+    }
+
+    a:hover {
+      color: var(--primary-light) !important;
+    }
+
+    .error-message {
+      color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.1) !important;
+      border: 1px solid rgba(239, 68, 68, 0.2) !important;
+      border-radius: 8px !important;
+      padding: 12px !important;
+      margin-bottom: 1rem !important;
+      font-size: 0.9rem !important;
+    }
+
+    .success-message {
+      color: var(--secondary) !important;
+      background: rgba(34, 197, 94, 0.1) !important;
+      border: 1px solid rgba(34, 197, 94, 0.2) !important;
+      border-radius: 8px !important;
+      padding: 12px !important;
+      margin-bottom: 1rem !important;
+      font-size: 0.9rem !important;
+    }
+
+    .divider {
+      border-top: 1px solid var(--border) !important;
+      margin: 1.5rem 0 !important;
+    }
+
+    .social-button {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      color: var(--text-primary) !important;
+      padding: 12px 16px !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      margin-bottom: 0.5rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.5rem !important;
+      cursor: pointer !important;
+    }
+
+    .social-button:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-color: var(--border-hover) !important;
+    }
+
+    .checkbox-container {
+      display: flex !important;
+      align-items: center !important;
+      margin-bottom: 1rem !important;
+      gap: 0.5rem !important;
+    }
+
+    input[type="checkbox"] {
+      width: 18px !important;
+      height: 18px !important;
+      accent-color: var(--primary) !important;
+    }
+
+    .checkbox-label {
+      color: var(--text-secondary) !important;
+      font-size: 0.9rem !important;
+    }
+
+    /* Phone control specific styling */
+    .phoneControl {
+      display: flex !important;
+      gap: 0.5rem !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .phoneControl select {
+      flex: 0 0 auto !important;
+      width: auto !important;
+      min-width: 120px !important;
+      margin-bottom: 0 !important;
+    }
+
+    .phoneControl input {
+      flex: 1 !important;
+      margin-bottom: 0 !important;
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        padding: 1.5rem !important;
+        margin: 1rem !important;
+        max-width: calc(100% - 2rem) !important;
+      }
+      
+      .card {
+        padding: 1.5rem !important;
+        margin: 1rem !important;
+      }
+      
+      input[type="text"], 
+      input[type="email"], 
+      input[type="password"],
+      input[type="tel"] {
+        font-size: 1.1rem !important;
+        padding: 16px !important;
+      }
+      
+      button[type="submit"], 
+      .primary-button {
+        padding: 16px 24px !important;
+        font-size: 1.1rem !important;
+      }
+      
+      h1 {
+        font-size: 1.3rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 id="title">Continue</h1>
+      <div id="subtitle" class="hint">Enter your phone to receive a code.</div>
+      <div id="api"></div>
+    </div>
+  </div>
+
+  <script>
+    // --- 1) Favorites (order matters) ---
+    // Put your ISO country codes here.
+    const FAVORITES = ["US","GB","CA","MA","FR","NZ","IE","SG","ZA"];
+
+    // --- 2) Simple i18n (EN/FR) for the page chrome only ---
+    function getLocale() {
+      try {
+        const qp = new URLSearchParams(window.location.search);
+        const ui = (qp.get("ui_locales") || navigator.language || "en").toLowerCase();
+        return ui.startsWith("fr") ? "fr" : "en";
+      } catch (e) {
+        return "en";
+      }
+    }
+    
+    function setTexts() {
+      try {
+        const t = { 
+          en: { title: "Continue", sub: "Enter your phone to receive a code." },
+          fr: { title: "Continuer", sub: "Saisissez votre numéro de téléphone pour recevoir un code." }
+        }[getLocale()];
+        
+        const titleEl = document.getElementById("title");
+        const subtitleEl = document.getElementById("subtitle");
+        
+        if (titleEl) titleEl.textContent = t.title;
+        if (subtitleEl) subtitleEl.textContent = t.sub;
+      } catch (e) {
+        console.warn("Error setting texts:", e);
+      }
+    }
+    
+    // Initialize texts when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setTexts);
+    } else {
+      setTexts();
+    }
+
+    // --- 3) Pin favorite countries while keeping the rest ---
+    function findCountrySelect() {
+      try {
+        // B2C uses a phone control with a country <select>. Try common selectors.
+        const sels = [
+          'select#country',
+          'select[name*="country"]',
+          'select[id*="country"]',
+          '.phoneControl select',
+          'select[aria-label*="Country"]',
+          'select[aria-label*="Pays"]',
+          'select'
+        ];
+        for (const s of sels) {
+          const el = document.querySelector(s);
+          if (el && el.tagName === "SELECT" && el.options?.length > 0) return el;
+        }
+        return null;
+      } catch (e) {
+        console.warn("Error finding country select:", e);
+        return null;
+      }
+    }
+
+    function pinFavorites(selectEl) {
+      try {
+        if (!selectEl || !selectEl.options) return;
+
+        // Preserve current selection
+        const current = selectEl.value;
+
+        // Map options by value (B2C uses ISO codes as values in the country list)
+        const all = Array.from(selectEl.options);
+        const map = new Map(all.map(o => [String(o.value).toUpperCase(), o]));
+
+        const favs = [];
+        const rest = [];
+
+        FAVORITES.forEach(code => {
+          const opt = map.get(code.toUpperCase());
+          if (opt) favs.push(opt);
+        });
+
+        all.forEach(o => {
+          const code = String(o.value).toUpperCase();
+          if (!FAVORITES.includes(code)) rest.push(o);
+        });
+
+        // Rebuild dropdown: favorites first, then the rest (original order preserved)
+        selectEl.innerHTML = "";
+        [...favs, ...rest].forEach(o => selectEl.appendChild(o));
+
+        // Restore selection if any
+        if (current) selectEl.value = current;
+      } catch (e) {
+        console.warn("Error pinning favorites:", e);
+      }
+    }
+
+    // React to B2C injecting content
+    function initializeObserver() {
+      try {
+        const api = document.getElementById("api");
+        if (!api) {
+          console.warn("API element not found, retrying...");
+          setTimeout(initializeObserver, 1000);
+          return;
+        }
+
+        const obs = new MutationObserver((mutations) => {
+          try {
+            let shouldRepin = false;
+            mutations.forEach((mutation) => {
+              if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                shouldRepin = true;
+              }
+            });
+            
+            if (shouldRepin) {
+              // Use setTimeout to ensure B2C has finished rendering
+              setTimeout(() => {
+                const sel = findCountrySelect();
+                if (sel) {
+                  pinFavorites(sel);
+                }
+              }, 100);
+            }
+          } catch (e) {
+            console.warn("Error in mutation observer:", e);
+          }
+        });
+        
+        // Start observing after a short delay to ensure B2C is ready
+        setTimeout(() => {
+          try {
+            obs.observe(api, { childList: true, subtree: true });
+          } catch (e) {
+            console.warn("Error starting observer:", e);
+          }
+        }, 500);
+      } catch (e) {
+        console.warn("Error initializing observer:", e);
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeObserver);
+    } else {
+      initializeObserver();
+    }
+
+    // Re-pin on language change (B2C can re-render)
+    window.addEventListener("hashchange", () => {
+      try {
+        setTimeout(() => {
+          const sel = findCountrySelect();
+          if (sel) pinFavorites(sel);
+        }, 100);
+      } catch (e) {
+        console.warn("Error handling hashchange:", e);
+      }
+    });
+  </script>
+</body>
+</html>
