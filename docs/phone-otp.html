@@ -8,48 +8,65 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ULTRA AGGRESSIVE B2C OVERRIDE - MUST BE FIRST */
-    * {
+    /* CREATIVEAIGENT DESIGN TOKENS */
+    :root {
+      --b2c-primary: #6366f1;
+      --b2c-primary-hover: #5855eb;
+      --b2c-secondary: #8b5cf6;
+      --b2c-accent: #3B82F6;
+      --b2c-success: #10B981;
+      --b2c-warning: #F59E0B;
+      --b2c-error: #EF4444;
+      --b2c-dark-bg: #0b0f1a;
+      --b2c-mid-bg: #172A45;
+      --b2c-light-bg: #303C55;
+      --b2c-text-primary: #ffffff;
+      --b2c-text-secondary: #B0C4DE;
+      --b2c-text-muted: #9CA3AF;
+      --b2c-border: rgba(255, 255, 255, 0.15);
+      --b2c-border-focus: rgba(99, 102, 241, 0.5);
+      --b2c-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      --b2c-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* NUCLEAR B2C OVERRIDE - FORCE DARK THEME */
+    *, *::before, *::after {
       background: transparent !important;
       background-color: transparent !important;
     }
     
-    /* MATCH YOUR MAIN APP BACKGROUND - Dark Blue Gradient */
+    /* FORCE EVERYTHING TO DARK GRADIENT */
     html, body, .ext-container, .ext-container-margin, .ext-container-padding,
     .ext-container .ext-container-margin, .ext-container .ext-container-padding,
     .ext-container .ext-container-margin .ext-container-padding,
-    div, main, section, article, header, footer, nav, aside {
+    div, main, section, article, header, footer, nav, aside,
+    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"],
+    .azure-b2c-container, .azure-b2c-card {
       background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
       background-color: #0b0f1a !important;
       background-attachment: fixed !important;
       background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
     }
     
-    /* TARGET B2C SPECIFIC CONTAINERS */
-    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
-      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-      background-color: #0b0f1a !important;
-      background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-    }
-    
-    /* TARGET B2C INJECTED CONTENT - Beautiful Glassmorphic Design */
+    /* CREATIVEAIGENT GLASSMORPHIC CARD */
     #api {
-      background: rgba(255, 255, 255, 0.1) !important;
-      backdrop-filter: blur(20px) saturate(180%) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
-      border-radius: 20px !important;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+      background: rgba(10, 20, 60, 0.35) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid var(--b2c-border) !important;
+      border-radius: 18px !important;
+      box-shadow: var(--b2c-shadow) !important;
       padding: 2rem !important;
       max-width: 400px !important;
       margin: 2rem auto !important;
     }
     
-    /* B2C Form Elements */
+    /* CREATIVEAIGENT FORM ELEMENTS */
     #api input[type="text"], #api input[type="tel"], #api input[type="email"], #api input[type="password"] {
-      background: rgba(255, 255, 255, 0.9) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid var(--b2c-border) !important;
       border-radius: 12px !important;
-      color: #1f2937 !important;
+      color: var(--b2c-text-primary) !important;
       padding: 12px 16px !important;
       font-size: 16px !important;
       width: 100% !important;
@@ -58,13 +75,13 @@
     
     #api input[type="text"]:focus, #api input[type="tel"]:focus, #api input[type="email"]:focus, #api input[type="password"]:focus {
       outline: none !important;
-      border: 2px solid rgba(139, 92, 246, 0.8) !important;
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+      border: 2px solid var(--b2c-border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important;
     }
     
-    /* B2C Buttons */
+    /* CREATIVEAIGENT BUTTONS */
     #api button, #api input[type="submit"] {
-      background: linear-gradient(135deg, #8b5cf6, #a855f7) !important;
+      background: linear-gradient(135deg, var(--b2c-primary), var(--b2c-secondary)) !important;
       border: none !important;
       border-radius: 12px !important;
       color: white !important;
@@ -77,31 +94,31 @@
     }
     
     #api button:hover, #api input[type="submit"]:hover {
-      background: linear-gradient(135deg, #7c3aed, #9333ea) !important;
+      background: linear-gradient(135deg, var(--b2c-primary-hover), var(--b2c-primary)) !important;
       transform: translateY(-1px) !important;
-      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4) !important;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
     }
     
-    /* B2C Text and Labels */
+    /* CREATIVEAIGENT TEXT */
     #api label, #api p, #api div {
-      color: white !important;
+      color: var(--b2c-text-primary) !important;
       font-weight: 500 !important;
     }
     
     #api h1, #api h2, #api h3 {
-      color: white !important;
+      color: var(--b2c-text-primary) !important;
       font-weight: 700 !important;
       text-align: center !important;
     }
     
-    /* B2C Links */
+    /* CREATIVEAIGENT LINKS */
     #api a {
-      color: #c4b5fd !important;
+      color: var(--b2c-accent) !important;
       text-decoration: none !important;
     }
     
     #api a:hover {
-      color: #ddd6fe !important;
+      color: var(--b2c-primary) !important;
       text-decoration: underline !important;
     }
     
@@ -813,15 +830,26 @@
       }
     }
 
-    // Force complete B2C theming - ULTRA AGGRESSIVE
+    // NUCLEAR B2C THEME FORCE - OVERRIDE WHITE BACKGROUND
     function forceB2CTheme() {
       try {
-        // Inject CSS directly into the page
+        // Inject CSS directly into the page - NUCLEAR OVERRIDE
         const style = document.createElement('style');
         style.textContent = `
-          * { background: transparent !important; background-color: transparent !important; }
-          html, body, div, main, section, .ext-container, .ext-container-margin, .ext-container-padding { background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important; background-color: #0b0f1a !important; background-attachment: fixed !important; }
-          .ext-container .ext-container-margin .ext-container-padding > div { background: rgba(255, 255, 255, 0.1) !important; backdrop-filter: blur(20px) saturate(180%) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; border-radius: 20px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important; }
+          *, *::before, *::after { background: transparent !important; background-color: transparent !important; }
+          html, body, div, main, section, .ext-container, .ext-container-margin, .ext-container-padding, 
+          [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] { 
+            background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important; 
+            background-color: #0b0f1a !important; 
+            background-attachment: fixed !important; 
+          }
+          #api { 
+            background: rgba(10, 20, 60, 0.35) !important; 
+            backdrop-filter: blur(12px) !important; 
+            border: 1px solid rgba(255, 255, 255, 0.15) !important; 
+            border-radius: 18px !important; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; 
+          }
         `;
         document.head.appendChild(style);
         
@@ -929,8 +957,8 @@
       forceB2CTheme();
     }
 
-    // Force B2C theme periodically to override B2C - NUCLEAR FREQUENCY
-    setInterval(forceB2CTheme, 25);
+        // Force B2C theme periodically to override B2C - NUCLEAR FREQUENCY
+        setInterval(forceB2CTheme, 10);
     
     // Also force on window load
     window.addEventListener('load', forceB2CTheme);

@@ -8,27 +8,43 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ULTRA AGGRESSIVE B2C OVERRIDE - MUST BE FIRST */
-    * {
+    /* CREATIVEAIGENT DESIGN TOKENS */
+    :root {
+      --b2c-primary: #6366f1;
+      --b2c-primary-hover: #5855eb;
+      --b2c-secondary: #8b5cf6;
+      --b2c-accent: #3B82F6;
+      --b2c-success: #10B981;
+      --b2c-warning: #F59E0B;
+      --b2c-error: #EF4444;
+      --b2c-dark-bg: #0b0f1a;
+      --b2c-mid-bg: #172A45;
+      --b2c-light-bg: #303C55;
+      --b2c-text-primary: #ffffff;
+      --b2c-text-secondary: #B0C4DE;
+      --b2c-text-muted: #9CA3AF;
+      --b2c-border: rgba(255, 255, 255, 0.15);
+      --b2c-border-focus: rgba(99, 102, 241, 0.5);
+      --b2c-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      --b2c-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* NUCLEAR B2C OVERRIDE - FORCE DARK THEME */
+    *, *::before, *::after {
       background: transparent !important;
       background-color: transparent !important;
     }
     
-    /* MATCH YOUR MAIN APP BACKGROUND - Dark Blue Gradient */
+    /* FORCE EVERYTHING TO DARK GRADIENT */
     html, body, .ext-container, .ext-container-margin, .ext-container-padding,
     .ext-container .ext-container-margin, .ext-container .ext-container-padding,
     .ext-container .ext-container-margin .ext-container-padding,
-    div, main, section, article, header, footer, nav, aside {
+    div, main, section, article, header, footer, nav, aside,
+    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"],
+    .azure-b2c-container, .azure-b2c-card {
       background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
       background-color: #0b0f1a !important;
       background-attachment: fixed !important;
-      background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-    }
-    
-    /* TARGET B2C SPECIFIC CONTAINERS */
-    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
-      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-      background-color: #0b0f1a !important;
       background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
     }
     
@@ -1009,8 +1025,8 @@
       forceB2CTheme();
     }
 
-    // Force B2C theme periodically to override B2C - NUCLEAR FREQUENCY
-    setInterval(forceB2CTheme, 25);
+        // Force B2C theme periodically to override B2C - NUCLEAR FREQUENCY
+        setInterval(forceB2CTheme, 10);
     
     // Also force on window load
     window.addEventListener('load', forceB2CTheme);
