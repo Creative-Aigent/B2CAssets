@@ -545,7 +545,7 @@
       <!-- Creative Aigent Logo -->
       <div class="logo-container">
         <div class="logo">
-          <img src="icon-512.png" alt="Creative Aigent" class="logo-icon" />
+          <img src="../icon-512.png" alt="Creative Aigent" class="logo-icon" />
           <div class="logo-text">Creative Aigent</div>
         </div>
       </div>
@@ -564,9 +564,9 @@
     // --- 2) Simple i18n (EN/FR) for the page chrome only ---
     function getLocale() {
       try {
-        const qp = new URLSearchParams(window.location.search);
-        const ui = (qp.get("ui_locales") || navigator.language || "en").toLowerCase();
-        return ui.startsWith("fr") ? "fr" : "en";
+      const qp = new URLSearchParams(window.location.search);
+      const ui = (qp.get("ui_locales") || navigator.language || "en").toLowerCase();
+      return ui.startsWith("fr") ? "fr" : "en";
       } catch (e) {
         return "en";
       }
@@ -574,10 +574,10 @@
     
     function setTexts() {
       try {
-        const t = { 
-          en: { title: "Continue", sub: "Enter your phone to receive a code." },
-          fr: { title: "Continuer", sub: "Saisissez votre numéro de téléphone pour recevoir un code." }
-        }[getLocale()];
+      const t = { 
+        en: { title: "Continue", sub: "Enter your phone to receive a code." },
+        fr: { title: "Continuer", sub: "Saisissez votre numéro de téléphone pour recevoir un code." }
+      }[getLocale()];
         
         const titleEl = document.getElementById("title");
         const subtitleEl = document.getElementById("subtitle");
@@ -593,27 +593,27 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', setTexts);
     } else {
-      setTexts();
+    setTexts();
     }
 
     // --- 3) Pin favorite countries while keeping the rest ---
     function findCountrySelect() {
       try {
-        // B2C uses a phone control with a country <select>. Try common selectors.
-        const sels = [
-          'select#country',
-          'select[name*="country"]',
-          'select[id*="country"]',
-          '.phoneControl select',
-          'select[aria-label*="Country"]',
-          'select[aria-label*="Pays"]',
-          'select'
-        ];
-        for (const s of sels) {
-          const el = document.querySelector(s);
-          if (el && el.tagName === "SELECT" && el.options?.length > 0) return el;
-        }
-        return null;
+      // B2C uses a phone control with a country <select>. Try common selectors.
+      const sels = [
+        'select#country',
+        'select[name*="country"]',
+        'select[id*="country"]',
+        '.phoneControl select',
+        'select[aria-label*="Country"]',
+        'select[aria-label*="Pays"]',
+        'select'
+      ];
+      for (const s of sels) {
+        const el = document.querySelector(s);
+        if (el && el.tagName === "SELECT" && el.options?.length > 0) return el;
+      }
+      return null;
       } catch (e) {
         console.warn("Error finding country select:", e);
         return null;
@@ -624,32 +624,32 @@
       try {
         if (!selectEl || !selectEl.options) return;
 
-        // Preserve current selection
-        const current = selectEl.value;
+      // Preserve current selection
+      const current = selectEl.value;
 
-        // Map options by value (B2C uses ISO codes as values in the country list)
-        const all = Array.from(selectEl.options);
-        const map = new Map(all.map(o => [String(o.value).toUpperCase(), o]));
+      // Map options by value (B2C uses ISO codes as values in the country list)
+      const all = Array.from(selectEl.options);
+      const map = new Map(all.map(o => [String(o.value).toUpperCase(), o]));
 
-        const favs = [];
-        const rest = [];
+      const favs = [];
+      const rest = [];
 
-        FAVORITES.forEach(code => {
-          const opt = map.get(code.toUpperCase());
-          if (opt) favs.push(opt);
-        });
+      FAVORITES.forEach(code => {
+        const opt = map.get(code.toUpperCase());
+        if (opt) favs.push(opt);
+      });
 
-        all.forEach(o => {
-          const code = String(o.value).toUpperCase();
-          if (!FAVORITES.includes(code)) rest.push(o);
-        });
+      all.forEach(o => {
+        const code = String(o.value).toUpperCase();
+        if (!FAVORITES.includes(code)) rest.push(o);
+      });
 
-        // Rebuild dropdown: favorites first, then the rest (original order preserved)
-        selectEl.innerHTML = "";
-        [...favs, ...rest].forEach(o => selectEl.appendChild(o));
+      // Rebuild dropdown: favorites first, then the rest (original order preserved)
+      selectEl.innerHTML = "";
+      [...favs, ...rest].forEach(o => selectEl.appendChild(o));
 
-        // Restore selection if any
-        if (current) selectEl.value = current;
+      // Restore selection if any
+      if (current) selectEl.value = current;
       } catch (e) {
         console.warn("Error pinning favorites:", e);
       }
@@ -658,7 +658,7 @@
     // React to B2C injecting content
     function initializeObserver() {
       try {
-        const api = document.getElementById("api");
+    const api = document.getElementById("api");
         if (!api) {
           console.warn("API element not found, retrying...");
           setTimeout(initializeObserver, 1000);
@@ -677,9 +677,9 @@
             if (shouldRepin) {
               // Use setTimeout to ensure B2C has finished rendering
               setTimeout(() => {
-                const sel = findCountrySelect();
-                if (sel) {
-                  pinFavorites(sel);
+      const sel = findCountrySelect();
+      if (sel) {
+        pinFavorites(sel);
                 }
               }, 100);
             }
@@ -827,8 +827,8 @@
     window.addEventListener("hashchange", () => {
       try {
         setTimeout(() => {
-          const sel = findCountrySelect();
-          if (sel) pinFavorites(sel);
+      const sel = findCountrySelect();
+      if (sel) pinFavorites(sel);
         }, 100);
       } catch (e) {
         console.warn("Error handling hashchange:", e);
