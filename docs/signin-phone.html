@@ -8,6 +8,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ULTRA AGGRESSIVE B2C OVERRIDE - MUST BE FIRST */
+    * {
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+    
+    html, body {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-color: #111827 !important;
+    }
+    
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-color: #111827 !important;
+    }
+
     :root {
       --primary: #6366f1;
       --primary-dark: #5855eb;

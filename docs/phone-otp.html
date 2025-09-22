@@ -8,6 +8,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ULTRA AGGRESSIVE B2C OVERRIDE - MUST BE FIRST */
+    * {
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+    
+    html, body {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-color: #111827 !important;
+    }
+    
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-color: #111827 !important;
+    }
+
     :root {
       --primary: #6366f1;
       --primary-dark: #5855eb;
@@ -683,12 +701,23 @@
       }
     }
 
-    // Force complete B2C theming
+    // Force complete B2C theming - ULTRA AGGRESSIVE
     function forceB2CTheme() {
       try {
-        // Force page background
-        document.body.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
-        document.documentElement.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
+        // Force page background - ULTRA AGGRESSIVE
+        document.body.style.setProperty('background', 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)', 'important');
+        document.documentElement.style.setProperty('background', 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)', 'important');
+        
+        // Force ALL elements to have dark background
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+          if (el.style.backgroundColor === 'white' || el.style.backgroundColor === '#ffffff' || el.style.backgroundColor === 'rgb(255, 255, 255)' || el.style.backgroundColor === '#fff') {
+            el.style.setProperty('background-color', 'transparent', 'important');
+          }
+          if (el.style.background === 'white' || el.style.background === '#ffffff' || el.style.background === 'rgb(255, 255, 255)' || el.style.background === '#fff') {
+            el.style.setProperty('background', 'transparent', 'important');
+          }
+        });
         
         // Force B2C containers
         const b2cContainers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding');
