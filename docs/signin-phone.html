@@ -461,6 +461,10 @@
     .logo-container {
       text-align: center !important;
       margin-bottom: 2rem !important;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      z-index: 9999 !important;
     }
 
     .logo {
@@ -472,6 +476,9 @@
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
       border-radius: 12px !important;
       backdrop-filter: blur(10px) !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      z-index: 9999 !important;
     }
 
     .logo-icon {
@@ -479,6 +486,10 @@
       height: 40px !important;
       object-fit: contain !important;
       border-radius: 8px !important;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      z-index: 9999 !important;
     }
 
     .logo-text {
@@ -733,6 +744,24 @@
           card.style.background = 'rgba(17, 24, 39, 0.52)';
           card.style.backdropFilter = 'saturate(160%) blur(16px)';
           card.style.border = '1px solid rgba(255, 255, 255, 0.08)';
+        });
+
+        // Force logo visibility
+        const logoIcon = document.querySelector('.logo-icon');
+        if (logoIcon) {
+          logoIcon.style.display = 'block';
+          logoIcon.style.visibility = 'visible';
+          logoIcon.style.opacity = '1';
+          logoIcon.style.zIndex = '9999';
+        }
+        
+        const logoContainer = document.querySelector('.logo-container');
+        if (logoContainer) {
+          logoContainer.style.display = 'block';
+          logoContainer.style.visibility = 'visible';
+          logoContainer.style.opacity = '1';
+          logoContainer.style.zIndex = '9999';
+        }
           card.style.borderRadius = '16px';
           card.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
           card.style.padding = '2rem';
