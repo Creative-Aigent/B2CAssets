@@ -745,26 +745,9 @@
     </div>
   </div>
   
-  <!-- TEST STATIC CONTENT - Should be visible in B2C -->
-  <div style="position: fixed; top: 10px; left: 10px; z-index: 99999; background: red; color: white; padding: 10px; border-radius: 5px; font-weight: bold;">
-    🚀 B2C TEST: If you see this, our HTML is loading!
-  </div>
-  
-  <div style="position: fixed; top: 50px; left: 10px; z-index: 99999; background: blue; color: white; padding: 10px; border-radius: 5px; font-weight: bold;">
-    🎨 CSS TEST: Dark theme should be applied!
-  </div>
-  
-  <div style="position: fixed; top: 90px; left: 10px; z-index: 99999; background: green; color: white; padding: 10px; border-radius: 5px; font-weight: bold;">
-    ⚡ JS TEST: JavaScript should be running!
-  </div>
 
   <!-- B2C Required API Container -->
-  <div id="api" style="background: rgba(10, 20, 60, 0.35) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 18px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; padding: 2rem !important; max-width: 400px !important; margin: 2rem auto !important;">
-    <!-- TEST CONTENT INSIDE API CONTAINER -->
-    <div style="background: yellow; color: black; padding: 10px; margin: 10px 0; border-radius: 5px; font-weight: bold;">
-      🔍 API CONTAINER TEST: This should be inside the glassmorphic card
-    </div>
-  </div>
+  <div id="api" style="background: rgba(10, 20, 60, 0.35) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 18px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; padding: 2rem !important; max-width: 400px !important; margin: 2rem auto !important;"></div>
 
   <script>
     // --- 1) Favorites (order matters) - Enhanced based on Microsoft B2C patterns ---
@@ -1142,25 +1125,12 @@
     // Force immediately
     forceB2CTheme();
     
-    // TEST: Show popup to confirm JavaScript is running
+    // Force API container styling after B2C injects content
     setTimeout(() => {
-      console.log('🚀 B2C TEST: JavaScript is running!');
-      // Create green test box dynamically since static one might be removed
-      const greenBox = document.createElement('div');
-      greenBox.style.cssText = 'position: fixed; top: 90px; left: 10px; z-index: 99999; background: green; color: white; padding: 10px; border-radius: 5px; font-weight: bold;';
-      greenBox.textContent = '⚡ JS TEST: JavaScript is running!';
-      document.body.appendChild(greenBox);
-      
-      // Force API container styling after B2C injects content
       const apiContainer = document.getElementById('api');
       if (apiContainer) {
+        // Force glassmorphic styling on API container
         apiContainer.style.cssText = 'background: rgba(10, 20, 60, 0.35) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 18px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; padding: 2rem !important; max-width: 400px !important; margin: 2rem auto !important;';
-        
-        // Add yellow test box inside API container
-        const yellowBox = document.createElement('div');
-        yellowBox.style.cssText = 'background: yellow; color: black; padding: 10px; margin: 10px 0; border-radius: 5px; font-weight: bold;';
-        yellowBox.textContent = '🔍 API CONTAINER TEST: This should be inside the glassmorphic card';
-        apiContainer.insertBefore(yellowBox, apiContainer.firstChild);
       }
     }, 1000);
 
