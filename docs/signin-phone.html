@@ -32,13 +32,14 @@
       background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
     }
     
-    /* TARGET B2C INJECTED CONTENT - Beautiful Glassmorphic Design */
+    /* TARGET B2C INJECTED CONTENT - CreativeAigent card */
     #api {
-      background: rgba(255, 255, 255, 0.1) !important;
-      backdrop-filter: blur(20px) saturate(180%) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
-      border-radius: 20px !important;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+      background: rgba(10, 20, 60, 0.35) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid var(--b2c-border) !important;
+      border-radius: 18px !important;
+      box-shadow: var(--b2c-shadow) !important;
       padding: 2rem !important;
       max-width: 400px !important;
       margin: 2rem auto !important;
@@ -46,10 +47,10 @@
     
     /* B2C Form Elements */
     #api input[type="text"], #api input[type="tel"], #api input[type="email"], #api input[type="password"] {
-      background: rgba(255, 255, 255, 0.9) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid var(--b2c-border) !important;
       border-radius: 12px !important;
-      color: #1f2937 !important;
+      color: var(--b2c-text-primary) !important;
       padding: 12px 16px !important;
       font-size: 16px !important;
       width: 100% !important;
@@ -58,13 +59,13 @@
     
     #api input[type="text"]:focus, #api input[type="tel"]:focus, #api input[type="email"]:focus, #api input[type="password"]:focus {
       outline: none !important;
-      border: 2px solid rgba(139, 92, 246, 0.8) !important;
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+      border: 2px solid var(--b2c-border-focus) !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important;
     }
     
     /* B2C Buttons */
     #api button, #api input[type="submit"] {
-      background: linear-gradient(135deg, #8b5cf6, #a855f7) !important;
+      background: linear-gradient(135deg, var(--b2c-primary), var(--b2c-secondary)) !important;
       border: none !important;
       border-radius: 12px !important;
       color: white !important;
@@ -77,14 +78,14 @@
     }
     
     #api button:hover, #api input[type="submit"]:hover {
-      background: linear-gradient(135deg, #7c3aed, #9333ea) !important;
+      background: linear-gradient(135deg, var(--b2c-primary-hover), var(--b2c-primary)) !important;
       transform: translateY(-1px) !important;
-      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4) !important;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
     }
     
     /* B2C Text and Labels */
     #api label, #api p, #api div {
-      color: white !important;
+      color: var(--b2c-text-primary) !important;
       font-weight: 500 !important;
     }
     
@@ -96,12 +97,12 @@
     
     /* B2C Links */
     #api a {
-      color: #c4b5fd !important;
+      color: var(--b2c-accent) !important;
       text-decoration: none !important;
     }
     
     #api a:hover {
-      color: #ddd6fe !important;
+      color: var(--b2c-primary) !important;
       text-decoration: underline !important;
     }
     
