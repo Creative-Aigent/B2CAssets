@@ -100,11 +100,11 @@
     }
 
     .card { 
-      background: rgba(17, 24, 39, 0.52) !important;
-      backdrop-filter: saturate(160%) blur(16px) !important;
-      border: 1px solid var(--border) !important;
+      background: rgba(17, 24, 39, 0.3) !important;
+      backdrop-filter: saturate(180%) blur(20px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
       border-radius: 16px !important;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
       padding: 2rem !important;
     }
 
@@ -738,12 +738,13 @@
           container.style.margin = '0';
         });
 
-        // Force form card styling
+        // Force form card styling - Enhanced glassmorphic effect
         const formCards = document.querySelectorAll('.ext-container .ext-container-margin .ext-container-padding > div');
         formCards.forEach(card => {
-          card.style.background = 'rgba(17, 24, 39, 0.52)';
-          card.style.backdropFilter = 'saturate(160%) blur(16px)';
-          card.style.border = '1px solid rgba(255, 255, 255, 0.08)';
+          card.style.background = 'rgba(17, 24, 39, 0.3)';
+          card.style.backdropFilter = 'saturate(180%) blur(20px)';
+          card.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+          card.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
         });
 
         // Force logo visibility
