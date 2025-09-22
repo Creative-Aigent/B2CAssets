@@ -14,22 +14,22 @@
       background-color: transparent !important;
     }
     
-    /* NUCLEAR OPTION - FORCE PURPLE BACKGROUND ON EVERYTHING */
+    /* MATCH YOUR MAIN APP BACKGROUND - Dark Blue Gradient */
     html, body, .ext-container, .ext-container-margin, .ext-container-padding,
     .ext-container .ext-container-margin, .ext-container .ext-container-padding,
     .ext-container .ext-container-margin .ext-container-padding,
     div, main, section, article, header, footer, nav, aside {
-      background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
-      background-color: #6366f1 !important;
+      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-color: #0b0f1a !important;
       background-attachment: fixed !important;
-      background-image: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
+      background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
     }
     
     /* TARGET B2C SPECIFIC CONTAINERS */
     [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
-      background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
-      background-color: #6366f1 !important;
-      background-image: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
+      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-color: #0b0f1a !important;
+      background-image: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
     }
     
     /* TARGET B2C INJECTED CONTENT - Beautiful Glassmorphic Design */
@@ -106,8 +106,8 @@
     }
     
     html, body {
-      background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
-      background-color: #6366f1 !important;
+      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-color: #0b0f1a !important;
     }
     
     .ext-container, .ext-container-margin, .ext-container-padding,
@@ -820,14 +820,17 @@
         const style = document.createElement('style');
         style.textContent = `
           * { background: transparent !important; background-color: transparent !important; }
-          html, body, div, main, section, .ext-container, .ext-container-margin, .ext-container-padding { background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important; background-color: #6366f1 !important; background-attachment: fixed !important; }
-          .ext-container .ext-container-margin .ext-container-padding > div { background: rgba(99,102,241,0.2) !important; backdrop-filter: saturate(180%) blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 16px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; }
+          html, body, div, main, section, .ext-container, .ext-container-margin, .ext-container-padding { background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important; background-color: #0b0f1a !important; background-attachment: fixed !important; }
+          .ext-container .ext-container-margin .ext-container-padding > div { background: rgba(255, 255, 255, 0.1) !important; backdrop-filter: blur(20px) saturate(180%) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; border-radius: 20px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important; }
         `;
         document.head.appendChild(style);
         
         // Force page background - ULTRA AGGRESSIVE
-        document.body.style.setProperty('background', 'linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%)', 'important');
-        document.documentElement.style.setProperty('background', 'linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%)', 'important');
+        const appGradient = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
+        document.body.style.setProperty('background', appGradient, 'important');
+        document.body.style.setProperty('background-color', '#0b0f1a', 'important');
+        document.documentElement.style.setProperty('background', appGradient, 'important');
+        document.documentElement.style.setProperty('background-color', '#0b0f1a', 'important');
         
         // Force ALL elements to have dark background
         const allElements = document.querySelectorAll('*');
@@ -843,7 +846,7 @@
         // Force B2C containers
         const b2cContainers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding');
         b2cContainers.forEach(container => {
-          container.style.background = 'linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%)';
+          container.style.background = appGradient;
           container.style.minHeight = '100vh';
           container.style.padding = '0';
           container.style.margin = '0';
