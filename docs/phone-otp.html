@@ -22,12 +22,12 @@
     }
 
     body {
-      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: var(--text-primary);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      color: var(--text-primary) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: 100vh !important;
     }
 
     .wrap { 
@@ -67,6 +67,32 @@
     /* B2C Form Styling */
     .api {
       background: transparent !important;
+    }
+
+    /* Force B2C to use our theme */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      background: transparent !important;
+    }
+
+    /* Override B2C's default page styling */
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      color: var(--text-primary) !important;
+      min-height: 100vh !important;
     }
 
     .card-container {
