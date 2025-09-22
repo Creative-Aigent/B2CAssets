@@ -180,16 +180,43 @@
       filter: brightness(0) invert(1) !important; /* Make logo white */
     }
     
-    /* Hide "What is this?" links and help text */
+    /* AGGRESSIVE "What is this?" link removal */
     #api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
     #api .help-link, #api .info-link, #api .what-is-this,
-    #api a[href*="learn"], #api a[href*="support"] {
+    #api a[href*="learn"], #api a[href*="support"],
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-text, #api .info-text, #api .what-is-this-text,
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-link, #api .info-link, #api .what-is-this-link {
       display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      position: absolute !important;
+      left: -9999px !important;
     }
     
     /* Hide any floating help links */
     #api .help-link, #api .info-link, #api .what-is-this {
       display: none !important;
+    }
+    
+    /* Ensure form doesn't truncate */
+    #api {
+      overflow: visible !important;
+      max-height: none !important;
+    }
+    
+    /* Remove redundant country field if it appears */
+    #api input[name*="country"], #api select[name*="country"] {
+      display: none !important;
+    }
+    
+    /* Ensure all form elements are visible */
+    #api * {
+      max-height: none !important;
+      overflow: visible !important;
     }
   </style>
 </head>
@@ -203,6 +230,54 @@
   <div id="api"></div>
 
   <script>
+    // AGGRESSIVE "What is this?" link removal
+    function removeHelpLinks() {
+      try {
+        // Remove all possible help link patterns
+        const helpSelectors = [
+          'a[href*="what"]', 'a[href*="help"]', 'a[href*="info"]',
+          '.help-link', '.info-link', '.what-is-this',
+          'a[href*="learn"]', 'a[href*="support"]',
+          '.help-text', '.info-text', '.what-is-this-text',
+          '.help-link', '.info-link', '.what-is-this-link'
+        ];
+        
+        helpSelectors.forEach(selector => {
+          const elements = document.querySelectorAll(selector);
+          elements.forEach(element => {
+            if (element && element.parentNode) {
+              element.style.display = 'none';
+              element.style.visibility = 'hidden';
+              element.style.width = '0';
+              element.style.height = '0';
+              element.style.overflow = 'hidden';
+              element.style.position = 'absolute';
+              element.style.left = '-9999px';
+              element.remove();
+            }
+          });
+        });
+        
+        // Also remove any text nodes that might contain "What is this?"
+        const walker = document.createTreeWalker(
+          document.getElementById('api'),
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.textContent && node.textContent.includes('What is this?')) {
+            node.parentNode.removeChild(node);
+          }
+        }
+        
+      } catch (e) {
+        console.warn("Error removing help links:", e);
+      }
+    }
+    
     // Unified JavaScript to handle both sign-in and sign-up
     function forceDarkTheme() {
       try {
@@ -219,9 +294,11 @@
           api.style.borderRadius = '18px';
           api.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.2)';
           api.style.padding = '2.5rem';
-          api.style.maxWidth = '450px';
+          api.style.maxWidth = '500px';
           api.style.margin = '2rem auto';
-          api.style.minHeight = '400px';
+          api.style.minHeight = '500px';
+          api.style.overflow = 'visible';
+          api.style.maxHeight = 'none';
         }
         
         // Force all containers
@@ -230,12 +307,8 @@
           container.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
         });
         
-        // Remove "What is this?" links and help text
-        const helpLinks = document.querySelectorAll('a[href*="what"], a[href*="help"], a[href*="info"], a[href*="learn"], a[href*="support"], .help-link, .info-link, .what-is-this');
-        helpLinks.forEach(link => {
-          link.style.display = 'none';
-          link.remove();
-        });
+        // Remove "What is this?" links
+        removeHelpLinks();
         
         // Add bullet points to labels that don't have them
         const labels = document.querySelectorAll('#api label');
@@ -255,7 +328,7 @@
           input.style.padding = '14px 16px';
           input.style.fontSize = '16px';
           input.style.width = '100%';
-          input.style.marginBottom = '1rem';
+          input.style.marginBottom = '1.5rem';
         });
         
         // Style any new buttons that B2C injects
@@ -283,6 +356,7 @@
     // Run immediately and frequently to handle dynamic content
     forceDarkTheme();
     setInterval(forceDarkTheme, 500); // Every 500ms to catch B2C changes
+    setInterval(removeHelpLinks, 250); // More frequent help link removal
     
     // Run on load
     window.addEventListener('load', forceDarkTheme);
@@ -290,6 +364,7 @@
     // Watch for B2C content changes
     const observer = new MutationObserver(() => {
       forceDarkTheme();
+      removeHelpLinks();
     });
     
     // Start observing when API container is available
