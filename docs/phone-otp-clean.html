@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Enter verification code</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* SIMPLE DARK THEME - CLEAN START */
+    * {
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-color: #0b0f1a !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: 100vh !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+    
+    /* Force all containers to dark background */
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding,
+    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
+      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+      background-color: #0b0f1a !important;
+    }
+    
+    /* API Container - Simple glassmorphic card */
+    #api {
+      background: rgba(10, 20, 60, 0.35) !important;
+      backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 18px !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+      padding: 2rem !important;
+      max-width: 400px !important;
+      margin: 2rem auto !important;
+    }
+    
+    /* Form elements */
+    #api input[type="text"], #api input[type="tel"], #api input[type="email"], #api input[type="password"] {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 12px !important;
+      color: #ffffff !important;
+      padding: 12px 16px !important;
+      font-size: 16px !important;
+      width: 100% !important;
+    }
+    
+    #api input:focus {
+      outline: none !important;
+      border: 2px solid rgba(99, 102, 241, 0.5) !important;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    }
+    
+    #api button, #api input[type="submit"] {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      color: white !important;
+      padding: 14px 24px !important;
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      width: 100% !important;
+      cursor: pointer !important;
+    }
+    
+    #api button:hover {
+      background: linear-gradient(135deg, #5855eb, #6366f1) !important;
+      transform: translateY(-1px) !important;
+    }
+    
+    #api label, #api p, #api div, #api h1, #api h2, #api h3 {
+      color: #ffffff !important;
+    }
+    
+    #api a {
+      color: #3B82F6 !important;
+    }
+    
+    #api a:hover {
+      color: #6366f1 !important;
+    }
+    
+    /* Logo styling */
+    .logo-container {
+      text-align: center !important;
+      margin-bottom: 2rem !important;
+    }
+    
+    .logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      padding: 16px 24px !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 12px !important;
+      backdrop-filter: blur(10px) !important;
+    }
+    
+    .logo-icon {
+      width: 40px !important;
+      height: 40px !important;
+      object-fit: contain !important;
+      border-radius: 8px !important;
+    }
+    
+    .logo-text {
+      font-size: 1.1rem !important;
+      font-weight: 600 !important;
+      color: #ffffff !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Creative Aigent Logo -->
+  <div class="logo-container">
+    <div class="logo">
+      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
+      <div class="logo-text">Creative Aigent</div>
+    </div>
+  </div>
+  
+  <!-- B2C Required API Container -->
+  <div id="api"></div>
+
+  <script>
+    // Simple JavaScript to force dark theme
+    function forceDarkTheme() {
+      try {
+        // Force background on all elements
+        document.body.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
+        document.documentElement.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
+        
+        // Force API container styling
+        const api = document.getElementById('api');
+        if (api) {
+          api.style.background = 'rgba(10, 20, 60, 0.35)';
+          api.style.backdropFilter = 'blur(12px)';
+          api.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+          api.style.borderRadius = '18px';
+          api.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.2)';
+          api.style.padding = '2rem';
+          api.style.maxWidth = '400px';
+          api.style.margin = '2rem auto';
+        }
+        
+        // Force all containers
+        const containers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding, [class*="ext-"], [id*="ext-"]');
+        containers.forEach(container => {
+          container.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
+        });
+        
+      } catch (e) {
+        console.warn('Theme force error:', e);
+      }
+    }
+    
+    // Run immediately and periodically
+    forceDarkTheme();
+    setInterval(forceDarkTheme, 1000);
+    
+    // Run on load
+    window.addEventListener('load', forceDarkTheme);
+  </script>
+</body>
+</html>
