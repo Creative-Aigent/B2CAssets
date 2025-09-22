@@ -30,10 +30,26 @@
       min-height: 100vh !important;
     }
 
-    /* Force the entire page background */
-    html, body, #api, .ext-container, .ext-container-margin, .ext-container-padding {
+    /* Force the entire page background - ULTRA AGGRESSIVE */
+    html, body, #api, .ext-container, .ext-container-margin, .ext-container-padding,
+    div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary, time, mark, audio, video {
       background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
       background-attachment: fixed !important;
+    }
+
+    /* Override any white backgrounds specifically */
+    * {
+      background-color: transparent !important;
+    }
+
+    html, body {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-color: #111827 !important;
     }
 
     .wrap { 
@@ -523,12 +539,44 @@
       }
     }
 
+    // Force background styling after B2C loads
+    function forceBackground() {
+      try {
+        // Force background on all elements
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+          if (el.style.backgroundColor === 'white' || el.style.backgroundColor === '#ffffff' || el.style.backgroundColor === 'rgb(255, 255, 255)') {
+            el.style.backgroundColor = 'transparent';
+          }
+        });
+
+        // Force body and html background
+        document.body.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
+        document.documentElement.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
+        
+        // Force B2C containers
+        const b2cContainers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding');
+        b2cContainers.forEach(container => {
+          container.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
+        });
+      } catch (e) {
+        console.warn("Error forcing background:", e);
+      }
+    }
+
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeObserver);
+      document.addEventListener('DOMContentLoaded', () => {
+        initializeObserver();
+        forceBackground();
+      });
     } else {
       initializeObserver();
+      forceBackground();
     }
+
+    // Force background periodically to override B2C
+    setInterval(forceBackground, 1000);
 
     // Re-pin on language change (B2C can re-render)
     window.addEventListener("hashchange", () => {
