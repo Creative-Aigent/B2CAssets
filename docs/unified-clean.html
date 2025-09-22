@@ -180,7 +180,41 @@
       filter: brightness(0) invert(1) !important; /* Make logo white */
     }
     
-    /* AGGRESSIVE "What is this?" link removal */
+    /* NUCLEAR "What is this?" link removal */
+    #api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
+    #api .help-link, #api .info-link, #api .what-is-this,
+    #api a[href*="learn"], #api a[href*="support"],
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-text, #api .info-text, #api .what-is-this-text,
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-link, #api .info-link, #api .what-is-this-link,
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-link, #api .info-link, #api .what-is-this,
+    #api a[href*="learn"], #api a[href*="support"],
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-text, #api .info-text, #api .what-is-this-text,
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-link, #api .info-link, #api .what-is-this-link,
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-link, #api .info-link, #api .what-is-this,
+    #api a[href*="learn"], #api a[href*="support"],
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-text, #api .info-text, #api .what-is-this-text,
+    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
+    #api .help-link, #api .info-link, #api .what-is-this-link {
+      display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      position: absolute !important;
+      left: -9999px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      z-index: -9999 !important;
+    }
+    
+    /* Target any remaining help links with more specific selectors */
     #api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
     #api .help-link, #api .info-link, #api .what-is-this,
     #api a[href*="learn"], #api a[href*="support"],
@@ -195,6 +229,9 @@
       overflow: hidden !important;
       position: absolute !important;
       left: -9999px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      z-index: -9999 !important;
     }
     
     /* Hide any floating help links */
@@ -230,12 +267,17 @@
   <div id="api"></div>
 
   <script>
-    // AGGRESSIVE "What is this?" link removal
+    // NUCLEAR "What is this?" link removal
     function removeHelpLinks() {
       try {
         // Remove all possible help link patterns
         const helpSelectors = [
           'a[href*="what"]', 'a[href*="help"]', 'a[href*="info"]',
+          '.help-link', '.info-link', '.what-is-this',
+          'a[href*="learn"]', 'a[href*="support"]',
+          '.help-text', '.info-text', '.what-is-this-text',
+          '.help-link', '.info-link', '.what-is-this-link',
+          'a[href*="help"]', 'a[href*="info"]', 'a[href*="what"],
           '.help-link', '.info-link', '.what-is-this',
           'a[href*="learn"]', 'a[href*="support"]',
           '.help-text', '.info-text', '.what-is-this-text',
@@ -253,6 +295,9 @@
               element.style.overflow = 'hidden';
               element.style.position = 'absolute';
               element.style.left = '-9999px';
+              element.style.opacity = '0';
+              element.style.pointerEvents = 'none';
+              element.style.zIndex = '-9999';
               element.remove();
             }
           });
@@ -272,6 +317,24 @@
             node.parentNode.removeChild(node);
           }
         }
+        
+        // Remove any elements containing "What is this?" text
+        const allElements = document.querySelectorAll('#api *');
+        allElements.forEach(element => {
+          if (element.textContent && element.textContent.includes('What is this?')) {
+            element.style.display = 'none';
+            element.style.visibility = 'hidden';
+            element.style.width = '0';
+            element.style.height = '0';
+            element.style.overflow = 'hidden';
+            element.style.position = 'absolute';
+            element.style.left = '-9999px';
+            element.style.opacity = '0';
+            element.style.pointerEvents = 'none';
+            element.style.zIndex = '-9999';
+            element.remove();
+          }
+        });
         
       } catch (e) {
         console.warn("Error removing help links:", e);
@@ -356,7 +419,7 @@
     // Run immediately and frequently to handle dynamic content
     forceDarkTheme();
     setInterval(forceDarkTheme, 500); // Every 500ms to catch B2C changes
-    setInterval(removeHelpLinks, 250); // More frequent help link removal
+    setInterval(removeHelpLinks, 100); // NUCLEAR: Every 100ms help link removal
     
     // Run on load
     window.addEventListener('load', forceDarkTheme);
