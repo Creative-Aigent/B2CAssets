@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Continue</title>
+  <title>Enter verification code</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="msapplication-config" content="none" />
+  <style id="b2c-override" type="text/css">
+    /* IMMEDIATE OVERRIDE - INJECTED BEFORE B2C */
+    html, body { background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important; }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -647,17 +652,17 @@
     }
   </style>
 </head>
-<body>
+<body style="background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important; background-color: #0b0f1a !important; margin: 0 !important; padding: 0 !important; min-height: 100vh !important;">
   <!-- Creative Aigent Logo - Outside API div as recommended by Microsoft -->
-  <div class="logo-container">
-    <div class="logo">
-      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
-      <div class="logo-text">Creative Aigent</div>
+  <div class="logo-container" style="text-align: center !important; margin-bottom: 2rem !important; display: block !important; visibility: visible !important; opacity: 1 !important; z-index: 9999 !important;">
+    <div class="logo" style="display: inline-flex !important; align-items: center !important; gap: 12px !important; padding: 16px 24px !important; background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; border-radius: 12px !important; backdrop-filter: blur(10px) !important; visibility: visible !important; opacity: 1 !important; z-index: 9999 !important;">
+      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" style="width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; display: block !important; visibility: visible !important; opacity: 1 !important; z-index: 9999 !important;" />
+      <div class="logo-text" style="font-size: 1.1rem !important; font-weight: 600 !important; color: #ffffff !important; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;">Creative Aigent</div>
     </div>
   </div>
   
   <!-- B2C Required API Container -->
-  <div id="api"></div>
+  <div id="api" style="background: rgba(10, 20, 60, 0.35) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 18px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; padding: 2rem !important; max-width: 400px !important; margin: 2rem auto !important;"></div>
 
   <script>
     // --- 1) Favorites (order matters) - Enhanced based on Microsoft B2C patterns ---
