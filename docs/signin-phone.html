@@ -14,14 +14,22 @@
       background-color: transparent !important;
     }
     
-    /* FORCE PURPLE BACKGROUND ON EVERYTHING */
+    /* NUCLEAR OPTION - FORCE PURPLE BACKGROUND ON EVERYTHING */
     html, body, .ext-container, .ext-container-margin, .ext-container-padding,
     .ext-container .ext-container-margin, .ext-container .ext-container-padding,
     .ext-container .ext-container-margin .ext-container-padding,
-    div, main, section {
+    div, main, section, article, header, footer, nav, aside {
       background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
       background-color: #6366f1 !important;
       background-attachment: fixed !important;
+      background-image: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
+    }
+    
+    /* TARGET B2C SPECIFIC CONTAINERS */
+    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
+      background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
+      background-color: #6366f1 !important;
+      background-image: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
     }
     
     html, body {
@@ -734,9 +742,23 @@
         `;
         document.head.appendChild(style);
         
-        // Force page background
-        document.body.style.background = 'linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%)';
-        document.documentElement.style.background = 'linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%)';
+        // NUCLEAR OPTION - Force page background on EVERYTHING
+        const purpleGradient = 'linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%)';
+        document.body.style.setProperty('background', purpleGradient, 'important');
+        document.body.style.setProperty('background-color', '#6366f1', 'important');
+        document.body.style.setProperty('background-image', purpleGradient, 'important');
+        document.documentElement.style.setProperty('background', purpleGradient, 'important');
+        document.documentElement.style.setProperty('background-color', '#6366f1', 'important');
+        document.documentElement.style.setProperty('background-image', purpleGradient, 'important');
+        
+        // Force ALL elements to have purple background
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+          if (el.tagName.toLowerCase() !== 'img') {
+            el.style.setProperty('background', purpleGradient, 'important');
+            el.style.setProperty('background-color', '#6366f1', 'important');
+          }
+        });
         
         // Force B2C containers
         const b2cContainers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding');
@@ -842,8 +864,8 @@
       forceB2CTheme();
     }
 
-    // Force B2C theme periodically to override B2C
-    setInterval(forceB2CTheme, 100);
+    // Force B2C theme periodically to override B2C - NUCLEAR FREQUENCY
+    setInterval(forceB2CTheme, 25);
     
     // Also force on window load
     window.addEventListener('load', forceB2CTheme);
