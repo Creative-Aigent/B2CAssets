@@ -32,6 +32,16 @@
       background-image: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
     }
     
+    /* TARGET B2C INJECTED CONTENT - Based on Microsoft Documentation */
+    #api, #api > *, #api div, #api form {
+      background: rgba(99,102,241,0.15) !important;
+      backdrop-filter: saturate(180%) blur(20px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 8px 32px rgba(99,102,241,0.2) !important;
+      color: white !important;
+    }
+    
     html, body {
       background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
       background-color: #6366f1 !important;
@@ -558,21 +568,16 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <!-- Creative Aigent Logo -->
-      <div class="logo-container">
-        <div class="logo">
-          <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
-          <div class="logo-text">Creative Aigent</div>
-        </div>
-      </div>
-      
-      <h1 id="title">Enter verification code</h1>
-      <div id="subtitle" class="hint">Enter the code sent to your phone.</div>
-      <div id="api"></div>
+  <!-- Creative Aigent Logo - Outside API div as recommended by Microsoft -->
+  <div class="logo-container">
+    <div class="logo">
+      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
+      <div class="logo-text">Creative Aigent</div>
     </div>
   </div>
+  
+  <!-- B2C Required API Container -->
+  <div id="api"></div>
 
   <script>
     // --- 1) Favorites (order matters) ---
