@@ -14,6 +14,16 @@
       background-color: transparent !important;
     }
     
+    /* FORCE PURPLE BACKGROUND ON EVERYTHING */
+    html, body, .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding,
+    div, main, section {
+      background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
+      background-color: #6366f1 !important;
+      background-attachment: fixed !important;
+    }
+    
     html, body {
       background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important;
       background-color: #6366f1 !important;
@@ -719,9 +729,8 @@
         const style = document.createElement('style');
         style.textContent = `
           * { background: transparent !important; background-color: transparent !important; }
-          html, body { background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important; background-color: #6366f1 !important; }
-          .ext-container, .ext-container-margin, .ext-container-padding { background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important; }
-          .ext-container .ext-container-margin .ext-container-padding > div { background: rgba(17, 24, 39, 0.52) !important; backdrop-filter: saturate(160%) blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 16px !important; box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important; }
+          html, body, div, main, section, .ext-container, .ext-container-margin, .ext-container-padding { background: linear-gradient(180deg, rgba(99,102,241,0.9) 0%, rgba(139,92,246,0.95) 100%) !important; background-color: #6366f1 !important; background-attachment: fixed !important; }
+          .ext-container .ext-container-margin .ext-container-padding > div { background: rgba(99,102,241,0.2) !important; backdrop-filter: saturate(180%) blur(20px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 16px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; }
         `;
         document.head.appendChild(style);
         
@@ -741,10 +750,10 @@
         // Force form card styling - Enhanced glassmorphic effect
         const formCards = document.querySelectorAll('.ext-container .ext-container-margin .ext-container-padding > div');
         formCards.forEach(card => {
-          card.style.background = 'rgba(17, 24, 39, 0.3)';
+          card.style.background = 'rgba(99,102,241,0.15)';
           card.style.backdropFilter = 'saturate(180%) blur(20px)';
-          card.style.border = '1px solid rgba(255, 255, 255, 0.15)';
-          card.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+          card.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+          card.style.boxShadow = '0 8px 32px rgba(99,102,241,0.2)';
         });
 
         // Force logo visibility
