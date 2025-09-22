@@ -961,15 +961,27 @@
         // Target B2C API injected content specifically - Beautiful Glassmorphic Design
         const apiContainer = document.getElementById('api');
         if (apiContainer) {
-          // Style the API container with glassmorphic effect
-          apiContainer.style.setProperty('background', 'rgba(255, 255, 255, 0.1)', 'important');
-          apiContainer.style.setProperty('backdrop-filter', 'blur(20px) saturate(180%)', 'important');
-          apiContainer.style.setProperty('border', '1px solid rgba(255, 255, 255, 0.2)', 'important');
-          apiContainer.style.setProperty('border-radius', '20px', 'important');
-          apiContainer.style.setProperty('box-shadow', '0 8px 32px rgba(0, 0, 0, 0.1)', 'important');
+          // FORCE API container styling with setProperty and direct style assignment
+          apiContainer.style.setProperty('background', 'rgba(10, 20, 60, 0.35)', 'important');
+          apiContainer.style.setProperty('backdrop-filter', 'blur(12px)', 'important');
+          apiContainer.style.setProperty('-webkit-backdrop-filter', 'blur(12px)', 'important');
+          apiContainer.style.setProperty('border', '1px solid rgba(255, 255, 255, 0.15)', 'important');
+          apiContainer.style.setProperty('border-radius', '18px', 'important');
+          apiContainer.style.setProperty('box-shadow', '0 8px 32px rgba(0, 0, 0, 0.2)', 'important');
           apiContainer.style.setProperty('padding', '2rem', 'important');
           apiContainer.style.setProperty('max-width', '400px', 'important');
           apiContainer.style.setProperty('margin', '2rem auto', 'important');
+          
+          // ALSO set directly on style object for maximum override
+          apiContainer.style.background = 'rgba(10, 20, 60, 0.35)';
+          apiContainer.style.backdropFilter = 'blur(12px)';
+          apiContainer.style.webkitBackdropFilter = 'blur(12px)';
+          apiContainer.style.border = '1px solid rgba(255, 255, 255, 0.15)';
+          apiContainer.style.borderRadius = '18px';
+          apiContainer.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.2)';
+          apiContainer.style.padding = '2rem';
+          apiContainer.style.maxWidth = '400px';
+          apiContainer.style.margin = '2rem auto';
           
           // Style form inputs
           const inputs = apiContainer.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="password"]');
@@ -1133,8 +1145,23 @@
     // TEST: Show popup to confirm JavaScript is running
     setTimeout(() => {
       console.log('🚀 B2C TEST: JavaScript is running!');
-      // Uncomment the next line to show a popup (remove after testing)
-      // alert('🚀 B2C TEST: JavaScript is running! Our page loaded successfully!');
+      // Create green test box dynamically since static one might be removed
+      const greenBox = document.createElement('div');
+      greenBox.style.cssText = 'position: fixed; top: 90px; left: 10px; z-index: 99999; background: green; color: white; padding: 10px; border-radius: 5px; font-weight: bold;';
+      greenBox.textContent = '⚡ JS TEST: JavaScript is running!';
+      document.body.appendChild(greenBox);
+      
+      // Force API container styling after B2C injects content
+      const apiContainer = document.getElementById('api');
+      if (apiContainer) {
+        apiContainer.style.cssText = 'background: rgba(10, 20, 60, 0.35) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 18px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; padding: 2rem !important; max-width: 400px !important; margin: 2rem auto !important;';
+        
+        // Add yellow test box inside API container
+        const yellowBox = document.createElement('div');
+        yellowBox.style.cssText = 'background: yellow; color: black; padding: 10px; margin: 10px 0; border-radius: 5px; font-weight: bold;';
+        yellowBox.textContent = '🔍 API CONTAINER TEST: This should be inside the glassmorphic card';
+        apiContainer.insertBefore(yellowBox, apiContainer.firstChild);
+      }
     }, 1000);
 
     // Re-pin on language change (B2C can re-render)

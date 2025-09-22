@@ -1047,8 +1047,23 @@
     // TEST: Show popup to confirm JavaScript is running
     setTimeout(() => {
       console.log('🚀 B2C TEST: JavaScript is running!');
-      // Uncomment the next line to show a popup (remove after testing)
-      // alert('🚀 B2C TEST: JavaScript is running! Our page loaded successfully!');
+      // Create green test box dynamically since static one might be removed
+      const greenBox = document.createElement('div');
+      greenBox.style.cssText = 'position: fixed; top: 90px; left: 10px; z-index: 99999; background: green; color: white; padding: 10px; border-radius: 5px; font-weight: bold;';
+      greenBox.textContent = '⚡ JS TEST: JavaScript is running!';
+      document.body.appendChild(greenBox);
+      
+      // Force API container styling after B2C injects content
+      const apiContainer = document.getElementById('api');
+      if (apiContainer) {
+        apiContainer.style.cssText = 'background: rgba(10, 20, 60, 0.35) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; border-radius: 18px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important; padding: 2rem !important; max-width: 400px !important; margin: 2rem auto !important;';
+        
+        // Add yellow test box inside API container
+        const yellowBox = document.createElement('div');
+        yellowBox.style.cssText = 'background: yellow; color: black; padding: 10px; margin: 10px 0; border-radius: 5px; font-weight: bold;';
+        yellowBox.textContent = '🔍 API CONTAINER TEST: This should be inside the glassmorphic card';
+        apiContainer.insertBefore(yellowBox, apiContainer.firstChild);
+      }
     }, 1000);
 
     // Re-pin on language change (B2C can re-render)
