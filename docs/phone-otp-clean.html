@@ -124,7 +124,7 @@
       color: #6366f1 !important;
     }
     
-    /* Logo styling */
+    /* Logo styling - Clean and visible */
     .logo-container {
       text-align: center !important;
       margin-bottom: 2rem !important;
@@ -134,34 +134,32 @@
       display: inline-flex !important;
       align-items: center !important;
       gap: 12px !important;
-      padding: 16px 24px !important;
-      background: rgba(255, 255, 255, 0.05) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      border-radius: 12px !important;
-      backdrop-filter: blur(10px) !important;
+      padding: 0 !important;
+      background: none !important;
+      border: none !important;
+      backdrop-filter: none !important;
     }
     
     .logo-icon {
-      width: 40px !important;
-      height: 40px !important;
+      width: 50px !important;
+      height: 50px !important;
       object-fit: contain !important;
       border-radius: 8px !important;
+      filter: brightness(0) invert(1) !important; /* Make logo white */
     }
     
     .logo-text {
-      font-size: 1.1rem !important;
-      font-weight: 600 !important;
+      font-size: 1.5rem !important;
+      font-weight: 700 !important;
       color: #ffffff !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
     }
   </style>
 </head>
 <body>
   <!-- Creative Aigent Logo -->
   <div class="logo-container">
-    <div class="logo">
-      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
-      <div class="logo-text">Creative Aigent</div>
-    </div>
+    <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
   </div>
   
   <!-- B2C Required API Container -->
