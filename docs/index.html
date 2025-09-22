@@ -30,26 +30,49 @@
       min-height: 100vh !important;
     }
 
-    /* Force the entire page background - ULTRA AGGRESSIVE */
-    html, body, #api, .ext-container, .ext-container-margin, .ext-container-padding,
-    div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup,
-    menu, nav, output, ruby, section, summary, time, mark, audio, video {
-      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
-      background-attachment: fixed !important;
-    }
-
-    /* Override any white backgrounds specifically */
-    * {
-      background-color: transparent !important;
-    }
-
+    /* COMPLETE B2C THEME OVERRIDE */
+    
+    /* Force page background */
     html, body {
       background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
-      background-color: #111827 !important;
+      background-attachment: fixed !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: 100vh !important;
+    }
+
+    /* B2C Container Overrides */
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-attachment: fixed !important;
+      min-height: 100vh !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* B2C Form Container */
+    .ext-container .ext-container-margin .ext-container-padding {
+      background: transparent !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 100vh !important;
+      padding: 20px !important;
+    }
+
+    /* B2C Form Card */
+    .ext-container .ext-container-margin .ext-container-padding > div {
+      background: rgba(17, 24, 39, 0.52) !important;
+      backdrop-filter: saturate(160%) blur(16px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+      padding: 2rem !important;
+      max-width: 400px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
     }
 
     .wrap { 

@@ -30,26 +30,49 @@
       min-height: 100vh !important;
     }
 
-    /* Force the entire page background - ULTRA AGGRESSIVE */
-    html, body, #api, .ext-container, .ext-container-margin, .ext-container-padding,
-    div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup,
-    menu, nav, output, ruby, section, summary, time, mark, audio, video {
-      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
-      background-attachment: fixed !important;
-    }
-
-    /* Override any white backgrounds specifically */
-    * {
-      background-color: transparent !important;
-    }
-
+    /* COMPLETE B2C THEME OVERRIDE */
+    
+    /* Force page background */
     html, body {
       background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
-      background-color: #111827 !important;
+      background-attachment: fixed !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: 100vh !important;
+    }
+
+    /* B2C Container Overrides */
+    .ext-container, .ext-container-margin, .ext-container-padding,
+    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
+    .ext-container .ext-container-margin .ext-container-padding {
+      background: linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%) !important;
+      background-attachment: fixed !important;
+      min-height: 100vh !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* B2C Form Container */
+    .ext-container .ext-container-margin .ext-container-padding {
+      background: transparent !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 100vh !important;
+      padding: 20px !important;
+    }
+
+    /* B2C Form Card */
+    .ext-container .ext-container-margin .ext-container-padding > div {
+      background: rgba(17, 24, 39, 0.52) !important;
+      backdrop-filter: saturate(160%) blur(16px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+      padding: 2rem !important;
+      max-width: 400px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
     }
 
     .wrap { 
@@ -109,6 +132,100 @@
     /* B2C Form Styling */
     .api {
       background: transparent !important;
+    }
+
+    /* B2C Form Elements */
+    .ext-container h1, .ext-container h2, .ext-container h3, 
+    .ext-container h4, .ext-container h5, .ext-container h6 {
+      color: var(--text-primary) !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-weight: 600 !important;
+      text-align: center !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .ext-container h1 {
+      font-size: 1.5rem !important;
+      margin-bottom: 2rem !important;
+    }
+
+    .ext-container p, .ext-container div, .ext-container span {
+      color: var(--text-secondary) !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+
+    /* B2C Input Fields */
+    .ext-container input[type="text"], 
+    .ext-container input[type="email"], 
+    .ext-container input[type="password"],
+    .ext-container input[type="tel"],
+    .ext-container select {
+      background: rgba(17, 24, 39, 0.52) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 12px !important;
+      color: var(--text-primary) !important;
+      font-size: 1rem !important;
+      padding: 12px 16px !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin-bottom: 1rem !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+
+    .ext-container input:focus, .ext-container select:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+      outline: none !important;
+    }
+
+    .ext-container input::placeholder, .ext-container select::placeholder {
+      color: var(--text-secondary) !important;
+      opacity: 0.7 !important;
+    }
+
+    /* B2C Buttons */
+    .ext-container button, .ext-container input[type="submit"], 
+    .ext-container .primary-button {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      color: white !important;
+      font-weight: 500 !important;
+      padding: 12px 24px !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+      transition: all 0.2s ease !important;
+      width: 100% !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      margin-top: 1rem !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+
+    .ext-container button:hover, .ext-container input[type="submit"]:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary)) !important;
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* B2C Links */
+    .ext-container a {
+      color: var(--primary) !important;
+      text-decoration: none !important;
+      transition: color 0.2s ease !important;
+    }
+
+    .ext-container a:hover {
+      color: var(--primary-light) !important;
+    }
+
+    /* B2C Labels */
+    .ext-container label {
+      color: var(--text-primary) !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-size: 0.9rem !important;
+      margin-bottom: 0.5rem !important;
+      display: block !important;
     }
 
     /* Force B2C to use our theme */
@@ -527,18 +644,10 @@
       }
     }
 
-    // Force background styling after B2C loads
-    function forceBackground() {
+    // Force complete B2C theming
+    function forceB2CTheme() {
       try {
-        // Force background on all elements
-        const allElements = document.querySelectorAll('*');
-        allElements.forEach(el => {
-          if (el.style.backgroundColor === 'white' || el.style.backgroundColor === '#ffffff' || el.style.backgroundColor === 'rgb(255, 255, 255)') {
-            el.style.backgroundColor = 'transparent';
-          }
-        });
-
-        // Force body and html background
+        // Force page background
         document.body.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
         document.documentElement.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
         
@@ -546,9 +655,73 @@
         const b2cContainers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding');
         b2cContainers.forEach(container => {
           container.style.background = 'linear-gradient(180deg, rgba(17,24,39,0.85) 0%, rgba(17,24,39,0.95) 100%)';
+          container.style.minHeight = '100vh';
+          container.style.padding = '0';
+          container.style.margin = '0';
         });
+
+        // Force form card styling
+        const formCards = document.querySelectorAll('.ext-container .ext-container-margin .ext-container-padding > div');
+        formCards.forEach(card => {
+          card.style.background = 'rgba(17, 24, 39, 0.52)';
+          card.style.backdropFilter = 'saturate(160%) blur(16px)';
+          card.style.border = '1px solid rgba(255, 255, 255, 0.08)';
+          card.style.borderRadius = '16px';
+          card.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
+          card.style.padding = '2rem';
+          card.style.maxWidth = '400px';
+          card.style.width = '100%';
+          card.style.margin = '0 auto';
+        });
+
+        // Force input styling
+        const inputs = document.querySelectorAll('.ext-container input, .ext-container select');
+        inputs.forEach(input => {
+          input.style.background = 'rgba(17, 24, 39, 0.52)';
+          input.style.border = '1px solid rgba(255, 255, 255, 0.08)';
+          input.style.borderRadius = '12px';
+          input.style.color = '#f9fafb';
+          input.style.padding = '12px 16px';
+          input.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        });
+
+        // Force button styling
+        const buttons = document.querySelectorAll('.ext-container button, .ext-container input[type="submit"]');
+        buttons.forEach(button => {
+          button.style.background = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
+          button.style.border = 'none';
+          button.style.borderRadius = '12px';
+          button.style.color = 'white';
+          button.style.padding = '12px 24px';
+          button.style.boxShadow = '0 4px 12px rgba(99, 102, 241, 0.3)';
+          button.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        });
+
+        // Force text styling
+        const headings = document.querySelectorAll('.ext-container h1, .ext-container h2, .ext-container h3');
+        headings.forEach(heading => {
+          heading.style.color = '#f9fafb';
+          heading.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+          heading.style.fontWeight = '600';
+          heading.style.textAlign = 'center';
+        });
+
+        const paragraphs = document.querySelectorAll('.ext-container p, .ext-container div, .ext-container span');
+        paragraphs.forEach(p => {
+          p.style.color = '#d1d5db';
+          p.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+        });
+
+        // Remove any white backgrounds
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+          if (el.style.backgroundColor === 'white' || el.style.backgroundColor === '#ffffff' || el.style.backgroundColor === 'rgb(255, 255, 255)') {
+            el.style.backgroundColor = 'transparent';
+          }
+        });
+
       } catch (e) {
-        console.warn("Error forcing background:", e);
+        console.warn("Error forcing B2C theme:", e);
       }
     }
 
@@ -556,15 +729,15 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         initializeObserver();
-        forceBackground();
+        forceB2CTheme();
       });
     } else {
       initializeObserver();
-      forceBackground();
+      forceB2CTheme();
     }
 
-    // Force background periodically to override B2C
-    setInterval(forceBackground, 1000);
+    // Force B2C theme periodically to override B2C
+    setInterval(forceB2CTheme, 1000);
 
     // Re-pin on language change (B2C can re-render)
     window.addEventListener("hashchange", () => {
