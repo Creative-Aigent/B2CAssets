@@ -439,6 +439,41 @@
       font-size: 0.9rem !important;
     }
 
+    /* Creative Aigent Logo Styling */
+    .logo-container {
+      text-align: center !important;
+      margin-bottom: 2rem !important;
+    }
+
+    .logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      padding: 16px 24px !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 12px !important;
+      backdrop-filter: blur(10px) !important;
+    }
+
+    .logo-icon {
+      font-size: 1.5rem !important;
+      font-weight: 700 !important;
+      color: var(--primary) !important;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+
+    .logo-text {
+      font-size: 1.1rem !important;
+      font-weight: 600 !important;
+      color: var(--text-primary) !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+
     /* Phone control specific styling */
     .phoneControl {
       display: flex !important;
@@ -493,6 +528,14 @@
 <body>
   <div class="wrap">
     <div class="card">
+      <!-- Creative Aigent Logo -->
+      <div class="logo-container">
+        <div class="logo">
+          <div class="logo-icon">CA</div>
+          <div class="logo-text">Creative Aigent</div>
+        </div>
+      </div>
+      
       <h1 id="title">Continue</h1>
       <div id="subtitle" class="hint">Enter your phone to receive a code.</div>
       <div id="api"></div>
