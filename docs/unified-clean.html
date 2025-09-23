@@ -28,55 +28,61 @@
       background-color: #0b0f1a !important;
     }
     
-    /* API Container - Simple glassmorphic card */
+    /* API Container - Professional glassmorphic card */
     #api {
       background: rgba(10, 20, 60, 0.35) !important;
       backdrop-filter: blur(12px) !important;
       border: 1px solid rgba(255, 255, 255, 0.15) !important;
-      border-radius: 18px !important;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
-      padding: 2.5rem !important;
-      max-width: 450px !important;
+      border-radius: 20px !important;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
+      padding: 3rem !important;
+      max-width: 480px !important;
       margin: 2rem auto !important;
-      min-height: 400px !important;
+      min-height: 500px !important;
     }
     
-    /* Form elements */
+    /* Form elements - Enhanced styling */
     #api input[type="text"], #api input[type="tel"], #api input[type="email"], #api input[type="password"], #api select {
-      background: rgba(255, 255, 255, 0.05) !important;
-      border: 1px solid rgba(255, 255, 255, 0.15) !important;
-      border-radius: 12px !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 14px !important;
       color: #ffffff !important;
-      padding: 14px 16px !important;
+      padding: 16px 20px !important;
       font-size: 16px !important;
       width: 100% !important;
-      margin-bottom: 1rem !important;
-      transition: all 0.2s ease !important;
+      margin-bottom: 1.5rem !important;
+      transition: all 0.3s ease !important;
+      font-weight: 400 !important;
     }
     
     #api input:focus, #api select:focus {
       outline: none !important;
-      border: 2px solid rgba(99, 102, 241, 0.5) !important;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
-      background: rgba(255, 255, 255, 0.08) !important;
+      border: 2px solid rgba(99, 102, 241, 0.6) !important;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+      background: rgba(255, 255, 255, 0.12) !important;
+      transform: translateY(-1px) !important;
     }
     
     #api input::placeholder, #api select::placeholder {
       color: rgba(255, 255, 255, 0.6) !important;
     }
     
-    /* Form labels - Consistent bullet points */
+    /* Form labels - Professional styling */
     #api label {
       display: block !important;
-      margin-bottom: 0.5rem !important;
-      font-weight: 500 !important;
+      margin-bottom: 0.75rem !important;
+      font-weight: 600 !important;
       color: #ffffff !important;
+      font-size: 14px !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
     }
     
     #api label::before {
       content: "• " !important;
       color: #6366f1 !important;
       font-weight: bold !important;
+      font-size: 16px !important;
     }
     
     /* Checkbox styling */
@@ -87,20 +93,35 @@
       accent-color: #6366f1 !important;
     }
     
-    /* Form groups and sections */
+    /* Form groups and sections - Professional spacing */
     #api .form-group, #api .form-item {
-      margin-bottom: 1.5rem !important;
+      margin-bottom: 2rem !important;
     }
     
     #api .form-section {
-      margin-bottom: 2rem !important;
-      padding-bottom: 1.5rem !important;
+      margin-bottom: 2.5rem !important;
+      padding-bottom: 2rem !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
     
     #api .form-section:last-child {
       border-bottom: none !important;
       margin-bottom: 0 !important;
+    }
+    
+    /* Professional spacing for links */
+    #api .link-section {
+      text-align: center !important;
+      margin-top: 2rem !important;
+      padding-top: 1.5rem !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    #api .link-section a {
+      display: inline-block !important;
+      margin: 0 1rem !important;
+      font-weight: 500 !important;
+      transition: all 0.2s ease !important;
     }
     
     /* Section titles */
@@ -112,27 +133,29 @@
       margin-top: 0 !important;
     }
     
-    /* Buttons */
+    /* Buttons - Professional styling */
     #api button, #api input[type="submit"] {
       background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
       border: none !important;
-      border-radius: 12px !important;
+      border-radius: 14px !important;
       color: white !important;
-      padding: 16px 24px !important;
+      padding: 18px 28px !important;
       font-size: 16px !important;
-      font-weight: 600 !important;
+      font-weight: 700 !important;
       width: 100% !important;
       cursor: pointer !important;
-      margin-top: 1rem !important;
-      margin-bottom: 1rem !important;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
-      transition: all 0.2s ease !important;
+      margin-top: 1.5rem !important;
+      margin-bottom: 1.5rem !important;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+      transition: all 0.3s ease !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
     }
     
     #api button:hover, #api input[type="submit"]:hover {
-      background: linear-gradient(135deg, #5855eb, #6366f1) !important;
-      transform: translateY(-1px) !important;
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+      background: linear-gradient(135deg, #5855eb, #7c3aed) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5) !important;
     }
     
     #api button:active, #api input[type="submit"]:active {
@@ -151,9 +174,31 @@
       transform: translateY(-1px) !important;
     }
     
-    /* Text elements */
+    /* Text elements - Professional typography */
     #api p, #api div, #api h1, #api h2, #api h3 {
       color: #ffffff !important;
+      line-height: 1.6 !important;
+    }
+    
+    #api h1 {
+      font-size: 2rem !important;
+      font-weight: 700 !important;
+      margin-bottom: 0.5rem !important;
+      letter-spacing: -0.5px !important;
+    }
+    
+    #api h2 {
+      font-size: 1.5rem !important;
+      font-weight: 600 !important;
+      margin-bottom: 1rem !important;
+      letter-spacing: -0.25px !important;
+    }
+    
+    #api p {
+      font-size: 1rem !important;
+      font-weight: 400 !important;
+      margin-bottom: 1.5rem !important;
+      opacity: 0.9 !important;
     }
     
     #api a {
@@ -166,18 +211,26 @@
       text-decoration: underline !important;
     }
     
-    /* Logo styling - Clean and visible */
+    /* Logo styling - Professional and prominent */
     .logo-container {
       text-align: center !important;
-      margin-bottom: 2rem !important;
+      margin-bottom: 3rem !important;
+      padding: 1rem 0 !important;
     }
     
     .logo-icon {
-      width: 50px !important;
-      height: 50px !important;
+      width: 60px !important;
+      height: 60px !important;
       object-fit: contain !important;
-      border-radius: 8px !important;
+      border-radius: 12px !important;
       filter: brightness(0) invert(1) !important; /* Make logo white */
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1) !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .logo-icon:hover {
+      transform: scale(1.05) !important;
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2) !important;
     }
     
     /* NUCLEAR "What is this?" link removal */
