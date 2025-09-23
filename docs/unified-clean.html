@@ -87,12 +87,37 @@
       font-size: 16px !important;
     }
     
-    /* Checkbox styling */
+    /* Checkbox styling - Inline with label */
     #api input[type="checkbox"] {
       width: 18px !important;
       height: 18px !important;
       margin-right: 8px !important;
       accent-color: #6366f1 !important;
+      display: inline-block !important;
+      vertical-align: middle !important;
+    }
+    
+    /* Checkbox label - Inline styling */
+    #api label[for*="checkbox"], #api label:has(input[type="checkbox"]) {
+      display: inline-flex !important;
+      align-items: center !important;
+      margin-bottom: 0 !important;
+      font-size: 14px !important;
+      text-transform: none !important;
+      letter-spacing: normal !important;
+      cursor: pointer !important;
+      font-weight: 500 !important;
+    }
+    
+    #api label[for*="checkbox"]::before, #api label:has(input[type="checkbox"])::before {
+      content: "" !important;
+    }
+    
+    /* Checkbox container - Ensure proper alignment */
+    #api .checkbox-container, #api .form-group:has(input[type="checkbox"]) {
+      display: flex !important;
+      align-items: center !important;
+      margin-bottom: 1rem !important;
     }
     
     /* Form groups and sections - Compact spacing */
