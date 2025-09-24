@@ -284,15 +284,14 @@
     .logo-container {
       text-align: center !important;
       margin-bottom: 1.5rem !important;
-      padding: 0 !important;
+      padding: 0.4rem 0 !important;
     }
 
     .logo-icon {
-      width: 40px !important;
-      height: 40px !important;
+      width: 64px !important;
+      height: 64px !important;
       object-fit: contain !important;
-      border-radius: 8px !important;
-      filter: brightness(0) invert(1) !important; /* Make logo white */
+      border-radius: 12px !important;
       box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
       transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
@@ -766,13 +765,13 @@
            if (!logoContainer) {
              logoContainer = document.createElement('div');
              logoContainer.className = 'logo-container';
-             logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important;';
+            logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important;';
              
              const logoImg = document.createElement('img');
-             logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
+            logoImg.src = 'icon-512.png';
              logoImg.alt = 'Creative Aigent';
              logoImg.className = 'logo-icon';
-             logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important;';
+            logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important;';
              
              logoContainer.appendChild(logoImg);
            }
@@ -868,33 +867,25 @@
           console.log('Creating logo immediately...');
           logoContainer = document.createElement('div');
           logoContainer.className = 'logo-container';
-          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important; display: block !important; visibility: visible !important; background: red !important; border: 2px solid yellow !important;';
-          
-          // Create a simple text logo first to test visibility
-          const textLogo = document.createElement('div');
-          textLogo.innerHTML = 'CA';
-          textLogo.style.cssText = 'width: 40px !important; height: 40px !important; background: #6366f1 !important; color: white !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-weight: bold !important; font-size: 18px !important; margin: 0 auto !important;';
-          logoContainer.appendChild(textLogo);
-          
-          // Also try the image
+          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important;';
+
           const logoImg = document.createElement('img');
-          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
+          logoImg.src = 'icon-512.png';
           logoImg.alt = 'Creative Aigent';
           logoImg.className = 'logo-icon';
-          logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important; display: block !important; visibility: visible !important; margin-top: 10px !important;';
-          
+          logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important; display: block !important; visibility: visible !important; margin: 0 auto !important;';
+
           // Add error handling for image loading
           logoImg.onerror = function() {
             console.error('Logo image failed to load:', logoImg.src);
           };
-          
+
           logoImg.onload = function() {
             console.log('Logo image loaded successfully');
           };
-          
+
           logoContainer.appendChild(logoImg);
-          
-          // Try multiple insertion methods
+
           if (api.firstChild) {
             api.insertBefore(logoContainer, api.firstChild);
             console.log('Logo inserted before first child');
@@ -902,12 +893,11 @@
             api.appendChild(logoContainer);
             console.log('Logo appended as first child');
           }
-          
+
           console.log('Logo created and inserted immediately');
           console.log('API container now has', api.children.length, 'children');
         } else {
           console.log('Logo container already exists');
-          // Make sure it's visible
           logoContainer.style.display = 'block';
           logoContainer.style.visibility = 'visible';
         }
@@ -946,7 +936,7 @@
     }
     
      // ULTRA-AGGRESSIVE: Run every 100ms to ensure styling is maintained
-     setInterval(applyCustomizations, 100);
+     setInterval(applyCustomizations, 150);
      
      // Extra logo enforcement - run every 50ms to catch B2C removals
      setInterval(() => {
@@ -959,13 +949,13 @@
            console.log('Logo missing, recreating...');
            logoContainer = document.createElement('div');
            logoContainer.className = 'logo-container';
-           logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important;';
+           logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important;';
            
            const logoImg = document.createElement('img');
-           logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
+           logoImg.src = 'icon-512.png';
            logoImg.alt = 'Creative Aigent';
            logoImg.className = 'logo-icon';
-           logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important;';
+           logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important;';
            
            logoContainer.appendChild(logoImg);
            
@@ -985,6 +975,7 @@
            if (logoImg) {
              logoImg.style.display = 'block';
              logoImg.style.visibility = 'visible';
+             logoImg.src = 'icon-512.png';
            }
          }
        }
@@ -1001,7 +992,7 @@
   <div id="api">
     <!-- Creative Aigent Logo - Inside the card -->
     <div class="logo-container">
-      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
+      <img src="icon-512.png" alt="Creative Aigent" class="logo-icon" />
     </div>
   </div>
 </body>
