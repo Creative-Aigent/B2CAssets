@@ -385,6 +385,56 @@
       max-height: none !important;
       overflow: visible !important;
     }
+    
+    /* ULTRA-AGGRESSIVE: Override any B2C styling that might interfere */
+    #api, #api *, #api *::before, #api *::after {
+      box-sizing: border-box !important;
+    }
+    
+    /* Force our card styling to always apply */
+    #api {
+      background: rgba(17, 25, 40, 0.85) !important;
+      backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(148, 163, 184, 0.2) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
+      padding: 2rem !important;
+      max-width: 400px !important;
+      margin: 2rem auto !important;
+      min-height: auto !important;
+      max-height: 85vh !important;
+      overflow: visible !important;
+    }
+    
+    /* Force checkbox alignment - multiple approaches */
+    #api input[type="checkbox"] {
+      display: inline-block !important;
+      vertical-align: middle !important;
+      margin-right: 0.5rem !important;
+    }
+    
+    #api input[type="checkbox"] + label,
+    #api label:has(input[type="checkbox"]) {
+      display: inline-flex !important;
+      align-items: center !important;
+      margin: 0 !important;
+      vertical-align: middle !important;
+    }
+    
+    /* Force logo to stay inside */
+    .logo-container {
+      text-align: center !important;
+      margin-bottom: 1.5rem !important;
+      padding: 0 !important;
+    }
+    
+    .logo-icon {
+      width: 40px !important;
+      height: 40px !important;
+      object-fit: contain !important;
+      border-radius: 8px !important;
+      filter: brightness(0) invert(1) !important;
+    }
   </style>
 </head>
 <body>
@@ -699,10 +749,81 @@
       }
     }
     
-    function applyCustomizations() {
-      forceDarkTheme();
-      removeHelpLinks();
-    }
+     function applyCustomizations() {
+       forceDarkTheme();
+       removeHelpLinks();
+       ensureProfessionalLayout();
+     }
+     
+     function ensureProfessionalLayout() {
+       try {
+         // Force logo to stay inside the card
+         const logoContainer = document.querySelector('.logo-container');
+         if (logoContainer && logoContainer.parentNode !== document.getElementById('api')) {
+           const api = document.getElementById('api');
+           if (api) {
+             api.insertBefore(logoContainer, api.firstChild);
+           }
+         }
+         
+         // Force checkbox alignment
+         const checkboxes = document.querySelectorAll('#api input[type="checkbox"]');
+         checkboxes.forEach(checkbox => {
+           const label = checkbox.nextElementSibling;
+           if (label && label.tagName === 'LABEL') {
+             // Ensure they're in a flex container
+             let container = checkbox.parentNode;
+             if (!container.classList.contains('checkbox-wrapper')) {
+               const wrapper = document.createElement('div');
+               wrapper.className = 'checkbox-wrapper';
+               wrapper.style.cssText = 'display: flex !important; align-items: center !important; gap: 0.5rem !important; margin-bottom: 1rem !important;';
+               
+               container.insertBefore(wrapper, checkbox);
+               wrapper.appendChild(checkbox);
+               if (label) wrapper.appendChild(label);
+             }
+             
+             // Force label styling
+             label.style.cssText = 'display: inline-flex !important; align-items: center !important; margin: 0 !important; font-size: 0.9rem !important;';
+           }
+         });
+         
+         // Force card styling
+         const api = document.getElementById('api');
+         if (api) {
+           api.style.cssText = `
+             background: rgba(17, 25, 40, 0.85) !important;
+             backdrop-filter: blur(20px) !important;
+             border: 1px solid rgba(148, 163, 184, 0.2) !important;
+             border-radius: 16px !important;
+             box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
+             padding: 2rem !important;
+             max-width: 400px !important;
+             margin: 2rem auto !important;
+             min-height: auto !important;
+             max-height: 85vh !important;
+             overflow: visible !important;
+           `;
+         }
+         
+         // Hide any unwanted text
+         const unwantedTexts = document.querySelectorAll('#api *');
+         unwantedTexts.forEach(element => {
+           if (element.textContent && (
+             element.textContent.includes('Creative Aigent') ||
+             element.textContent.includes('What is this?') ||
+             element.textContent.includes('Help')
+           )) {
+             if (element.tagName !== 'IMG' && !element.classList.contains('logo-icon')) {
+               element.style.display = 'none !important';
+             }
+           }
+         });
+         
+       } catch (e) {
+         console.warn('Layout enforcement error:', e);
+       }
+     }
 
     // Run immediately and on load
     applyCustomizations();
@@ -729,6 +850,14 @@
         }
       }, 100);
     }
+    
+    // ULTRA-AGGRESSIVE: Run every 100ms to ensure styling is maintained
+    setInterval(applyCustomizations, 100);
+    
+    // Also run on any DOM changes
+    document.addEventListener('DOMContentLoaded', applyCustomizations);
+    document.addEventListener('DOMNodeInserted', applyCustomizations);
+    document.addEventListener('DOMSubtreeModified', applyCustomizations);
   </script>
 </body>
 </html>
