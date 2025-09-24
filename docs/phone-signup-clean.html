@@ -365,6 +365,29 @@
       display: none !important;
     }
     
+    /* Additional aggressive selectors for "What is this?" links */
+    #api a[title*="what"], #api a[title*="help"], #api a[title*="info"],
+    #api span[title*="what"], #api span[title*="help"], #api span[title*="info"],
+    #api div[title*="what"], #api div[title*="help"], #api div[title*="info"],
+    #api a[aria-label*="what"], #api a[aria-label*="help"], #api a[aria-label*="info"],
+    #api span[aria-label*="what"], #api span[aria-label*="help"], #api span[aria-label*="info"],
+    #api div[aria-label*="what"], #api div[aria-label*="help"], #api div[aria-label*="info"],
+    /* Target any element that might contain help text */
+    #api a[class*="help"], #api span[class*="help"], #api div[class*="help"],
+    #api a[class*="info"], #api span[class*="info"], #api div[class*="info"],
+    #api a[class*="what"], #api span[class*="what"], #api div[class*="what"] {
+      display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      position: absolute !important;
+      left: -9999px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      z-index: -9999 !important;
+    }
+    
     /* Ensure form doesn't truncate */
     #api {
       overflow: visible !important;
@@ -393,16 +416,6 @@
   </style>
 </head>
 <body>
-  <!-- Creative Aigent Logo -->
-  <div class="logo-container">
-    <img src="icon-512.png" alt="Creative Aigent" class="logo-icon" />
-  </div>
-  
-  <!-- TEST ELEMENT - Remove this after confirming -->
-  <div style="background: #ff0000; color: white; padding: 15px; text-align: center; margin: 20px; border-radius: 8px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);">
-    🎯 CUSTOM PAGE LOADED v4 - This proves B2C is using our custom page!
-  </div>
-  
   <!-- B2C Required API Container -->
   <div id="api"></div>
 
