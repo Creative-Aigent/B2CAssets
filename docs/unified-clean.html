@@ -850,9 +850,39 @@
        }
      }
 
+    // Add a test element to verify JavaScript is running
+    function addTestElement() {
+      const api = document.getElementById('api');
+      if (api) {
+        // Remove any existing test element
+        const existingTest = api.querySelector('.js-test-element');
+        if (existingTest) {
+          existingTest.remove();
+        }
+        
+        // Create a new test element
+        const testElement = document.createElement('div');
+        testElement.className = 'js-test-element';
+        testElement.style.cssText = 'background: green !important; color: white !important; padding: 10px !important; margin: 10px 0 !important; text-align: center !important; border-radius: 5px !important; font-weight: bold !important;';
+        testElement.textContent = '✅ JavaScript is running! Logo should appear above this.';
+        
+        // Insert after logo or at the beginning
+        const logoContainer = api.querySelector('.logo-container');
+        if (logoContainer) {
+          logoContainer.insertAdjacentElement('afterend', testElement);
+        } else {
+          api.insertBefore(testElement, api.firstChild);
+        }
+      }
+    }
+    
     // Run immediately and on load
     applyCustomizations();
-    window.addEventListener('load', applyCustomizations);
+    addTestElement();
+    window.addEventListener('load', () => {
+      applyCustomizations();
+      addTestElement();
+    });
     
     // Immediate logo check and creation
     function ensureLogoExists() {
@@ -867,21 +897,31 @@
           console.log('Creating logo immediately...');
           logoContainer = document.createElement('div');
           logoContainer.className = 'logo-container';
-          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important;';
+          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important; background: red !important; border: 2px solid yellow !important;';
 
           const logoImg = document.createElement('img');
-          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
+          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
           logoImg.alt = 'Creative Aigent';
           logoImg.className = 'logo-icon';
-          logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important; display: block !important; visibility: visible !important; margin: 0 auto !important;';
+          logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important; display: block !important; visibility: visible !important; margin: 0 auto !important; background: blue !important; border: 2px solid green !important;';
 
-          // Add error handling for image loading
+          // Add comprehensive error handling for image loading
           logoImg.onerror = function() {
             console.error('Logo image failed to load:', logoImg.src);
+            // Create a fallback text logo
+            const fallbackText = document.createElement('div');
+            fallbackText.textContent = 'CA';
+            fallbackText.style.cssText = 'width: 64px !important; height: 64px !important; background: #6366f1 !important; color: white !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 12px !important; font-weight: bold !important; font-size: 24px !important; margin: 0 auto !important;';
+            logoContainer.appendChild(fallbackText);
           };
 
           logoImg.onload = function() {
             console.log('Logo image loaded successfully');
+            // Remove debug borders once loaded
+            logoContainer.style.background = 'transparent';
+            logoContainer.style.border = 'none';
+            logoImg.style.background = 'transparent';
+            logoImg.style.border = 'none';
           };
 
           logoContainer.appendChild(logoImg);
@@ -894,12 +934,16 @@
             console.log('Logo appended as first child');
           }
 
-          console.log('Logo created and inserted immediately');
+          console.log('Logo created and inserted immediately with debug borders');
           console.log('API container now has', api.children.length, 'children');
         } else {
           console.log('Logo container already exists');
           logoContainer.style.display = 'block';
           logoContainer.style.visibility = 'visible';
+          const logoImg = logoContainer.querySelector('.logo-icon');
+          if (logoImg) {
+            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
+          }
         }
       } else {
         console.log('API element not found');
@@ -938,48 +982,67 @@
      // ULTRA-AGGRESSIVE: Run every 100ms to ensure styling is maintained
      setInterval(applyCustomizations, 150);
      
-     // Extra logo enforcement - run every 50ms to catch B2C removals
-     setInterval(() => {
-       const api = document.getElementById('api');
-       if (api) {
-         // Check if logo exists anywhere in the API container
-         let logoContainer = api.querySelector('.logo-container');
-         
-         if (!logoContainer) {
-           console.log('Logo missing, recreating...');
-           logoContainer = document.createElement('div');
-           logoContainer.className = 'logo-container';
-           logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important;';
-           
-           const logoImg = document.createElement('img');
-           logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
-           logoImg.alt = 'Creative Aigent';
-           logoImg.className = 'logo-icon';
-           logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important;';
-           
-           logoContainer.appendChild(logoImg);
-           
-           // Try to insert at the beginning of the API container
-           if (api.firstChild) {
-             api.insertBefore(logoContainer, api.firstChild);
-           } else {
-             api.appendChild(logoContainer);
-           }
-           
-           console.log('Logo recreated and inserted');
-         } else {
-           // Logo exists, make sure it's visible
-           logoContainer.style.display = 'block';
-           logoContainer.style.visibility = 'visible';
-           const logoImg = logoContainer.querySelector('.logo-icon');
-           if (logoImg) {
-             logoImg.style.display = 'block';
-             logoImg.style.visibility = 'visible';
-             logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
-           }
-         }
-       }
-     }, 50);
+    // Extra logo enforcement - run every 50ms to catch B2C removals
+    setInterval(() => {
+      const api = document.getElementById('api');
+      if (api) {
+        // Check if logo exists anywhere in the API container
+        let logoContainer = api.querySelector('.logo-container');
+        
+        if (!logoContainer) {
+          console.log('Logo missing, recreating...');
+          logoContainer = document.createElement('div');
+          logoContainer.className = 'logo-container';
+          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important; background: red !important; border: 2px solid yellow !important;';
+          
+          const logoImg = document.createElement('img');
+          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
+          logoImg.alt = 'Creative Aigent';
+          logoImg.className = 'logo-icon';
+          logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important; display: block !important; visibility: visible !important; margin: 0 auto !important; background: blue !important; border: 2px solid green !important;';
+          
+          // Add comprehensive error handling
+          logoImg.onerror = function() {
+            console.error('Logo image failed to load:', logoImg.src);
+            // Create a fallback text logo
+            const fallbackText = document.createElement('div');
+            fallbackText.textContent = 'CA';
+            fallbackText.style.cssText = 'width: 64px !important; height: 64px !important; background: #6366f1 !important; color: white !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 12px !important; font-weight: bold !important; font-size: 24px !important; margin: 0 auto !important;';
+            logoContainer.appendChild(fallbackText);
+          };
+          
+          logoImg.onload = function() {
+            console.log('Logo image loaded successfully');
+            // Remove debug borders once loaded
+            logoContainer.style.background = 'transparent';
+            logoContainer.style.border = 'none';
+            logoImg.style.background = 'transparent';
+            logoImg.style.border = 'none';
+          };
+          
+          logoContainer.appendChild(logoImg);
+          
+          // Try to insert at the beginning of the API container
+          if (api.firstChild) {
+            api.insertBefore(logoContainer, api.firstChild);
+          } else {
+            api.appendChild(logoContainer);
+          }
+          
+          console.log('Logo recreated and inserted with debug borders');
+        } else {
+          // Logo exists, make sure it's visible
+          logoContainer.style.display = 'block';
+          logoContainer.style.visibility = 'visible';
+          const logoImg = logoContainer.querySelector('.logo-icon');
+          if (logoImg) {
+            logoImg.style.display = 'block';
+            logoImg.style.visibility = 'visible';
+            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
+          }
+        }
+      }
+    }, 50);
     
     // Also run on any DOM changes
     document.addEventListener('DOMContentLoaded', applyCustomizations);
