@@ -436,17 +436,17 @@
       filter: brightness(0) invert(1) !important;
     }
   </style>
-</head>
-<body>
-  <!-- B2C Required API Container -->
-  <div id="api">
-    <!-- Creative Aigent Logo - Inside the card -->
-    <div class="logo-container">
-      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
-    </div>
-  </div>
-
-  <script>
+  
+  <!-- B2C Compliant JavaScript in head with defer -->
+  <!-- 
+    B2C Requirements:
+    - JavaScript must be in <head> tag with defer/async
+    - Don't bind click events on <a> elements
+    - Don't change HTML element order/hierarchy
+    - Use absolute URLs for external resources
+    - Page layout version must be enabled in B2C
+  -->
+  <script defer>
     const HELP_SELECTORS = [
       'a[href*="what"]',
       'a[href*="help"]',
@@ -766,7 +766,7 @@
            }
          }
          
-         // Force checkbox alignment
+         // Force checkbox alignment - B2C compliant approach
          const checkboxes = document.querySelectorAll('#api input[type="checkbox"]');
          checkboxes.forEach(checkbox => {
            const label = checkbox.nextElementSibling;
@@ -788,25 +788,24 @@
            }
          });
          
-         // Force card styling
+         // Force card styling - using B2C recommended approach
          const api = document.getElementById('api');
          if (api) {
-           api.style.cssText = `
-             background: rgba(17, 25, 40, 0.85) !important;
-             backdrop-filter: blur(20px) !important;
-             border: 1px solid rgba(148, 163, 184, 0.2) !important;
-             border-radius: 16px !important;
-             box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
-             padding: 2rem !important;
-             max-width: 400px !important;
-             margin: 2rem auto !important;
-             min-height: auto !important;
-             max-height: 85vh !important;
-             overflow: visible !important;
-           `;
+           // Use individual style properties instead of cssText for better B2C compatibility
+           api.style.background = 'rgba(17, 25, 40, 0.85)';
+           api.style.backdropFilter = 'blur(20px)';
+           api.style.border = '1px solid rgba(148, 163, 184, 0.2)';
+           api.style.borderRadius = '16px';
+           api.style.boxShadow = '0 20px 40px rgba(15, 23, 42, 0.4)';
+           api.style.padding = '2rem';
+           api.style.maxWidth = '400px';
+           api.style.margin = '2rem auto';
+           api.style.minHeight = 'auto';
+           api.style.maxHeight = '85vh';
+           api.style.overflow = 'visible';
          }
          
-         // Hide any unwanted text
+         // Hide any unwanted text - B2C compliant approach
          const unwantedTexts = document.querySelectorAll('#api *');
          unwantedTexts.forEach(element => {
            if (element.textContent && (
@@ -815,9 +814,19 @@
              element.textContent.includes('Help')
            )) {
              if (element.tagName !== 'IMG' && !element.classList.contains('logo-icon')) {
-               element.style.display = 'none !important';
+               element.style.display = 'none';
              }
            }
+         });
+         
+         // B2C compliant: Don't bind click events on <a> elements
+         // Instead, we'll use CSS to style them properly
+         const links = document.querySelectorAll('#api a');
+         links.forEach(link => {
+           // Only style, don't bind events
+           link.style.color = '#93c5fd';
+           link.style.textDecoration = 'none';
+           link.style.transition = 'color 0.2s ease';
          });
          
        } catch (e) {
@@ -859,5 +868,14 @@
     document.addEventListener('DOMNodeInserted', applyCustomizations);
     document.addEventListener('DOMSubtreeModified', applyCustomizations);
   </script>
+</head>
+<body>
+  <!-- B2C Required API Container -->
+  <div id="api">
+    <!-- Creative Aigent Logo - Inside the card -->
+    <div class="logo-container">
+      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
+    </div>
+  </div>
 </body>
 </html>
