@@ -757,11 +757,28 @@
      
      function ensureProfessionalLayout() {
        try {
-         // Force logo to stay inside the card
-         const logoContainer = document.querySelector('.logo-container');
-         if (logoContainer && logoContainer.parentNode !== document.getElementById('api')) {
-           const api = document.getElementById('api');
-           if (api) {
+         // Ensure logo is always present and visible
+         const api = document.getElementById('api');
+         if (api) {
+           let logoContainer = document.querySelector('.logo-container');
+           
+           // If logo container doesn't exist, create it
+           if (!logoContainer) {
+             logoContainer = document.createElement('div');
+             logoContainer.className = 'logo-container';
+             logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important;';
+             
+             const logoImg = document.createElement('img');
+             logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
+             logoImg.alt = 'Creative Aigent';
+             logoImg.className = 'logo-icon';
+             logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important;';
+             
+             logoContainer.appendChild(logoImg);
+           }
+           
+           // Ensure logo is inside the API container
+           if (logoContainer.parentNode !== api) {
              api.insertBefore(logoContainer, api.firstChild);
            }
          }
@@ -860,8 +877,27 @@
       }, 100);
     }
     
-    // ULTRA-AGGRESSIVE: Run every 100ms to ensure styling is maintained
-    setInterval(applyCustomizations, 100);
+     // ULTRA-AGGRESSIVE: Run every 100ms to ensure styling is maintained
+     setInterval(applyCustomizations, 100);
+     
+     // Extra logo enforcement - run every 50ms to catch B2C removals
+     setInterval(() => {
+       const api = document.getElementById('api');
+       if (api && !document.querySelector('.logo-container')) {
+         const logoContainer = document.createElement('div');
+         logoContainer.className = 'logo-container';
+         logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important;';
+         
+         const logoImg = document.createElement('img');
+         logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
+         logoImg.alt = 'Creative Aigent';
+         logoImg.className = 'logo-icon';
+         logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important;';
+         
+         logoContainer.appendChild(logoImg);
+         api.insertBefore(logoContainer, api.firstChild);
+       }
+     }, 50);
     
     // Also run on any DOM changes
     document.addEventListener('DOMContentLoaded', applyCustomizations);
