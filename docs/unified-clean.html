@@ -285,6 +285,43 @@
       text-align: center !important;
       margin-bottom: 1.5rem !important;
       padding: 0.4rem 0 !important;
+      position: relative !important;
+    }
+    
+    /* Fallback logo if image fails to load */
+    .logo-container::after {
+      content: 'CA' !important;
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 64px !important;
+      height: 64px !important;
+      background: #6366f1 !important;
+      color: white !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 12px !important;
+      font-weight: bold !important;
+      font-size: 24px !important;
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 1 !important;
+    }
+    
+    /* Show fallback if image fails to load */
+    .logo-icon:not([src]), 
+    .logo-icon[src=""], 
+    .logo-icon[src*="error"] {
+      opacity: 0 !important;
+    }
+    
+    .logo-icon:not([src]) + .logo-container::after,
+    .logo-icon[src=""] + .logo-container::after,
+    .logo-icon[src*="error"] + .logo-container::after {
+      opacity: 1 !important;
     }
 
     .logo-icon {
@@ -428,11 +465,32 @@
     }
     
     .logo-icon {
-      width: 40px !important;
-      height: 40px !important;
+      width: 64px !important;
+      height: 64px !important;
       object-fit: contain !important;
-      border-radius: 8px !important;
+      border-radius: 12px !important;
       filter: brightness(0) invert(1) !important;
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+    .logo-icon:hover {
+      transform: scale(1.02) !important;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.3) !important;
+    }
+    
+    /* CSS-Only Test Element */
+    .css-test-element {
+      background: #10b981 !important;
+      color: white !important;
+      padding: 12px !important;
+      margin: 15px 0 !important;
+      text-align: center !important;
+      border-radius: 8px !important;
+      font-weight: bold !important;
+      font-size: 14px !important;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+      border: 2px solid #059669 !important;
     }
   </style>
   
@@ -1056,6 +1114,11 @@
     <!-- Creative Aigent Logo - Inside the card -->
     <div class="logo-container">
       <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
+    </div>
+    
+    <!-- CSS-ONLY TEST ELEMENT - No JavaScript required -->
+    <div class="css-test-element">
+      ✅ CSS-Only Test: This page is loading correctly!
     </div>
   </div>
 </body>
