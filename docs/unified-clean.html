@@ -858,28 +858,34 @@
     // Immediate logo check and creation
     function ensureLogoExists() {
       const api = document.getElementById('api');
+      console.log('ensureLogoExists called, API element:', api);
+      
       if (api) {
         let logoContainer = api.querySelector('.logo-container');
+        console.log('Existing logo container:', logoContainer);
+        
         if (!logoContainer) {
           console.log('Creating logo immediately...');
           logoContainer = document.createElement('div');
           logoContainer.className = 'logo-container';
-          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important; display: block !important; visibility: visible !important;';
+          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0 !important; display: block !important; visibility: visible !important; background: red !important; border: 2px solid yellow !important;';
           
+          // Create a simple text logo first to test visibility
+          const textLogo = document.createElement('div');
+          textLogo.innerHTML = 'CA';
+          textLogo.style.cssText = 'width: 40px !important; height: 40px !important; background: #6366f1 !important; color: white !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-weight: bold !important; font-size: 18px !important; margin: 0 auto !important;';
+          logoContainer.appendChild(textLogo);
+          
+          // Also try the image
           const logoImg = document.createElement('img');
           logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
           logoImg.alt = 'Creative Aigent';
           logoImg.className = 'logo-icon';
-          logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important; display: block !important; visibility: visible !important;';
+          logoImg.style.cssText = 'width: 40px !important; height: 40px !important; object-fit: contain !important; border-radius: 8px !important; filter: brightness(0) invert(1) !important; display: block !important; visibility: visible !important; margin-top: 10px !important;';
           
           // Add error handling for image loading
           logoImg.onerror = function() {
             console.error('Logo image failed to load:', logoImg.src);
-            // Try alternative approach - create a text logo
-            const textLogo = document.createElement('div');
-            textLogo.innerHTML = 'CA';
-            textLogo.style.cssText = 'width: 40px !important; height: 40px !important; background: #6366f1 !important; color: white !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-weight: bold !important; font-size: 18px !important; margin: 0 auto !important;';
-            logoContainer.appendChild(textLogo);
           };
           
           logoImg.onload = function() {
@@ -887,9 +893,26 @@
           };
           
           logoContainer.appendChild(logoImg);
-          api.insertBefore(logoContainer, api.firstChild);
+          
+          // Try multiple insertion methods
+          if (api.firstChild) {
+            api.insertBefore(logoContainer, api.firstChild);
+            console.log('Logo inserted before first child');
+          } else {
+            api.appendChild(logoContainer);
+            console.log('Logo appended as first child');
+          }
+          
           console.log('Logo created and inserted immediately');
+          console.log('API container now has', api.children.length, 'children');
+        } else {
+          console.log('Logo container already exists');
+          // Make sure it's visible
+          logoContainer.style.display = 'block';
+          logoContainer.style.visibility = 'visible';
         }
+      } else {
+        console.log('API element not found');
       }
     }
     
