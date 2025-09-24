@@ -75,24 +75,21 @@
     /* Form labels - Compact styling */
     #api label {
       display: block !important;
-      margin-bottom: 0.35rem !important;
+      margin-bottom: 0.4rem !important;
       font-weight: 600 !important;
       color: #e2e8f0 !important;
-      font-size: 0.8rem !important;
+      font-size: 0.82rem !important;
       letter-spacing: 0 !important;
       text-transform: none !important;
+      line-height: 1.2 !important;
     }
 
-    #api label::before {
-      content: none !important;
-    }
-    
     /* Checkbox styling - Inline with label */
     #api input[type="checkbox"] {
       width: 16px !important;
       height: 16px !important;
       margin: 0 !important;
-      margin-right: 0.6rem !important;
+      margin-right: 0.55rem !important;
       accent-color: #6366f1 !important;
       display: inline-block !important;
       vertical-align: middle !important;
@@ -106,23 +103,30 @@
       display: inline-flex !important;
       align-items: center !important;
       margin-bottom: 0 !important;
-      font-size: 0.9rem !important;
+      font-size: 0.88rem !important;
       text-transform: none !important;
       letter-spacing: normal !important;
       cursor: pointer !important;
       font-weight: 500 !important;
+      line-height: 1.2 !important;
     }
-    
+
     #api label[for*="checkbox"]::before, #api label:has(input[type="checkbox"])::before {
       content: "" !important;
     }
-    
+
     /* Checkbox container - Ensure proper alignment */
     #api .checkbox-container, #api .form-group:has(input[type="checkbox"]) {
-      display: flex !important;
-      align-items: center !important;
-      gap: 0.5rem !important;
+      display: grid !important;
+      grid-template-columns: auto 1fr !important;
+      align-items: start !important;
+      column-gap: 0.55rem !important;
       margin-bottom: 1rem !important;
+    }
+
+    #api .form-group:has(input[type="checkbox"]) label {
+      margin: 0 !important;
+      line-height: 1.3 !important;
     }
     
     /* Form groups and sections - Compact spacing */
@@ -151,11 +155,25 @@
 
     #api .link-section a {
       display: inline-block !important;
-      margin: 0 0.6rem !important;
+      margin: 0 0.75rem !important;
       font-weight: 500 !important;
       color: #93c5fd !important;
       opacity: 0.95 !important;
       transition: color 0.2s ease, opacity 0.2s ease !important;
+    }
+
+    #api .divider,
+    #api .or,
+    #api .separator,
+    #api span[id*="divider"],
+    #api span[id*="or"] {
+      display: block !important;
+      margin: 1.25rem 0 1rem !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 2px !important;
+      text-transform: uppercase !important;
+      color: rgba(148, 163, 184, 0.75) !important;
     }
     
     /* Section titles */
@@ -170,29 +188,29 @@
     /* Buttons - Compact styling */
     #api button, #api input[type="submit"] {
       background: linear-gradient(135deg, #6366f1 0%, #7c6cf7 100%) !important;
-      border: 1px solid rgba(129, 140, 248, 0.6) !important;
+      border: 1px solid rgba(129, 140, 248, 0.7) !important;
       border-radius: 12px !important;
       color: #f8fafc !important;
-      padding: 0.9rem 1.25rem !important;
-      font-size: 1rem !important;
+      padding: 0.85rem 1.15rem !important;
+      font-size: 0.95rem !important;
       font-weight: 600 !important;
       width: 100% !important;
       cursor: pointer !important;
       margin-top: 1rem !important;
       margin-bottom: 1rem !important;
-      box-shadow: 0 12px 26px rgba(76, 81, 191, 0.35) !important;
+      box-shadow: 0 6px 14px rgba(76, 81, 191, 0.25) !important;
       transition: background 0.2s ease, box-shadow 0.2s ease !important;
-      letter-spacing: 0.3px !important;
+      letter-spacing: 0.2px !important;
       text-transform: none !important;
     }
 
     #api button:hover, #api input[type="submit"]:hover {
       background: linear-gradient(135deg, #6f79f8 0%, #8f7cfd 100%) !important;
-      box-shadow: 0 14px 28px rgba(76, 81, 191, 0.4) !important;
+      box-shadow: 0 8px 18px rgba(76, 81, 191, 0.32) !important;
     }
 
     #api button:active, #api input[type="submit"]:active {
-      box-shadow: 0 10px 22px rgba(76, 81, 191, 0.32) !important;
+      box-shadow: 0 4px 12px rgba(76, 81, 191, 0.28) !important;
     }
 
     #api button:focus-visible, #api input[type="submit"]:focus-visible {
@@ -218,23 +236,23 @@
     }
 
     #api h1 {
-      font-size: 1.85rem !important;
+      font-size: 1.6rem !important;
       font-weight: 600 !important;
-      margin-bottom: 0.4rem !important;
-      letter-spacing: -0.25px !important;
+      margin-bottom: 0.35rem !important;
+      letter-spacing: -0.15px !important;
     }
 
     #api h2 {
-      font-size: 1.1rem !important;
+      font-size: 1.05rem !important;
       font-weight: 500 !important;
-      margin-bottom: 0.75rem !important;
-      letter-spacing: -0.25px !important;
+      margin-bottom: 0.65rem !important;
+      letter-spacing: -0.15px !important;
     }
 
     #api p {
-      font-size: 0.95rem !important;
+      font-size: 0.92rem !important;
       font-weight: 400 !important;
-      margin-bottom: 1.25rem !important;
+      margin-bottom: 1.1rem !important;
       opacity: 0.85 !important;
     }
     
@@ -252,23 +270,23 @@
     /* Logo styling - Compact and clean */
     .logo-container {
       text-align: center !important;
-      margin-bottom: 1.25rem !important;
-      padding: 0.25rem 0 !important;
+      margin-bottom: 1.5rem !important;
+      padding: 0.4rem 0 !important;
     }
 
     .logo-icon {
-      width: 48px !important;
-      height: 48px !important;
+      width: 64px !important;
+      height: 64px !important;
       object-fit: contain !important;
       border-radius: 12px !important;
       filter: brightness(0) invert(1) !important; /* Make logo white */
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28) !important;
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
       transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
 
     .logo-icon:hover {
-      transform: scale(1.03) !important;
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.32) !important;
+      transform: scale(1.02) !important;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.3) !important;
     }
     
     /* NUCLEAR "What is this?" link removal */
@@ -597,27 +615,45 @@
           checkbox.style.width = '16px';
           checkbox.style.height = '16px';
           checkbox.style.margin = '0';
-          checkbox.style.marginRight = '0.6rem';
+          checkbox.style.marginRight = '0.55rem';
           checkbox.style.border = '1px solid rgba(148, 163, 184, 0.35)';
           checkbox.style.borderRadius = '4px';
           checkbox.style.background = 'rgba(15, 23, 42, 0.45)';
         });
-        
+
+        checkboxes.forEach(checkbox => {
+          const container = checkbox.closest('.form-group') || checkbox.parentElement;
+          if (container && !container.dataset.alignedCheckbox) {
+            container.style.display = 'grid';
+            container.style.gridTemplateColumns = 'auto 1fr';
+            container.style.alignItems = 'start';
+            container.style.columnGap = '0.55rem';
+            container.dataset.alignedCheckbox = 'true';
+          }
+
+          const label = container && container.querySelector('label');
+          if (label) {
+            label.style.margin = '0';
+            label.style.lineHeight = '1.3';
+            label.style.fontSize = '0.88rem';
+          }
+        });
+
         // Style any new buttons that B2C injects
         const buttons = document.querySelectorAll('#api button, #api input[type="submit"]');
         buttons.forEach(button => {
           button.style.background = 'linear-gradient(135deg, #6366f1 0%, #7c6cf7 100%)';
-          button.style.border = '1px solid rgba(129, 140, 248, 0.6)';
+          button.style.border = '1px solid rgba(129, 140, 248, 0.7)';
           button.style.borderRadius = '12px';
           button.style.color = '#f8fafc';
-          button.style.padding = '0.9rem 1.25rem';
-          button.style.fontSize = '1rem';
+          button.style.padding = '0.85rem 1.15rem';
+          button.style.fontSize = '0.95rem';
           button.style.fontWeight = '600';
           button.style.width = '100%';
           button.style.cursor = 'pointer';
           button.style.marginTop = '1rem';
           button.style.marginBottom = '1rem';
-          button.style.boxShadow = '0 12px 26px rgba(76, 81, 191, 0.35)';
+          button.style.boxShadow = '0 6px 14px rgba(76, 81, 191, 0.25)';
           button.style.textTransform = 'none';
         });
 
