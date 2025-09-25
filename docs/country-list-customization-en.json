@@ -1,5 +1,20 @@
 {
-  "LocalizedStrings": [],
+  "LocalizedStrings": [
+    {
+      "ElementType": "ClaimType",
+      "ElementId": "surname",
+      "StringId": "DisplayName",
+      "Override": true,
+      "Value": "Surname"
+    },
+    {
+      "ElementType": "ClaimType",
+      "ElementId": "givenName",
+      "StringId": "DisplayName",
+      "Override": true,
+      "Value": "Given Name"
+    }
+  ],
   "LocalizedCollections": [
     {
       "ElementType": "ClaimType",
