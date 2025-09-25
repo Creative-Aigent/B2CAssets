@@ -5,14 +5,14 @@
       "ElementId": "surname",
       "StringId": "DisplayName",
       "Override": true,
-      "Value": "الاسم الأخير"
+      "Value": "اسم العائلة"
     },
     {
       "ElementType": "ClaimType",
       "ElementId": "givenName",
       "StringId": "DisplayName",
       "Override": true,
-      "Value": "الاسم الأول"
+      "Value": "الاسم الشخصي"
     }
   ],
   "LocalizedCollections": [
