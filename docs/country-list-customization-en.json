@@ -5,14 +5,14 @@
       "ElementId": "surname",
       "StringId": "DisplayName",
       "Override": true,
-      "Value": "Surname"
+      "Value": "Lastname"
     },
     {
       "ElementType": "ClaimType",
       "ElementId": "givenName",
       "StringId": "DisplayName",
       "Override": true,
-      "Value": "Given Name"
+      "Value": "Firstname"
     }
   ],
   "LocalizedCollections": [
