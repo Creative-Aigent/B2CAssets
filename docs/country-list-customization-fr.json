@@ -3,7 +3,7 @@
   "LocalizedCollections": [
     {
       "ElementType": "ClaimType",
-      "ElementId": "countryCode",
+      "ElementId": "country",
       "TargetCollection": "Restriction",
       "Override": true,
       "Items": [
