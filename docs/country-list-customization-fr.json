@@ -13,6 +13,34 @@
       "StringId": "DisplayName",
       "Override": true,
       "Value": "Prénom"
+    },
+    {
+      "ElementType": "UxElement",
+      "ElementId": null,
+      "StringId": "disclaimer_link_1_text",
+      "Override": true,
+      "Value": "Politique de confidentialité"
+    },
+    {
+      "ElementType": "UxElement",
+      "ElementId": null,
+      "StringId": "disclaimer_link_1_url",
+      "Override": true,
+      "Value": "https://creativeaigent.com/privacy-policy"
+    },
+    {
+      "ElementType": "UxElement",
+      "ElementId": null,
+      "StringId": "disclaimer_link_2_text",
+      "Override": true,
+      "Value": "Conditions d'utilisation"
+    },
+    {
+      "ElementType": "UxElement",
+      "ElementId": null,
+      "StringId": "disclaimer_link_2_url",
+      "Override": true,
+      "Value": "https://creativeaigent.com/terms-of-service"
     }
   ],
   "LocalizedCollections": [
