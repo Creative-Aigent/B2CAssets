@@ -556,6 +556,7 @@
     - Page layout version must be enabled in B2C
   -->
   <script defer>
+  (function() {
     const HELP_SELECTORS = [
       'a[href*="what"]',
       'a[href*="help"]',
@@ -1167,6 +1168,7 @@
     document.addEventListener('DOMContentLoaded', applyCustomizations);
     document.addEventListener('DOMNodeInserted', applyCustomizations);
     document.addEventListener('DOMSubtreeModified', applyCustomizations);
+  })();
   </script>
 </head>
 <body>
