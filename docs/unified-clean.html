@@ -856,9 +856,52 @@
       }
     }
     
+    function prioritizeCountries() {
+      try {
+        const selects = document.querySelectorAll('#api select');
+        selects.forEach(select => {
+          if (select.dataset.prioritized) return;
+          const options = Array.from(select.options);
+          if (options.length < 10) return;
+          const priorityCodes = ['US', 'CA', 'GB', 'FR', 'ES', 'AE'];
+          const priorityOptions = [];
+          priorityCodes.forEach(code => {
+            const opt = options.find(o => o.value === code || o.value === '+' + code ||
+              o.textContent.match(/\(\+1\)/) && code === 'US' ||
+              o.textContent.match(/United States/i) && code === 'US' ||
+              o.textContent.match(/Canada/i) && code === 'CA' ||
+              o.textContent.match(/United Kingdom/i) && code === 'GB' ||
+              o.textContent.match(/France/i) && code === 'FR' ||
+              o.textContent.match(/Spain|España/i) && code === 'ES' ||
+              o.textContent.match(/United Arab Emirates/i) && code === 'AE');
+            if (opt) priorityOptions.push(opt);
+          });
+          if (priorityOptions.length === 0) return;
+          const currentValue = select.value;
+          const separator = document.createElement('option');
+          separator.disabled = true;
+          separator.textContent = '────────────';
+          separator.style.color = 'rgba(148,163,184,0.4)';
+          const placeholder = options.find(o => !o.value || o.value === '' || o.disabled);
+          while (select.firstChild) select.removeChild(select.firstChild);
+          if (placeholder) select.appendChild(placeholder);
+          priorityOptions.forEach(opt => select.appendChild(opt));
+          select.appendChild(separator);
+          options.forEach(opt => {
+            if (!priorityOptions.includes(opt) && opt !== placeholder) select.appendChild(opt);
+          });
+          select.value = currentValue;
+          select.dataset.prioritized = 'true';
+        });
+      } catch (e) {
+        console.warn('Country priority error:', e);
+      }
+    }
+
      function applyCustomizations() {
        forceDarkTheme();
        removeHelpLinks();
+       prioritizeCountries();
        ensureProfessionalLayout();
      }
      
