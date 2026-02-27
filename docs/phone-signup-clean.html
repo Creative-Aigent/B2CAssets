@@ -747,36 +747,28 @@
     function prioritizeCountries() {
       try {
         const selects = document.querySelectorAll('#api select');
-        selects.forEach(select => {
+        selects.forEach(function(select) {
           if (select.dataset.prioritized) return;
-          const options = Array.from(select.options);
-          if (options.length < 10) return;
-          const priorityCodes = ['US', 'CA', 'GB', 'FR', 'ES', 'AE'];
-          const priorityOptions = [];
-          priorityCodes.forEach(code => {
-            const opt = options.find(o => o.value === code || o.value === '+' + code ||
-              o.textContent.match(/\(\+1\)/) && code === 'US' ||
-              o.textContent.match(/United States/i) && code === 'US' ||
-              o.textContent.match(/Canada/i) && code === 'CA' ||
-              o.textContent.match(/United Kingdom/i) && code === 'GB' ||
-              o.textContent.match(/France/i) && code === 'FR' ||
-              o.textContent.match(/Spain|España/i) && code === 'ES' ||
-              o.textContent.match(/United Arab Emirates/i) && code === 'AE');
-            if (opt) priorityOptions.push(opt);
+          var opts = Array.from(select.options);
+          if (opts.length < 10) return;
+          var names = ['United States', 'Canada', 'United Kingdom', 'France', 'Spain', 'United Arab Emirates'];
+          var priority = [];
+          names.forEach(function(name) {
+            var opt = opts.find(function(o) { return o.textContent.indexOf(name) >= 0; });
+            if (opt) priority.push(opt);
           });
-          if (priorityOptions.length === 0) return;
-          const currentValue = select.value;
-          const separator = document.createElement('option');
-          separator.disabled = true;
-          separator.textContent = '────────────';
-          separator.style.color = 'rgba(148,163,184,0.4)';
-          const placeholder = options.find(o => !o.value || o.value === '' || o.disabled);
+          if (priority.length === 0) return;
+          var currentValue = select.value;
+          var placeholder = opts.find(function(o) { return !o.value || o.value === ''; });
           while (select.firstChild) select.removeChild(select.firstChild);
           if (placeholder) select.appendChild(placeholder);
-          priorityOptions.forEach(opt => select.appendChild(opt));
-          select.appendChild(separator);
-          options.forEach(opt => {
-            if (!priorityOptions.includes(opt) && opt !== placeholder) select.appendChild(opt);
+          priority.forEach(function(opt) { select.appendChild(opt); });
+          var sep = document.createElement('option');
+          sep.disabled = true;
+          sep.textContent = '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500';
+          select.appendChild(sep);
+          opts.forEach(function(opt) {
+            if (priority.indexOf(opt) < 0 && opt !== placeholder) select.appendChild(opt);
           });
           select.value = currentValue;
           select.dataset.prioritized = 'true';
