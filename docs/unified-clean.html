@@ -47,17 +47,16 @@
     #api::before {
       content: "" !important;
       display: block !important;
-      width: 64px !important;
-      height: 64px !important;
+      width: 160px !important;
+      height: 44px !important;
       margin: 0 auto 1.25rem auto !important;
-      background-image: url('https://creative-aigent.github.io/B2CAssets/icon-512.png') !important;
+      background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
       background-repeat: no-repeat !important;
       background-position: center center !important;
       background-size: contain !important;
-      border-radius: 12px !important;
+      border-radius: 0px !important;
       pointer-events: none !important;
-      filter: brightness(0) invert(1) !important;
-      opacity: 0.98 !important;
+      opacity: 1 !important;
     }
     
     /* Form elements - Professional styling */
@@ -125,7 +124,7 @@
       height: 16px !important;
       margin: 0 !important;
       margin-right: 0.55rem !important;
-      accent-color: #6366f1 !important;
+      accent-color: #2563eb !important;
       display: inline-block !important;
       vertical-align: middle !important;
       border: 1px solid rgba(148, 163, 184, 0.35) !important;
@@ -167,7 +166,7 @@
       margin-left: 0 !important;
     }
     
-    /* Hide any "Creative Aigent" text that might appear */
+    /* Hide any "AIMAN" text that might appear */
     #api .logo-text, #api .brand-text, #api .company-name {
       display: none !important;
     }
@@ -235,8 +234,8 @@
     
     /* Buttons - Professional styling */
     #api button, #api input[type="submit"] {
-      background: linear-gradient(135deg, #6366f1 0%, #7c6cf7 100%) !important;
-      border: 1px solid rgba(129, 140, 248, 0.7) !important;
+      background: linear-gradient(135deg, #2563eb 0%, #9333ea 100%) !important;
+      border: 1px solid rgba(59, 130, 246, 0.5) !important;
       border-radius: 12px !important;
       color: #f8fafc !important;
       padding: 1rem 1.5rem !important;
@@ -246,7 +245,7 @@
       cursor: pointer !important;
       margin-top: 1.5rem !important;
       margin-bottom: 1rem !important;
-      box-shadow: 0 6px 14px rgba(76, 81, 191, 0.25) !important;
+      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.3) !important;
       transition: background 0.2s ease, box-shadow 0.2s ease !important;
       letter-spacing: 0.2px !important;
       text-transform: none !important;
@@ -254,8 +253,8 @@
     }
 
     #api button:hover, #api input[type="submit"]:hover {
-      background: linear-gradient(135deg, #6f79f8 0%, #8f7cfd 100%) !important;
-      box-shadow: 0 8px 18px rgba(76, 81, 191, 0.32) !important;
+      background: linear-gradient(135deg, #1d4ed8 0%, #7e22ce 100%) !important;
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.4) !important;
     }
 
     #api button:active, #api input[type="submit"]:active {
@@ -326,14 +325,14 @@
     
     /* Fallback logo if image fails to load */
     .logo-container::after {
-      content: 'CA' !important;
+      content: 'A' !important;
       position: absolute !important;
       top: 50% !important;
       left: 50% !important;
       transform: translate(-50%, -50%) !important;
       width: 64px !important;
       height: 64px !important;
-      background: #6366f1 !important;
+      background: #2563eb !important;
       color: white !important;
       display: flex !important;
       align-items: center !important;
@@ -361,10 +360,10 @@
     }
 
     .logo-icon {
-      width: 64px !important;
-      height: 64px !important;
+      width: 160px !important;
+      height: 44px !important;
       object-fit: contain !important;
-      border-radius: 12px !important;
+      border-radius: 0 !important;
       box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
       transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
@@ -529,10 +528,10 @@
     }
     
     .logo-icon {
-      width: 64px !important;
-      height: 64px !important;
+      width: 160px !important;
+      height: 44px !important;
       object-fit: contain !important;
-      border-radius: 12px !important;
+      border-radius: 0 !important;
       filter: brightness(0) invert(1) !important;
       box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
       transition: transform 0.2s ease, box-shadow 0.2s ease !important;
@@ -542,20 +541,7 @@
       transform: scale(1.02) !important;
       box-shadow: 0 14px 30px rgba(15, 23, 42, 0.3) !important;
     }
-    
-    /* CSS-Only Test Element */
-    .css-test-element {
-      background: #10b981 !important;
-      color: white !important;
-      padding: 12px !important;
-      margin: 15px 0 !important;
-      text-align: center !important;
-      border-radius: 8px !important;
-      font-weight: bold !important;
-      font-size: 14px !important;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
-      border: 2px solid #059669 !important;
-    }
+
   </style>
   
   <!-- B2C Compliant JavaScript in head with defer -->
@@ -850,8 +836,8 @@
         // Style any new buttons that B2C injects
         const buttons = document.querySelectorAll('#api button, #api input[type="submit"]');
         buttons.forEach(button => {
-          button.style.background = 'linear-gradient(135deg, #6366f1 0%, #7c6cf7 100%)';
-          button.style.border = '1px solid rgba(129, 140, 248, 0.7)';
+          button.style.background = 'linear-gradient(135deg, #2563eb 0%, #9333ea 100%)';
+          button.style.border = '1px solid rgba(59, 130, 246, 0.5)';
           button.style.borderRadius = '12px';
           button.style.color = '#f8fafc';
           button.style.padding = '0.85rem 1.15rem';
@@ -861,7 +847,7 @@
           button.style.cursor = 'pointer';
           button.style.marginTop = '1rem';
           button.style.marginBottom = '1rem';
-          button.style.boxShadow = '0 6px 14px rgba(76, 81, 191, 0.25)';
+          button.style.boxShadow = '0 6px 14px rgba(59, 130, 246, 0.3)';
           button.style.textTransform = 'none';
         });
 
@@ -890,10 +876,10 @@
             logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important;';
              
              const logoImg = document.createElement('img');
-            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png';
-             logoImg.alt = 'Creative Aigent';
+            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg';
+             logoImg.alt = 'AIMAN';
              logoImg.className = 'logo-icon';
-            logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important;';
+            logoImg.style.cssText = 'width: 160px !important; height: 44px !important; object-fit: contain !important; border-radius: 0 !important;';
              
              logoContainer.appendChild(logoImg);
            }
@@ -947,7 +933,7 @@
          const unwantedTexts = document.querySelectorAll('#api *');
          unwantedTexts.forEach(element => {
            if (element.textContent && (
-             element.textContent.includes('Creative Aigent') ||
+             element.textContent.includes('AIMAN') ||
              element.textContent.includes('What is this?') ||
              element.textContent.includes('Help')
            )) {
@@ -972,38 +958,12 @@
        }
      }
 
-    // Add a test element to verify JavaScript is running
-    function addTestElement() {
-      const api = document.getElementById('api');
-      if (api) {
-        // Remove any existing test element
-        const existingTest = api.querySelector('.js-test-element');
-        if (existingTest) {
-          existingTest.remove();
-        }
-        
-        // Create a new test element
-        const testElement = document.createElement('div');
-        testElement.className = 'js-test-element';
-        testElement.style.cssText = 'background: green !important; color: white !important; padding: 10px !important; margin: 10px 0 !important; text-align: center !important; border-radius: 5px !important; font-weight: bold !important;';
-        testElement.textContent = '✅ JavaScript is running! Logo should appear above this.';
-        
-        // Insert after logo or at the beginning
-        const logoContainer = api.querySelector('.logo-container');
-        if (logoContainer) {
-          logoContainer.insertAdjacentElement('afterend', testElement);
-        } else {
-          api.insertBefore(testElement, api.firstChild);
-        }
-      }
-    }
+
     
     // Run immediately and on load
     applyCustomizations();
-    addTestElement();
     window.addEventListener('load', () => {
       applyCustomizations();
-      addTestElement();
     });
     
     // Immediate logo check and creation
@@ -1019,21 +979,21 @@
           console.log('Creating logo immediately...');
           logoContainer = document.createElement('div');
           logoContainer.className = 'logo-container';
-          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important; background: red !important; border: 2px solid yellow !important;';
+          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important;';
 
           const logoImg = document.createElement('img');
-          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
-          logoImg.alt = 'Creative Aigent';
+          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg?v=' + Date.now();
+          logoImg.alt = 'AIMAN';
           logoImg.className = 'logo-icon';
-          logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important; display: block !important; visibility: visible !important; margin: 0 auto !important; background: blue !important; border: 2px solid green !important;';
+          logoImg.style.cssText = 'width: 160px !important; height: 44px !important; object-fit: contain !important; border-radius: 0 !important; display: block !important; visibility: visible !important; margin: 0 auto !important;';
 
           // Add comprehensive error handling for image loading
           logoImg.onerror = function() {
             console.error('Logo image failed to load:', logoImg.src);
             // Create a fallback text logo
             const fallbackText = document.createElement('div');
-            fallbackText.textContent = 'CA';
-            fallbackText.style.cssText = 'width: 64px !important; height: 64px !important; background: #6366f1 !important; color: white !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 12px !important; font-weight: bold !important; font-size: 24px !important; margin: 0 auto !important;';
+            fallbackText.textContent = 'A';
+            fallbackText.style.cssText = 'width: 160px !important; height: 44px !important; background: #2563eb !important; color: white !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 0 !important; font-weight: bold !important; font-size: 24px !important; margin: 0 auto !important;';
             logoContainer.appendChild(fallbackText);
           };
 
@@ -1064,7 +1024,7 @@
           logoContainer.style.visibility = 'visible';
           const logoImg = logoContainer.querySelector('.logo-icon');
           if (logoImg) {
-            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
+            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg?v=' + Date.now();
           }
         }
       } else {
@@ -1115,21 +1075,21 @@
           console.log('Logo missing, recreating...');
           logoContainer = document.createElement('div');
           logoContainer.className = 'logo-container';
-          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important; background: red !important; border: 2px solid yellow !important;';
+          logoContainer.style.cssText = 'text-align: center !important; margin-bottom: 1.5rem !important; padding: 0.4rem 0 !important; display: block !important; visibility: visible !important;';
           
           const logoImg = document.createElement('img');
-          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
-          logoImg.alt = 'Creative Aigent';
+          logoImg.src = 'https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg?v=' + Date.now();
+          logoImg.alt = 'AIMAN';
           logoImg.className = 'logo-icon';
-          logoImg.style.cssText = 'width: 64px !important; height: 64px !important; object-fit: contain !important; border-radius: 12px !important; display: block !important; visibility: visible !important; margin: 0 auto !important; background: blue !important; border: 2px solid green !important;';
+          logoImg.style.cssText = 'width: 160px !important; height: 44px !important; object-fit: contain !important; border-radius: 0 !important; display: block !important; visibility: visible !important; margin: 0 auto !important;';
           
           // Add comprehensive error handling
           logoImg.onerror = function() {
             console.error('Logo image failed to load:', logoImg.src);
             // Create a fallback text logo
             const fallbackText = document.createElement('div');
-            fallbackText.textContent = 'CA';
-            fallbackText.style.cssText = 'width: 64px !important; height: 64px !important; background: #6366f1 !important; color: white !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 12px !important; font-weight: bold !important; font-size: 24px !important; margin: 0 auto !important;';
+            fallbackText.textContent = 'A';
+            fallbackText.style.cssText = 'width: 160px !important; height: 44px !important; background: #2563eb !important; color: white !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 0 !important; font-weight: bold !important; font-size: 24px !important; margin: 0 auto !important;';
             logoContainer.appendChild(fallbackText);
           };
           
@@ -1160,7 +1120,7 @@
           if (logoImg) {
             logoImg.style.display = 'block';
             logoImg.style.visibility = 'visible';
-            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/icon-512.png?v=' + Date.now();
+            logoImg.src = 'https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg?v=' + Date.now();
           }
         }
       }
@@ -1175,15 +1135,11 @@
 <body>
   <!-- B2C Required API Container -->
   <div id="api">
-    <!-- Creative Aigent Logo - Inside the card -->
+    <!-- AIMAN Logo - Inside the card -->
     <div class="logo-container">
-      <img src="https://creative-aigent.github.io/B2CAssets/icon-512.png" alt="Creative Aigent" class="logo-icon" />
+      <img src="https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg" alt="AIMAN" class="logo-icon" />
     </div>
-    
-    <!-- CSS-ONLY TEST ELEMENT - No JavaScript required -->
-    <div class="css-test-element">
-      ✅ CSS-Only Test: This page is loading correctly!
-    </div>
+
   </div>
 </body>
 </html>

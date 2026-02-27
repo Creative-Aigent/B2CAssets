@@ -47,17 +47,16 @@
     #api::before {
       content: "" !important;
       display: block !important;
-      width: 64px !important;
-      height: 64px !important;
+      width: 160px !important;
+      height: 44px !important;
       margin: 0 auto 1.25rem auto !important;
-      background-image: url('https://creative-aigent.github.io/B2CAssets/icon-512.png') !important;
+      background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
       background-repeat: no-repeat !important;
       background-position: center center !important;
       background-size: contain !important;
-      border-radius: 12px !important;
+      border-radius: 0px !important;
       pointer-events: none !important;
-      filter: brightness(0) invert(1) !important;
-      opacity: 0.98 !important;
+      opacity: 1 !important;
     }
     
     /* Form elements - Professional styling */
@@ -125,7 +124,7 @@
       height: 16px !important;
       margin: 0 !important;
       margin-right: 0.55rem !important;
-      accent-color: #6366f1 !important;
+      accent-color: #2563eb !important;
       display: inline-block !important;
       vertical-align: middle !important;
       border: 1px solid rgba(148, 163, 184, 0.35) !important;
@@ -222,8 +221,8 @@
     
     /* Buttons - Professional styling */
     #api button, #api input[type="submit"] {
-      background: linear-gradient(135deg, #6366f1 0%, #7c6cf7 100%) !important;
-      border: 1px solid rgba(129, 140, 248, 0.7) !important;
+      background: linear-gradient(135deg, #2563eb 0%, #9333ea 100%) !important;
+      border: 1px solid rgba(59, 130, 246, 0.5) !important;
       border-radius: 12px !important;
       color: #f8fafc !important;
       padding: 1rem 1.5rem !important;
@@ -233,7 +232,7 @@
       cursor: pointer !important;
       margin-top: 1.5rem !important;
       margin-bottom: 1rem !important;
-      box-shadow: 0 6px 14px rgba(76, 81, 191, 0.25) !important;
+      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.3) !important;
       transition: background 0.2s ease, box-shadow 0.2s ease !important;
       letter-spacing: 0.2px !important;
       text-transform: none !important;
@@ -241,8 +240,8 @@
     }
 
     #api button:hover, #api input[type="submit"]:hover {
-      background: linear-gradient(135deg, #6f79f8 0%, #8f7cfd 100%) !important;
-      box-shadow: 0 8px 18px rgba(76, 81, 191, 0.32) !important;
+      background: linear-gradient(135deg, #1d4ed8 0%, #7e22ce 100%) !important;
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.4) !important;
     }
 
     #api button:active, #api input[type="submit"]:active {
@@ -702,8 +701,8 @@
         // Style any new buttons that B2C injects
         const buttons = document.querySelectorAll('#api button, #api input[type="submit"]');
         buttons.forEach(button => {
-          button.style.background = 'linear-gradient(135deg, #6366f1 0%, #7c6cf7 100%)';
-          button.style.border = '1px solid rgba(129, 140, 248, 0.7)';
+          button.style.background = 'linear-gradient(135deg, #2563eb 0%, #9333ea 100%)';
+          button.style.border = '1px solid rgba(59, 130, 246, 0.5)';
           button.style.borderRadius = '12px';
           button.style.color = '#f8fafc';
           button.style.padding = '0.85rem 1.15rem';
@@ -713,7 +712,7 @@
           button.style.cursor = 'pointer';
           button.style.marginTop = '1rem';
           button.style.marginBottom = '1rem';
-          button.style.boxShadow = '0 6px 14px rgba(76, 81, 191, 0.25)';
+          button.style.boxShadow = '0 6px 14px rgba(59, 130, 246, 0.3)';
           button.style.textTransform = 'none';
         });
 

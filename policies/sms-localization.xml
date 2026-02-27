@@ -1,0 +1,68 @@
+<!--
+  AIMAN B2C SMS Localization Template
+  ====================================
+  
+  Add this <Localization> block to your TrustFrameworkExtensions.xml or
+  relying-party policy inside the relevant <ContentDefinition> for
+  api.phonefactor.
+
+  The {0} placeholder is replaced by the OTP code at runtime.
+  B2C selects the language based on the `ui_locales` query parameter
+  or the user's browser Accept-Language header.
+
+  Azure Portal path:
+    Identity Experience Framework → Custom policies → TrustFrameworkExtensions.xml
+-->
+
+<Localization Enabled="true">
+  <SupportedLanguages DefaultLanguage="en" MergeBehavior="ReplaceAll">
+    <SupportedLanguage>en</SupportedLanguage>
+    <SupportedLanguage>fr</SupportedLanguage>
+    <SupportedLanguage>es</SupportedLanguage>
+    <SupportedLanguage>ar</SupportedLanguage>
+  </SupportedLanguages>
+
+  <!-- English -->
+  <LocalizedResources Id="api.phonefactor.en">
+    <LocalizedStrings>
+      <LocalizedString ElementType="UxElement" StringId="ver_sms_body">Your AIMAN verification code is: {0}</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_send">Send code</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_resend">Send new code</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_verify">Verify code</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_info_msg">A verification code has been sent to your phone.</LocalizedString>
+    </LocalizedStrings>
+  </LocalizedResources>
+
+  <!-- French -->
+  <LocalizedResources Id="api.phonefactor.fr">
+    <LocalizedStrings>
+      <LocalizedString ElementType="UxElement" StringId="ver_sms_body">Votre code de vérification AIMAN est : {0}</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_send">Envoyer le code</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_resend">Renvoyer le code</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_verify">Vérifier le code</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_info_msg">Un code de vérification a été envoyé à votre téléphone.</LocalizedString>
+    </LocalizedStrings>
+  </LocalizedResources>
+
+  <!-- Spanish -->
+  <LocalizedResources Id="api.phonefactor.es">
+    <LocalizedStrings>
+      <LocalizedString ElementType="UxElement" StringId="ver_sms_body">Tu código de verificación AIMAN es: {0}</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_send">Enviar código</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_resend">Reenviar código</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_verify">Verificar código</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_info_msg">Se ha enviado un código de verificación a tu teléfono.</LocalizedString>
+    </LocalizedStrings>
+  </LocalizedResources>
+
+  <!-- Arabic -->
+  <LocalizedResources Id="api.phonefactor.ar">
+    <LocalizedStrings>
+      <LocalizedString ElementType="UxElement" StringId="ver_sms_body">رمز التحقق الخاص بك من AIMAN هو: {0}</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_send">إرسال الرمز</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_resend">إرسال رمز جديد</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_but_verify">التحقق من الرمز</LocalizedString>
+      <LocalizedString ElementType="UxElement" StringId="ver_info_msg">تم إرسال رمز التحقق إلى هاتفك.</LocalizedString>
+    </LocalizedStrings>
+  </LocalizedResources>
+</Localization>
