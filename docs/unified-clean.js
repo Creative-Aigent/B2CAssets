@@ -452,13 +452,16 @@
            }
          });
          
-         // B2C compliant: style links — force remove underlines
+         // B2C compliant: style links — force remove underlines, borders, outlines
          const links = document.querySelectorAll('#api a');
          links.forEach(link => {
-           link.style.color = '#c4b5fd';
-           link.style.textDecoration = 'none';
-           link.style.borderBottom = 'none';
+           link.style.setProperty('color', '#c4b5fd', 'important');
            link.style.setProperty('text-decoration', 'none', 'important');
+           link.style.setProperty('border', 'none', 'important');
+           link.style.setProperty('border-bottom', 'none', 'important');
+           link.style.setProperty('outline', 'none', 'important');
+           link.style.setProperty('box-shadow', 'none', 'important');
+           link.style.setProperty('background', 'transparent', 'important');
          });
          
        } catch (e) {

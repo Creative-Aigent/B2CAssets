@@ -367,22 +367,31 @@
     #api a:visited,
     #api a:hover,
     #api a:active,
+    #api a:focus,
     #api p a,
     #api div a,
     #api .create a,
     #api .options a,
-    body #api a {
+    body #api a,
+    body #api a:link,
+    body #api a:visited {
       color: #c4b5fd !important;
       text-decoration: none !important;
       -webkit-text-decoration: none !important;
+      border: none !important;
       border-bottom: none !important;
+      outline: none !important;
+      box-shadow: none !important;
       text-underline-offset: unset !important;
+      background: transparent !important;
       transition: color 0.2s ease !important;
     }
 
     #api a:hover {
       color: #a78bfa !important;
       text-decoration: none !important;
+      border: none !important;
+      border-bottom: none !important;
     }
 
     /* "Sign up now" link styled as action */
