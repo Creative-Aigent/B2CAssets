@@ -1,23 +1,58 @@
-/* AIMAN B2C Unified Sign-in/Sign-up — v5 compact, no-scroll */
+/* AIMAN B2C Unified Sign-in/Sign-up — v6 professional redesign */
 
-/* ── Reset & Base ── */
-* { box-sizing: border-box; }
+/* ── Design tokens ── */
+:root {
+  --brand: #7c5cfc;
+  --brand-hover: #6a4de8;
+  --brand-glow: rgba(124, 92, 252, 0.25);
+  --brand-subtle: rgba(124, 92, 252, 0.08);
+  --surface: rgba(15, 20, 35, 0.65);
+  --surface-hover: rgba(15, 20, 35, 0.8);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(124, 92, 252, 0.5);
+  --text-primary: #f0f0f5;
+  --text-secondary: rgba(180, 190, 210, 0.7);
+  --text-muted: rgba(150, 160, 180, 0.4);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
 
+/* ── Reset ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Page background ── */
 html, body {
-  background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-  background-color: #0b0f1a !important;
+  background: #080c14 !important;
   margin: 0 !important;
   padding: 0 !important;
   height: 100vh !important;
   overflow: hidden !important;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
 }
 
-/* ── Force all B2C wrapper containers dark + centered ── */
+/* Subtle radial glow behind the card */
+body::before {
+  content: "" !important;
+  position: fixed !important;
+  top: 35% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 600px !important;
+  height: 600px !important;
+  background: radial-gradient(circle, rgba(124, 92, 252, 0.06) 0%, transparent 70%) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* ── B2C wrapper containers ── */
 .ext-container, .ext-container-margin, .ext-container-padding,
 [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
-  background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-  background-color: #0b0f1a !important;
+  background: transparent !important;
+  background-color: #080c14 !important;
   height: 100% !important;
   display: flex !important;
   align-items: center !important;
@@ -26,25 +61,31 @@ html, body {
 
 /* ── Card ── */
 #api {
-  background: rgba(17, 25, 40, 0.85) !important;
-  backdrop-filter: blur(20px) !important;
-  border: none !important;
-  border-radius: 16px !important;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
-  padding: 1.75rem 2rem !important;
-  max-width: 380px !important;
-  width: 90vw !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: rgba(12, 16, 28, 0.8) !important;
+  backdrop-filter: blur(40px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(1.2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 20px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 80px -20px rgba(124, 92, 252, 0.08) !important;
+  padding: 2.5rem 2.25rem 2rem !important;
+  max-width: 400px !important;
+  width: 92vw !important;
   margin: auto !important;
   overflow: visible !important;
 }
 
-/* ── Logo via CSS pseudo-element (survives B2C DOM replacement) ── */
+/* ── Logo ── */
 #api::before {
   content: "" !important;
   display: block !important;
-  width: 120px !important;
-  height: 40px !important;
-  margin: 0 auto 1rem auto !important;
+  width: 130px !important;
+  height: 44px !important;
+  margin: 0 auto 1.25rem auto !important;
   background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -52,32 +93,34 @@ html, body {
   border: none !important;
   box-shadow: none !important;
   pointer-events: none !important;
+  opacity: 0.95 !important;
 }
 
-/* ── Hide "Sign in" h1 heading (subtitle is enough) ── */
+/* ── Hide h1 heading ── */
 #api h1 {
   display: none !important;
 }
 
-/* ── Subtitle: "Sign in with your phone number" ── */
+/* ── Subtitle ── */
 #api h2 {
-  color: rgba(226, 232, 240, 0.8) !important;
-  font-size: 0.88rem !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
   font-weight: 400 !important;
-  margin: 0 0 1rem 0 !important;
-  line-height: 1.4 !important;
+  margin: 0 0 1.5rem 0 !important;
+  line-height: 1.5 !important;
   text-align: center !important;
+  letter-spacing: 0.01em !important;
 }
 
-/* ── Form labels ── */
+/* ── Labels ── */
 #api label {
   display: block !important;
-  margin-bottom: 0.35rem !important;
-  font-weight: 600 !important;
-  color: #e2e8f0 !important;
-  font-size: 0.82rem !important;
+  margin-bottom: 0.4rem !important;
+  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.8rem !important;
   text-transform: none !important;
-  letter-spacing: 0 !important;
+  letter-spacing: 0.02em !important;
   line-height: 1.3 !important;
 }
 
@@ -85,36 +128,39 @@ html, body {
   content: "" !important;
 }
 
-/* ── Text inputs ── */
+/* ── Inputs ── */
 #api input[type="text"],
 #api input[type="tel"],
 #api input[type="email"],
 #api input[type="password"],
 #api select {
-  background: rgba(15, 23, 42, 0.55) !important;
-  border: 1px solid rgba(148, 163, 184, 0.25) !important;
-  border-radius: 10px !important;
-  color: #f1f5f9 !important;
-  padding: 0.75rem 1rem !important;
-  font-size: 0.9rem !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  padding: 0.8rem 1rem !important;
+  font-size: 0.9375rem !important;
+  font-weight: 400 !important;
   width: 100% !important;
   margin-bottom: 0 !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-sizing: border-box !important;
+  -webkit-appearance: none !important;
 }
 
 #api input:focus, #api select:focus {
   outline: none !important;
-  border: 1px solid rgba(108, 79, 240, 0.6) !important;
-  box-shadow: 0 0 0 3px rgba(108, 79, 240, 0.2) !important;
-  background: rgba(15, 23, 42, 0.7) !important;
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 0 3px var(--brand-glow) !important;
+  background: var(--surface-hover) !important;
 }
 
 #api input::placeholder, #api select::placeholder {
-  color: rgba(203, 213, 225, 0.55) !important;
+  color: var(--text-muted) !important;
+  font-weight: 400 !important;
 }
 
-/* ── Custom dark checkbox ── */
+/* ── Checkbox ── */
 #api input[type="checkbox"] {
   -webkit-appearance: none !important;
   appearance: none !important;
@@ -124,17 +170,17 @@ html, body {
   margin: 0 0.5rem 0 0 !important;
   display: inline-block !important;
   vertical-align: middle !important;
-  border: 1.5px solid rgba(148, 163, 184, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 4px !important;
-  background: rgba(15, 23, 42, 0.5) !important;
+  background: var(--surface) !important;
   cursor: pointer !important;
   position: relative !important;
-  transition: background 0.15s ease, border-color 0.15s ease !important;
+  transition: all 0.15s ease !important;
 }
 
 #api input[type="checkbox"]:checked {
-  background: #6c4ff0 !important;
-  border-color: #6c4ff0 !important;
+  background: var(--brand) !important;
+  border-color: var(--brand) !important;
 }
 
 #api input[type="checkbox"]:checked::after {
@@ -145,29 +191,30 @@ html, body {
   width: 5px !important;
   height: 8px !important;
   border: solid white !important;
-  border-width: 0 2px 2px 0 !important;
+  border-width: 0 1.5px 1.5px 0 !important;
   transform: rotate(45deg) !important;
 }
 
 #api input[type="checkbox"]:hover {
-  border-color: rgba(108, 79, 240, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Checkbox label inline */
+/* Checkbox label */
 #api label[for*="checkbox"],
 #api label:has(input[type="checkbox"]),
 #api input[type="checkbox"] + label {
   display: inline-flex !important;
   align-items: center !important;
   margin: 0 !important;
-  font-size: 0.82rem !important;
-  font-weight: 500 !important;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
+  color: var(--text-muted) !important;
   cursor: pointer !important;
 }
 
-/* ── Form group spacing ── */
+/* ── Form groups ── */
 #api .form-group, #api .form-item {
-  margin-bottom: 0.6rem !important;
+  margin-bottom: 0.75rem !important;
 }
 
 #api .form-group:has(input[type="checkbox"]) {
@@ -176,58 +223,72 @@ html, body {
   margin-bottom: 0.25rem !important;
 }
 
-/* ── Primary button (Sign in) ── */
+/* ── Primary CTA (Sign in) ── */
 #api button, #api input[type="submit"] {
-  background: #6c4ff0 !important;
+  background: linear-gradient(180deg, #7c5cfc 0%, #6a4de8 100%) !important;
   border: none !important;
-  border-radius: 10px !important;
-  color: #f8fafc !important;
-  padding: 0.75rem 1.25rem !important;
-  font-size: 0.92rem !important;
+  border-radius: var(--radius-md) !important;
+  color: #fff !important;
+  padding: 0.8rem 1.25rem !important;
+  font-size: 0.9375rem !important;
   font-weight: 600 !important;
   width: 100% !important;
   cursor: pointer !important;
-  margin-top: 0.75rem !important;
-  margin-bottom: 0.5rem !important;
-  box-shadow: 0 4px 12px rgba(108, 79, 240, 0.3) !important;
-  transition: background 0.2s ease, box-shadow 0.2s ease !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0 !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 4px 16px rgba(124, 92, 252, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   text-transform: none !important;
-  letter-spacing: 0.2px !important;
+  letter-spacing: 0.01em !important;
   box-sizing: border-box !important;
+  position: relative !important;
 }
 
 #api button:hover, #api input[type="submit"]:hover {
-  background: #5b3dd4 !important;
-  box-shadow: 0 6px 16px rgba(108, 79, 240, 0.4) !important;
+  background: linear-gradient(180deg, #8b6dff 0%, #7558f0 100%) !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(124, 92, 252, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-1px) !important;
 }
 
 #api button:active, #api input[type="submit"]:active {
-  box-shadow: 0 2px 8px rgba(108, 79, 240, 0.25) !important;
+  transform: translateY(0) !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(124, 92, 252, 0.15) !important;
 }
 
 /* ── OR divider ── */
 #api .divider {
   display: flex !important;
   align-items: center !important;
-  gap: 0.6rem !important;
-  margin: 0.6rem 0 !important;
+  gap: 1rem !important;
+  margin: 1.25rem 0 !important;
+  padding: 0 0.25rem !important;
 }
 
 #api .divider::before,
 #api .divider::after {
   content: "" !important;
   flex: 1 !important;
-  border-top: 1px solid rgba(148, 163, 184, 0.1) !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, var(--border), transparent) !important;
+  border: none !important;
 }
 
 #api .divider h2,
 #api .divider span,
 #api .divider p {
-  font-size: 0.68rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 1.5px !important;
+  font-size: 0.65rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: rgba(148, 163, 184, 0.4) !important;
+  color: var(--text-muted) !important;
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1 !important;
@@ -235,36 +296,36 @@ html, body {
   text-align: center !important;
 }
 
-/* ── "Don't have an account?" section ── */
+/* ── "Don't have an account?" ── */
 #api .create {
   text-align: center !important;
-  margin: 0.25rem 0 0 0 !important;
+  margin: 0 !important;
 }
 
 #api .create p {
-  color: rgba(148, 163, 184, 0.6) !important;
-  font-size: 0.78rem !important;
-  margin: 0 0 0.5rem 0 !important;
+  color: var(--text-muted) !important;
+  font-size: 0.8rem !important;
+  margin: 0 0 0.6rem 0 !important;
   font-weight: 400 !important;
   text-align: center !important;
 }
 
-/* ── "Sign up now" link as ghost button ── */
+/* ── Sign Up — subtle secondary button ── */
 #api .create a,
 #api #createAccount {
   display: block !important;
   width: 100% !important;
   padding: 0.7rem 1rem !important;
   background: transparent !important;
-  border: 1.5px solid rgba(108, 79, 240, 0.4) !important;
-  border-radius: 10px !important;
-  color: #c4b5fd !important;
-  font-size: 0.92rem !important;
-  font-weight: 600 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
   text-align: center !important;
   text-decoration: none !important;
   cursor: pointer !important;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-sizing: border-box !important;
   margin: 0 !important;
   box-shadow: none !important;
@@ -273,51 +334,55 @@ html, body {
 
 #api .create a:hover,
 #api #createAccount:hover {
-  background: rgba(108, 79, 240, 0.08) !important;
-  border-color: rgba(108, 79, 240, 0.65) !important;
-  color: #e2d6ff !important;
+  background: var(--brand-subtle) !important;
+  border-color: rgba(124, 92, 252, 0.25) !important;
+  color: var(--text-primary) !important;
   text-decoration: none !important;
 }
 
-/* ── Sign Up button variant (if B2C renders as <button>) ── */
+/* If B2C renders Sign Up as <button> */
 #api button#createAccount,
 #api button.accountButton,
 #api #signup {
   background: transparent !important;
-  border: 1.5px solid rgba(108, 79, 240, 0.4) !important;
-  color: #c4b5fd !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-secondary) !important;
   box-shadow: none !important;
   margin-top: 0 !important;
+  font-weight: 500 !important;
 }
 
 #api button#createAccount:hover,
 #api button.accountButton:hover,
 #api #signup:hover {
-  background: rgba(108, 79, 240, 0.08) !important;
-  border-color: rgba(108, 79, 240, 0.65) !important;
-  color: #e2d6ff !important;
+  background: var(--brand-subtle) !important;
+  border-color: rgba(124, 92, 252, 0.25) !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
-/* ── "Change Phone Number" — tiny muted link ── */
+/* ── "Change Phone Number" — utility link ── */
 #api .options {
   text-align: center !important;
-  margin: 0.5rem 0 0 0 !important;
+  margin: 0.75rem 0 0 0 !important;
   padding: 0 !important;
 }
 
 #api .options a {
   font-size: 0.7rem !important;
-  color: rgba(148, 163, 184, 0.35) !important;
+  color: var(--text-muted) !important;
   text-decoration: none !important;
   border: none !important;
   display: inline !important;
+  transition: color 0.15s ease !important;
 }
 
 #api .options a:hover {
-  color: rgba(148, 163, 184, 0.6) !important;
+  color: var(--text-secondary) !important;
 }
 
-/* ── All links: nuclear underline/border removal ── */
+/* ── Nuclear underline/border removal ── */
 #api a,
 #api a:link,
 #api a:visited,
@@ -333,11 +398,11 @@ body #api a {
 
 /* ── Text defaults ── */
 #api p, #api div {
-  color: #f8fafc !important;
-  line-height: 1.4 !important;
+  color: var(--text-primary) !important;
+  line-height: 1.5 !important;
 }
 
-/* ── Hide "What is this?" / help links ── */
+/* ── Hide help links ── */
 #api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
 #api a[href*="learn"], #api a[href*="support"],
 #api .help-link, #api .info-link, #api .what-is-this {
@@ -356,7 +421,7 @@ body #api a {
   display: none !important;
 }
 
-/* ── Remove list bullets ── */
+/* ── Lists ── */
 #api ul, #api ol, #api li {
   list-style: none !important;
   margin: 0 !important;
@@ -367,7 +432,23 @@ body #api a {
   content: "" !important;
 }
 
-/* ── JS-injected logo container (hidden; CSS ::before is used instead) ── */
+/* ── Legacy logo container ── */
 .logo-container {
   display: none !important;
+}
+
+/* ── Error messages ── */
+#api .error {
+  color: #f87171 !important;
+  font-size: 0.8rem !important;
+  margin-top: 0.35rem !important;
+  font-weight: 400 !important;
+}
+
+/* ── Select dropdown arrow ── */
+#api select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(150,160,180,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  padding-right: 2.5rem !important;
 }
