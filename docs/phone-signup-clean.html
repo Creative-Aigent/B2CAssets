@@ -48,10 +48,10 @@
     #api::before {
       content: "" !important;
       display: block !important;
-      width: 160px !important;
-      height: 44px !important;
+      width: 150px !important;
+      height: 48px !important;
       margin: 0 auto 1.25rem auto !important;
-      background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.png') !important;
+      background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
       background-repeat: no-repeat !important;
       background-position: center center !important;
       background-size: contain !important;
@@ -81,8 +81,8 @@
 
     #api input:focus, #api select:focus {
       outline: none !important;
-      border: 1px solid rgba(129, 140, 248, 0.68) !important;
-      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.28) !important;
+      border: 1px solid rgba(108, 79, 240, 0.68) !important;
+      box-shadow: 0 0 0 3px rgba(108, 79, 240, 0.28) !important;
       background: rgba(15, 23, 42, 0.72) !important;
     }
 
@@ -125,7 +125,7 @@
       height: 16px !important;
       margin: 0 !important;
       margin-right: 0.55rem !important;
-      accent-color: #2563eb !important;
+      accent-color: #6c4ff0 !important;
       display: inline-block !important;
       vertical-align: middle !important;
       border: 1px solid rgba(148, 163, 184, 0.35) !important;
@@ -192,7 +192,7 @@
       display: inline-block !important;
       margin: 0 0.75rem !important;
       font-weight: 500 !important;
-      color: #93c5fd !important;
+      color: #c4b5fd !important;
       opacity: 0.95 !important;
       transition: color 0.2s ease, opacity 0.2s ease !important;
     }
@@ -222,8 +222,8 @@
     
     /* Buttons - Professional styling */
     #api button, #api input[type="submit"] {
-      background: linear-gradient(135deg, #2563eb 0%, #9333ea 100%) !important;
-      border: 1px solid rgba(59, 130, 246, 0.5) !important;
+      background: #6c4ff0 !important;
+      border: 1px solid rgba(108, 79, 240, 0.5) !important;
       border-radius: 12px !important;
       color: #f8fafc !important;
       padding: 1rem 1.5rem !important;
@@ -233,7 +233,7 @@
       cursor: pointer !important;
       margin-top: 1.5rem !important;
       margin-bottom: 1rem !important;
-      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.3) !important;
+      box-shadow: 0 6px 14px rgba(108, 79, 240, 0.3) !important;
       transition: background 0.2s ease, box-shadow 0.2s ease !important;
       letter-spacing: 0.2px !important;
       text-transform: none !important;
@@ -241,8 +241,8 @@
     }
 
     #api button:hover, #api input[type="submit"]:hover {
-      background: linear-gradient(135deg, #1d4ed8 0%, #7e22ce 100%) !important;
-      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.4) !important;
+      background: #5b3dd4 !important;
+      box-shadow: 0 8px 18px rgba(108, 79, 240, 0.4) !important;
     }
 
     #api button:active, #api input[type="submit"]:active {
@@ -251,7 +251,7 @@
 
     #api button:focus-visible, #api input[type="submit"]:focus-visible {
       outline: none !important;
-      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.32) !important;
+      box-shadow: 0 0 0 3px rgba(108, 79, 240, 0.32) !important;
     }
     
     /* Secondary button */
@@ -293,13 +293,13 @@
     }
     
     #api a {
-      color: #93c5fd !important;
+      color: #c4b5fd !important;
       text-decoration: none !important;
       transition: color 0.2s ease !important;
     }
 
     #api a:hover {
-      color: #a855f7 !important;
+      color: #a78bfa !important;
       text-decoration: none !important;
     }
     
@@ -311,18 +311,17 @@
     }
 
     .logo-icon {
-      width: 64px !important;
-      height: 64px !important;
+      width: 150px !important;
+      height: 48px !important;
       object-fit: contain !important;
-      border-radius: 12px !important;
-      /* Make logo white */
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
       transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
 
     .logo-icon:hover {
       transform: scale(1.02) !important;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.3) !important;
+      box-shadow: none !important;
     }
     
     /* NUCLEAR "What is this?" link removal */
@@ -721,8 +720,8 @@
         // Style any new buttons that B2C injects
         const buttons = document.querySelectorAll('#api button, #api input[type="submit"]');
         buttons.forEach(button => {
-          button.style.background = 'linear-gradient(135deg, #2563eb 0%, #9333ea 100%)';
-          button.style.border = '1px solid rgba(59, 130, 246, 0.5)';
+          button.style.background = '#6c4ff0';
+          button.style.border = '1px solid rgba(108, 79, 240, 0.5)';
           button.style.borderRadius = '12px';
           button.style.color = '#f8fafc';
           button.style.padding = '0.85rem 1.15rem';
@@ -732,7 +731,7 @@
           button.style.cursor = 'pointer';
           button.style.marginTop = '1rem';
           button.style.marginBottom = '1rem';
-          button.style.boxShadow = '0 6px 14px rgba(59, 130, 246, 0.3)';
+          button.style.boxShadow = '0 6px 14px rgba(108, 79, 240, 0.3)';
           button.style.textTransform = 'none';
         });
 
