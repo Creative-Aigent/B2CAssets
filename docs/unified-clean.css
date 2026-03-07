@@ -1,653 +1,373 @@
-    /* SIMPLE DARK THEME - CLEAN START */
-    * {
-      box-sizing: border-box;
-    }
-    
-    html, body {
-      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-      background-color: #0b0f1a !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      min-height: 100vh !important;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-    }
-    
-    /* Force all containers to dark background */
-    .ext-container, .ext-container-margin, .ext-container-padding,
-    .ext-container .ext-container-margin, .ext-container .ext-container-padding,
-    .ext-container .ext-container-margin .ext-container-padding,
-    [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
-      background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
-      background-color: #0b0f1a !important;
-    }
-    
-    /* API Container - Professional and compact */
-    #api {
-      background: rgba(17, 25, 40, 0.85) !important;
-      backdrop-filter: blur(20px) !important;
-      border: none !important;
-      border-radius: 16px !important;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
-      padding: 2rem !important;
-      max-width: 400px !important;
-      margin: 2rem auto !important;
-      min-height: auto !important;
-      max-height: none !important;
-      overflow: visible !important;
-    }
+/* AIMAN B2C Unified Sign-in/Sign-up — v5 compact, no-scroll */
 
-    /* CSS-ONLY LOGO: pseudo-element so it survives DOM replacement */
-    #api::before {
-      content: "" !important;
-      display: block !important;
-      width: 150px !important;
-      height: 48px !important;
-      margin: 0 auto 1.25rem auto !important;
-      background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
-      background-repeat: no-repeat !important;
-      background-position: center center !important;
-      background-size: contain !important;
-      border-radius: 0px !important;
-      pointer-events: none !important;
-      opacity: 1 !important;
-    }
-    
-    /* Form elements - Professional styling */
-    #api input[type="text"],
-    #api input[type="tel"],
-    #api input[type="email"],
-    #api input[type="password"],
-    #api select {
-      background: rgba(15, 23, 42, 0.55) !important;
-      border: 1px solid rgba(148, 163, 184, 0.28) !important;
-      border-radius: 12px !important;
-      color: #f1f5f9 !important;
-      padding: 1rem 1.25rem !important;
-      font-size: 0.95rem !important;
-      width: 100% !important;
-      margin-bottom: 0 !important;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
-      font-weight: 400 !important;
-      box-sizing: border-box !important;
-    }
+/* ── Reset & Base ── */
+* { box-sizing: border-box; }
 
-    #api input:focus, #api select:focus {
-      outline: none !important;
-      border: 1px solid rgba(108, 79, 240, 0.68) !important;
-      box-shadow: 0 0 0 3px rgba(108, 79, 240, 0.28) !important;
-      background: rgba(15, 23, 42, 0.72) !important;
-    }
+html, body {
+  background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+  background-color: #0b0f1a !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
 
-    #api input::placeholder, #api select::placeholder {
-      color: rgba(203, 213, 225, 0.65) !important;
-    }
-    
-    /* Form labels - Professional styling */
-    #api label {
-      display: block !important;
-      margin-bottom: 0.5rem !important;
-      font-weight: 600 !important;
-      color: #e2e8f0 !important;
-      font-size: 0.9rem !important;
-      letter-spacing: 0 !important;
-      text-transform: none !important;
-      line-height: 1.3 !important;
-    }
-    
-    /* Remove bullet points from labels */
-    #api label::before {
-      content: "" !important;
-    }
-    
-    /* Ensure proper spacing between form groups */
-    #api .form-group, #api .form-item, #api .form-section {
-      margin-bottom: 1.25rem !important;
-    }
-    
-    /* Align form elements consistently */
-    #api .form-group {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
-    }
+/* ── Force all B2C wrapper containers dark + centered ── */
+.ext-container, .ext-container-margin, .ext-container-padding,
+[class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
+  background: linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%) !important;
+  background-color: #0b0f1a !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
 
-    /* Custom dark checkbox */
-    #api input[type="checkbox"] {
-      -webkit-appearance: none !important;
-      appearance: none !important;
-      width: 18px !important;
-      height: 18px !important;
-      min-width: 18px !important;
-      margin: 0 !important;
-      margin-right: 0.55rem !important;
-      display: inline-block !important;
-      vertical-align: middle !important;
-      border: 1.5px solid rgba(148, 163, 184, 0.3) !important;
-      border-radius: 5px !important;
-      background: rgba(15, 23, 42, 0.5) !important;
-      cursor: pointer !important;
-      position: relative !important;
-      transition: background 0.15s ease, border-color 0.15s ease !important;
-    }
+/* ── Card ── */
+#api {
+  background: rgba(17, 25, 40, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
+  padding: 1.75rem 2rem !important;
+  max-width: 380px !important;
+  width: 90vw !important;
+  margin: auto !important;
+  overflow: visible !important;
+}
 
-    #api input[type="checkbox"]:checked {
-      background: #6c4ff0 !important;
-      border-color: #6c4ff0 !important;
-    }
+/* ── Logo via CSS pseudo-element (survives B2C DOM replacement) ── */
+#api::before {
+  content: "" !important;
+  display: block !important;
+  width: 120px !important;
+  height: 40px !important;
+  margin: 0 auto 1rem auto !important;
+  background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  border: none !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
 
-    #api input[type="checkbox"]:checked::after {
-      content: "" !important;
-      position: absolute !important;
-      left: 5px !important;
-      top: 2px !important;
-      width: 5px !important;
-      height: 9px !important;
-      border: solid white !important;
-      border-width: 0 2px 2px 0 !important;
-      transform: rotate(45deg) !important;
-    }
+/* ── Hide "Sign in" h1 heading (subtitle is enough) ── */
+#api h1 {
+  display: none !important;
+}
 
-    #api input[type="checkbox"]:hover {
-      border-color: rgba(108, 79, 240, 0.5) !important;
-    }
-    
-    /* Checkbox label - Inline styling */
-    #api label[for*="checkbox"], #api label:has(input[type="checkbox"]) {
-      display: inline-flex !important;
-      align-items: center !important;
-      margin-bottom: 0 !important;
-      font-size: 0.88rem !important;
-      text-transform: none !important;
-      letter-spacing: normal !important;
-      cursor: pointer !important;
-      font-weight: 500 !important;
-      line-height: 1.2 !important;
-    }
+/* ── Subtitle: "Sign in with your phone number" ── */
+#api h2 {
+  color: rgba(226, 232, 240, 0.8) !important;
+  font-size: 0.88rem !important;
+  font-weight: 400 !important;
+  margin: 0 0 1rem 0 !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
+}
 
-    #api label[for*="checkbox"]::before, #api label:has(input[type="checkbox"])::before {
-      content: "" !important;
-    }
+/* ── Form labels ── */
+#api label {
+  display: block !important;
+  margin-bottom: 0.35rem !important;
+  font-weight: 600 !important;
+  color: #e2e8f0 !important;
+  font-size: 0.82rem !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  line-height: 1.3 !important;
+}
 
-    /* Checkbox container - Ensure proper alignment */
-    #api .checkbox-container, #api .form-group:has(input[type="checkbox"]) {
-      display: flex !important;
-      align-items: center !important;
-      gap: 0.5rem !important;
-      margin-bottom: 1rem !important;
-    }
-    
-    /* Force checkbox and label to be inline */
-    #api input[type="checkbox"] + label,
-    #api label:has(input[type="checkbox"]) {
-      display: inline-flex !important;
-      align-items: center !important;
-      margin-bottom: 0 !important;
-      margin-left: 0 !important;
-    }
-    
-    /* Hide any "AIMAN" text that might appear */
-    #api .logo-text, #api .brand-text, #api .company-name {
-      display: none !important;
-    }
+#api label::before {
+  content: "" !important;
+}
 
-    #api .form-group:has(input[type="checkbox"]) label {
-      margin: 0 !important;
-      line-height: 1.3 !important;
-    }
-    
-    /* Form groups and sections - Professional spacing */
-    #api .form-group, #api .form-item {
-      margin-bottom: 0.75rem !important;
-    }
+/* ── Text inputs ── */
+#api input[type="text"],
+#api input[type="tel"],
+#api input[type="email"],
+#api input[type="password"],
+#api select {
+  background: rgba(15, 23, 42, 0.55) !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+  border-radius: 10px !important;
+  color: #f1f5f9 !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.9rem !important;
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  box-sizing: border-box !important;
+}
 
-    #api .form-section {
-      margin-bottom: 1rem !important;
-      padding-bottom: 0.5rem !important;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.12) !important;
-    }
-    
-    #api .form-section:last-child {
-      border-bottom: none !important;
-      margin-bottom: 0 !important;
-    }
-    
-    /* Compact spacing for links */
-    #api .link-section {
-      text-align: center !important;
-      margin-top: 1.25rem !important;
-      padding-top: 1rem !important;
-      border-top: 1px solid rgba(148, 163, 184, 0.12) !important;
-    }
+#api input:focus, #api select:focus {
+  outline: none !important;
+  border: 1px solid rgba(108, 79, 240, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(108, 79, 240, 0.2) !important;
+  background: rgba(15, 23, 42, 0.7) !important;
+}
 
-    #api .link-section a {
-      display: inline-block !important;
-      margin: 0 0.75rem !important;
-      font-weight: 500 !important;
-      color: #c4b5fd !important;
-      opacity: 0.95 !important;
-      transition: color 0.2s ease, opacity 0.2s ease !important;
-    }
+#api input::placeholder, #api select::placeholder {
+  color: rgba(203, 213, 225, 0.55) !important;
+}
 
-    /* OR divider with horizontal lines */
-    #api .divider,
-    #api .or,
-    #api .separator {
-      display: flex !important;
-      align-items: center !important;
-      gap: 0.75rem !important;
-      margin: 1.25rem 0 1rem !important;
-      text-align: center !important;
-    }
+/* ── Custom dark checkbox ── */
+#api input[type="checkbox"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  margin: 0 0.5rem 0 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  border: 1.5px solid rgba(148, 163, 184, 0.3) !important;
+  border-radius: 4px !important;
+  background: rgba(15, 23, 42, 0.5) !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: background 0.15s ease, border-color 0.15s ease !important;
+}
 
-    #api .divider::before,
-    #api .divider::after {
-      content: "" !important;
-      flex: 1 !important;
-      border-top: 1px solid rgba(148, 163, 184, 0.15) !important;
-    }
+#api input[type="checkbox"]:checked {
+  background: #6c4ff0 !important;
+  border-color: #6c4ff0 !important;
+}
 
-    #api .divider h2,
-    #api .divider span {
-      font-size: 0.75rem !important;
-      font-weight: 600 !important;
-      letter-spacing: 1.5px !important;
-      text-transform: uppercase !important;
-      color: rgba(148, 163, 184, 0.5) !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      line-height: 1 !important;
-      white-space: nowrap !important;
-    }
-    
-    /* Section titles */
-    #api h2, #api h3 {
-      color: #ffffff !important;
-      font-size: 1.1rem !important;
-      font-weight: 600 !important;
-      margin-bottom: 1rem !important;
-      margin-top: 0 !important;
-    }
-    
-    /* Buttons - Professional styling */
-    #api button, #api input[type="submit"] {
-      background: #6c4ff0 !important;
-      border: 1px solid rgba(108, 79, 240, 0.5) !important;
-      border-radius: 12px !important;
-      color: #f8fafc !important;
-      padding: 1rem 1.5rem !important;
-      font-size: 1rem !important;
-      font-weight: 600 !important;
-      width: 100% !important;
-      cursor: pointer !important;
-      margin-top: 1.5rem !important;
-      margin-bottom: 1rem !important;
-      box-shadow: 0 6px 14px rgba(108, 79, 240, 0.3) !important;
-      transition: background 0.2s ease, box-shadow 0.2s ease !important;
-      letter-spacing: 0.2px !important;
-      text-transform: none !important;
-      box-sizing: border-box !important;
-    }
+#api input[type="checkbox"]:checked::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 4px !important;
+  top: 1px !important;
+  width: 5px !important;
+  height: 8px !important;
+  border: solid white !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+}
 
-    #api button:hover, #api input[type="submit"]:hover {
-      background: #5b3dd4 !important;
-      box-shadow: 0 8px 18px rgba(108, 79, 240, 0.4) !important;
-    }
+#api input[type="checkbox"]:hover {
+  border-color: rgba(108, 79, 240, 0.5) !important;
+}
 
-    /* Sign Up / Create Account button — ghost outline style */
-    #api #createAccount,
-    #api button#createAccount,
-    #api #signup,
-    #api button.accountButton {
-      background: transparent !important;
-      border: 1px solid rgba(108, 79, 240, 0.5) !important;
-      color: #c4b5fd !important;
-      box-shadow: none !important;
-      margin-top: 0.75rem !important;
-    }
+/* Checkbox label inline */
+#api label[for*="checkbox"],
+#api label:has(input[type="checkbox"]),
+#api input[type="checkbox"] + label {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
 
-    #api #createAccount:hover,
-    #api button#createAccount:hover,
-    #api #signup:hover,
-    #api button.accountButton:hover {
-      background: rgba(108, 79, 240, 0.12) !important;
-      border-color: rgba(108, 79, 240, 0.7) !important;
-      color: #e2d6ff !important;
-      box-shadow: none !important;
-    }
+/* ── Form group spacing ── */
+#api .form-group, #api .form-item {
+  margin-bottom: 0.6rem !important;
+}
 
-    #api button:active, #api input[type="submit"]:active {
-      box-shadow: 0 4px 12px rgba(76, 81, 191, 0.28) !important;
-    }
+#api .form-group:has(input[type="checkbox"]) {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0.25rem !important;
+}
 
-    #api button:focus-visible, #api input[type="submit"]:focus-visible {
-      outline: none !important;
-      box-shadow: 0 0 0 3px rgba(108, 79, 240, 0.32) !important;
-    }
-    
-    /* Secondary button */
-    #api .secondary-button {
-      background: rgba(30, 41, 59, 0.6) !important;
-      border: 1px solid rgba(148, 163, 184, 0.22) !important;
-      color: #e2e8f0 !important;
-    }
+/* ── Primary button (Sign in) ── */
+#api button, #api input[type="submit"] {
+  background: #6c4ff0 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: #f8fafc !important;
+  padding: 0.75rem 1.25rem !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+  box-shadow: 0 4px 12px rgba(108, 79, 240, 0.3) !important;
+  transition: background 0.2s ease, box-shadow 0.2s ease !important;
+  text-transform: none !important;
+  letter-spacing: 0.2px !important;
+  box-sizing: border-box !important;
+}
 
-    #api .secondary-button:hover {
-      background: rgba(51, 65, 85, 0.7) !important;
-    }
-    
-    /* Text elements - Professional typography */
-    #api p, #api div, #api h1, #api h2, #api h3 {
-      color: #f8fafc !important;
-      line-height: 1.55 !important;
-    }
+#api button:hover, #api input[type="submit"]:hover {
+  background: #5b3dd4 !important;
+  box-shadow: 0 6px 16px rgba(108, 79, 240, 0.4) !important;
+}
 
-    #api h1 {
-      font-size: 1.6rem !important;
-      font-weight: 600 !important;
-      margin-bottom: 0.35rem !important;
-      letter-spacing: -0.15px !important;
-    }
+#api button:active, #api input[type="submit"]:active {
+  box-shadow: 0 2px 8px rgba(108, 79, 240, 0.25) !important;
+}
 
-    #api h2 {
-      font-size: 1.05rem !important;
-      font-weight: 500 !important;
-      margin-bottom: 0.65rem !important;
-      letter-spacing: -0.15px !important;
-    }
+/* ── OR divider ── */
+#api .divider {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  margin: 0.6rem 0 !important;
+}
 
-    #api p {
-      font-size: 0.92rem !important;
-      font-weight: 400 !important;
-      margin-bottom: 1.1rem !important;
-      opacity: 0.85 !important;
-    }
-    
-    #api a,
-    #api a:link,
-    #api a:visited,
-    #api a:hover,
-    #api a:active,
-    #api a:focus,
-    #api p a,
-    #api div a,
-    #api .create a,
-    #api .options a,
-    body #api a,
-    body #api a:link,
-    body #api a:visited {
-      color: #c4b5fd !important;
-      text-decoration: none !important;
-      -webkit-text-decoration: none !important;
-      border: none !important;
-      border-bottom: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-      text-underline-offset: unset !important;
-      background: transparent !important;
-      transition: color 0.2s ease !important;
-    }
+#api .divider::before,
+#api .divider::after {
+  content: "" !important;
+  flex: 1 !important;
+  border-top: 1px solid rgba(148, 163, 184, 0.1) !important;
+}
 
-    #api a:hover {
-      color: #a78bfa !important;
-      text-decoration: none !important;
-      border: none !important;
-      border-bottom: none !important;
-    }
+#api .divider h2,
+#api .divider span,
+#api .divider p {
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: rgba(148, 163, 184, 0.4) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+}
 
-    /* "Sign up now" link styled as action */
-    #api .create a,
-    #api #createAccount {
-      font-weight: 600 !important;
-      color: #c4b5fd !important;
-      text-decoration: none !important;
-      margin-left: 0.25rem !important;
-    }
+/* ── "Don't have an account?" section ── */
+#api .create {
+  text-align: center !important;
+  margin: 0.25rem 0 0 0 !important;
+}
 
-    #api .create a:hover,
-    #api #createAccount:hover {
-      color: #a78bfa !important;
-      text-decoration: none !important;
-    }
+#api .create p {
+  color: rgba(148, 163, 184, 0.6) !important;
+  font-size: 0.78rem !important;
+  margin: 0 0 0.5rem 0 !important;
+  font-weight: 400 !important;
+  text-align: center !important;
+}
 
-    /* "Change Phone Number" — keep inside card */
-    #api .options {
-      text-align: center !important;
-      margin-top: 0.5rem !important;
-      padding-top: 0.75rem !important;
-      border-top: 1px solid rgba(148, 163, 184, 0.08) !important;
-    }
+/* ── "Sign up now" link as ghost button ── */
+#api .create a,
+#api #createAccount {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.7rem 1rem !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(108, 79, 240, 0.4) !important;
+  border-radius: 10px !important;
+  color: #c4b5fd !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 
-    #api .options a {
-      font-size: 0.82rem !important;
-      color: rgba(148, 163, 184, 0.6) !important;
-    }
+#api .create a:hover,
+#api #createAccount:hover {
+  background: rgba(108, 79, 240, 0.08) !important;
+  border-color: rgba(108, 79, 240, 0.65) !important;
+  color: #e2d6ff !important;
+  text-decoration: none !important;
+}
 
-    #api .options a:hover {
-      color: #c4b5fd !important;
-    }
-    
-    /* Logo styling - Compact and clean */
-    .logo-container {
-      text-align: center !important;
-      margin-bottom: 1.5rem !important;
-      padding: 0.4rem 0 !important;
-      position: relative !important;
-    }
-    
-    /* Fallback logo if image fails to load */
-    .logo-container::after {
-      content: 'A' !important;
-      position: absolute !important;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      width: 150px !important;
-      height: 48px !important;
-      background: #6c4ff0 !important;
-      color: white !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      border-radius: 12px !important;
-      font-weight: bold !important;
-      font-size: 24px !important;
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
-      opacity: 0 !important;
-      transition: opacity 0.3s ease !important;
-      z-index: 1 !important;
-    }
-    
-    /* Show fallback if image fails to load */
-    .logo-icon:not([src]), 
-    .logo-icon[src=""], 
-    .logo-icon[src*="error"] {
-      opacity: 0 !important;
-    }
-    
-    .logo-icon:not([src]) + .logo-container::after,
-    .logo-icon[src=""] + .logo-container::after,
-    .logo-icon[src*="error"] + .logo-container::after {
-      opacity: 1 !important;
-    }
+/* ── Sign Up button variant (if B2C renders as <button>) ── */
+#api button#createAccount,
+#api button.accountButton,
+#api #signup {
+  background: transparent !important;
+  border: 1.5px solid rgba(108, 79, 240, 0.4) !important;
+  color: #c4b5fd !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+}
 
-    .logo-icon {
-      width: 150px !important;
-      height: 48px !important;
-      object-fit: contain !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
-      transition: transform 0.2s ease !important;
-    }
+#api button#createAccount:hover,
+#api button.accountButton:hover,
+#api #signup:hover {
+  background: rgba(108, 79, 240, 0.08) !important;
+  border-color: rgba(108, 79, 240, 0.65) !important;
+  color: #e2d6ff !important;
+}
 
-    .logo-icon:hover {
-      transform: scale(1.02) !important;
-      box-shadow: none !important;
-    }
-    
-    /* NUCLEAR "What is this?" link removal */
-    #api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
-    #api .help-link, #api .info-link, #api .what-is-this,
-    #api a[href*="learn"], #api a[href*="support"],
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-text, #api .info-text, #api .what-is-this-text,
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-link, #api .info-link, #api .what-is-this-link,
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-link, #api .info-link, #api .what-is-this,
-    #api a[href*="learn"], #api a[href*="support"],
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-text, #api .info-text, #api .what-is-this-text,
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-link, #api .info-link, #api .what-is-this-link,
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-link, #api .info-link, #api .what-is-this,
-    #api a[href*="learn"], #api a[href*="support"],
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-text, #api .info-text, #api .what-is-this-text,
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-link, #api .info-link, #api .what-is-this-link {
-      display: none !important;
-      visibility: hidden !important;
-      width: 0 !important;
-      height: 0 !important;
-      overflow: hidden !important;
-      position: absolute !important;
-      left: -9999px !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      z-index: -9999 !important;
-    }
-    
-    /* Target any remaining help links with more specific selectors */
-    #api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
-    #api .help-link, #api .info-link, #api .what-is-this,
-    #api a[href*="learn"], #api a[href*="support"],
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-text, #api .info-text, #api .what-is-this-text,
-    #api a[href*="help"], #api a[href*="info"], #api a[href*="what"],
-    #api .help-link, #api .info-link, #api .what-is-this-link {
-      display: none !important;
-      visibility: hidden !important;
-      width: 0 !important;
-      height: 0 !important;
-      overflow: hidden !important;
-      position: absolute !important;
-      left: -9999px !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      z-index: -9999 !important;
-    }
-    
-    /* Hide any floating help links */
-    #api .help-link, #api .info-link, #api .what-is-this {
-      display: none !important;
-    }
-    
-    /* Ensure form doesn't truncate */
-    #api {
-      overflow: visible !important;
-      max-height: none !important;
-    }
-    
-    /* Remove redundant country field if it appears */
-    #api input[name*="country"], #api select[name*="country"] {
-      display: none !important;
-    }
-    
-    /* Hide the first country field (redundant) */
-    #api .form-group:first-child,
-    #api .form-group:first-child input,
-    #api .form-group:first-child select,
-    #api .form-group:first-child label {
-      display: none !important;
-    }
-    
-    /* Ensure all form elements are visible */
-    #api * {
-      max-height: none !important;
-      overflow: visible !important;
-    }
-    
-    /* Remove any unwanted bullet points or list styling */
-    #api ul, #api ol, #api li {
-      list-style: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-    
-    #api li::before, #api li::after {
-      content: "" !important;
-    }
-    
-    /* Ensure proper form field alignment */
-    #api .form-group label + input,
-    #api .form-group label + select {
-      margin-top: 0.5rem !important;
-    }
-    
-    /* Remove any default margins from form elements */
-    #api input, #api select, #api button {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-    }
-    
-    /* Ensure consistent spacing */
-    #api .form-group:not(:last-child) {
-      margin-bottom: 1.5rem !important;
-    }
-    
-    /* ULTRA-AGGRESSIVE: Override any B2C styling that might interfere */
-    #api, #api *, #api *::before, #api *::after {
-      box-sizing: border-box !important;
-    }
-    
-    /* Force our card styling to always apply */
-    #api {
-      background: rgba(17, 25, 40, 0.85) !important;
-      backdrop-filter: blur(20px) !important;
-      border: none !important;
-      border-radius: 16px !important;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
-      padding: 2rem !important;
-      max-width: 400px !important;
-      margin: 2rem auto !important;
-      min-height: auto !important;
-      max-height: none !important;
-      overflow: visible !important;
-    }
-    
-    /* Force checkbox alignment - multiple approaches */
-    #api input[type="checkbox"] {
-      display: inline-block !important;
-      vertical-align: middle !important;
-      margin-right: 0.5rem !important;
-    }
-    
-    #api input[type="checkbox"] + label,
-    #api label:has(input[type="checkbox"]) {
-      display: inline-flex !important;
-      align-items: center !important;
-      margin: 0 !important;
-      vertical-align: middle !important;
-    }
-    
-    /* Force logo to stay inside */
-    .logo-container {
-      text-align: center !important;
-      margin-bottom: 1.5rem !important;
-      padding: 0 !important;
-    }
-    
-    .logo-icon {
-      width: 150px !important;
-      height: 48px !important;
-      object-fit: contain !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
-      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
+/* ── "Change Phone Number" — tiny muted link ── */
+#api .options {
+  text-align: center !important;
+  margin: 0.5rem 0 0 0 !important;
+  padding: 0 !important;
+}
 
-    .logo-icon:hover {
-      transform: scale(1.02) !important;
-      box-shadow: none !important;
-    }
+#api .options a {
+  font-size: 0.7rem !important;
+  color: rgba(148, 163, 184, 0.35) !important;
+  text-decoration: none !important;
+  border: none !important;
+  display: inline !important;
+}
+
+#api .options a:hover {
+  color: rgba(148, 163, 184, 0.6) !important;
+}
+
+/* ── All links: nuclear underline/border removal ── */
+#api a,
+#api a:link,
+#api a:visited,
+#api a:hover,
+#api a:active,
+#api a:focus,
+body #api a {
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+}
+
+/* ── Text defaults ── */
+#api p, #api div {
+  color: #f8fafc !important;
+  line-height: 1.4 !important;
+}
+
+/* ── Hide "What is this?" / help links ── */
+#api a[href*="what"], #api a[href*="help"], #api a[href*="info"],
+#api a[href*="learn"], #api a[href*="support"],
+#api .help-link, #api .info-link, #api .what-is-this {
+  display: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* ── Hide country field ── */
+#api input[name*="country"], #api select[name*="country"] {
+  display: none !important;
+}
+
+#api .form-group:first-child,
+#api .form-group:first-child * {
+  display: none !important;
+}
+
+/* ── Remove list bullets ── */
+#api ul, #api ol, #api li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#api li::before, #api li::after {
+  content: "" !important;
+}
+
+/* ── JS-injected logo container (hidden; CSS ::before is used instead) ── */
+.logo-container {
+  display: none !important;
+}
