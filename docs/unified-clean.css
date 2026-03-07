@@ -25,14 +25,14 @@
     #api {
       background: rgba(17, 25, 40, 0.85) !important;
       backdrop-filter: blur(20px) !important;
-      border: 1px solid rgba(148, 163, 184, 0.2) !important;
+      border: 1px solid rgba(148, 163, 184, 0.08) !important;
       border-radius: 16px !important;
       box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
       padding: 2rem !important;
       max-width: 400px !important;
       margin: 2rem auto !important;
       min-height: auto !important;
-      max-height: 85vh !important;
+      max-height: none !important;
       overflow: visible !important;
     }
 
@@ -111,18 +111,44 @@
       align-items: stretch !important;
     }
 
-    /* Checkbox styling - Inline with label */
+    /* Custom dark checkbox */
     #api input[type="checkbox"] {
-      width: 16px !important;
-      height: 16px !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
       margin: 0 !important;
       margin-right: 0.55rem !important;
-      accent-color: #6c4ff0 !important;
       display: inline-block !important;
       vertical-align: middle !important;
-      border: 1px solid rgba(148, 163, 184, 0.35) !important;
-      border-radius: 4px !important;
-      background: rgba(15, 23, 42, 0.45) !important;
+      border: 1.5px solid rgba(148, 163, 184, 0.3) !important;
+      border-radius: 5px !important;
+      background: rgba(15, 23, 42, 0.5) !important;
+      cursor: pointer !important;
+      position: relative !important;
+      transition: background 0.15s ease, border-color 0.15s ease !important;
+    }
+
+    #api input[type="checkbox"]:checked {
+      background: #6c4ff0 !important;
+      border-color: #6c4ff0 !important;
+    }
+
+    #api input[type="checkbox"]:checked::after {
+      content: "" !important;
+      position: absolute !important;
+      left: 5px !important;
+      top: 2px !important;
+      width: 5px !important;
+      height: 9px !important;
+      border: solid white !important;
+      border-width: 0 2px 2px 0 !important;
+      transform: rotate(45deg) !important;
+    }
+
+    #api input[type="checkbox"]:hover {
+      border-color: rgba(108, 79, 240, 0.5) !important;
     }
     
     /* Checkbox label - Inline styling */
@@ -202,18 +228,35 @@
       transition: color 0.2s ease, opacity 0.2s ease !important;
     }
 
+    /* OR divider with horizontal lines */
     #api .divider,
     #api .or,
-    #api .separator,
-    #api span[id*="divider"],
-    #api span[id*="or"] {
-      display: block !important;
+    #api .separator {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.75rem !important;
       margin: 1.25rem 0 1rem !important;
-      font-size: 0.82rem !important;
+      text-align: center !important;
+    }
+
+    #api .divider::before,
+    #api .divider::after {
+      content: "" !important;
+      flex: 1 !important;
+      border-top: 1px solid rgba(148, 163, 184, 0.15) !important;
+    }
+
+    #api .divider h2,
+    #api .divider span {
+      font-size: 0.75rem !important;
       font-weight: 600 !important;
-      letter-spacing: 2px !important;
+      letter-spacing: 1.5px !important;
       text-transform: uppercase !important;
-      color: rgba(148, 163, 184, 0.75) !important;
+      color: rgba(148, 163, 184, 0.5) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
     }
     
     /* Section titles */
@@ -319,7 +362,11 @@
       opacity: 0.85 !important;
     }
     
-    #api a {
+    #api a,
+    #api a:link,
+    #api a:visited,
+    #api a:hover,
+    #api a:active {
       color: #c4b5fd !important;
       text-decoration: none !important;
       transition: color 0.2s ease !important;
@@ -327,7 +374,38 @@
 
     #api a:hover {
       color: #a78bfa !important;
+    }
+
+    /* "Sign up now" link styled as action */
+    #api .create a,
+    #api #createAccount {
+      font-weight: 600 !important;
+      color: #c4b5fd !important;
       text-decoration: none !important;
+      margin-left: 0.25rem !important;
+    }
+
+    #api .create a:hover,
+    #api #createAccount:hover {
+      color: #a78bfa !important;
+      text-decoration: none !important;
+    }
+
+    /* "Change Phone Number" — keep inside card */
+    #api .options {
+      text-align: center !important;
+      margin-top: 0.5rem !important;
+      padding-top: 0.75rem !important;
+      border-top: 1px solid rgba(148, 163, 184, 0.08) !important;
+    }
+
+    #api .options a {
+      font-size: 0.82rem !important;
+      color: rgba(148, 163, 184, 0.6) !important;
+    }
+
+    #api .options a:hover {
+      color: #c4b5fd !important;
     }
     
     /* Logo styling - Compact and clean */
@@ -379,8 +457,8 @@
       height: 48px !important;
       object-fit: contain !important;
       border-radius: 0 !important;
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25) !important;
-      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+      box-shadow: none !important;
+      transition: transform 0.2s ease !important;
     }
 
     .logo-icon:hover {
@@ -509,14 +587,14 @@
     #api {
       background: rgba(17, 25, 40, 0.85) !important;
       backdrop-filter: blur(20px) !important;
-      border: 1px solid rgba(148, 163, 184, 0.2) !important;
+      border: 1px solid rgba(148, 163, 184, 0.08) !important;
       border-radius: 16px !important;
       box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4) !important;
       padding: 2rem !important;
       max-width: 400px !important;
       margin: 2rem auto !important;
       min-height: auto !important;
-      max-height: 85vh !important;
+      max-height: none !important;
       overflow: visible !important;
     }
     

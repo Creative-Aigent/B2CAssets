@@ -191,7 +191,7 @@
         if (api) {
           api.style.background = 'rgba(17, 25, 40, 0.78)';
           api.style.backdropFilter = 'blur(18px)';
-          api.style.border = '1px solid rgba(148, 163, 184, 0.18)';
+          api.style.border = '1px solid rgba(148, 163, 184, 0.08)';
           api.style.borderRadius = '16px';
           api.style.boxShadow = '0 18px 36px rgba(15, 23, 42, 0.32)';
           api.style.padding = '2.25rem';
@@ -349,6 +349,26 @@
        removeHelpLinks();
        prioritizeCountries();
        ensureProfessionalLayout();
+       fixTextSpacing();
+     }
+
+     function fixTextSpacing() {
+       try {
+         // Fix "Don't have an account?Sign up now" — inject space before link
+         var createSection = document.querySelector('#api .create p, #api .create');
+         if (createSection && !createSection.dataset.spacingFixed) {
+           var link = createSection.querySelector('a');
+           if (link && link.previousSibling && link.previousSibling.nodeType === 3) {
+             var text = link.previousSibling.textContent;
+             if (text && !text.endsWith(' ')) {
+               link.previousSibling.textContent = text + ' ';
+             }
+           }
+           createSection.dataset.spacingFixed = 'true';
+         }
+       } catch (e) {
+         // silent
+       }
      }
      
      function ensureProfessionalLayout() {
@@ -407,14 +427,14 @@
            // Use individual style properties instead of cssText for better B2C compatibility
            api.style.background = 'rgba(17, 25, 40, 0.85)';
            api.style.backdropFilter = 'blur(20px)';
-           api.style.border = '1px solid rgba(148, 163, 184, 0.2)';
+           api.style.border = '1px solid rgba(148, 163, 184, 0.08)';
            api.style.borderRadius = '16px';
            api.style.boxShadow = '0 20px 40px rgba(15, 23, 42, 0.4)';
            api.style.padding = '2rem';
            api.style.maxWidth = '400px';
            api.style.margin = '2rem auto';
            api.style.minHeight = 'auto';
-           api.style.maxHeight = '85vh';
+           api.style.maxHeight = 'none';
            api.style.overflow = 'visible';
          }
          
