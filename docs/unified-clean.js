@@ -53,10 +53,22 @@
       link.style.setProperty('border-bottom', 'none', 'important');
       link.style.setProperty('outline', 'none', 'important');
       link.style.setProperty('box-shadow', 'none', 'important');
+
+      // Force "Change Phone Number" (and similar utility links) to muted color
+      var text = (link.textContent || '').trim().toLowerCase();
+      var isCreateLink = link.closest('.create') || link.id === 'createAccount';
+      if (!isCreateLink && text && (
+        text.indexOf('change') >= 0 ||
+        text.indexOf('phone') >= 0 ||
+        text.indexOf('forgot') >= 0 ||
+        text.indexOf('cancel') >= 0
+      )) {
+        link.style.setProperty('color', 'rgba(150, 160, 180, 0.4)', 'important');
+        link.style.setProperty('font-size', '0.7rem', 'important');
+      }
     });
-    // Force "Change Phone Number" to muted color
-    var optionsLinks = api.querySelectorAll('.options a');
-    optionsLinks.forEach(function (link) {
+    // Also try by container class (B2C uses .options, .change, or similar)
+    api.querySelectorAll('.options a, .change a, [class*="change"] a, [class*="option"] a').forEach(function (link) {
       link.style.setProperty('color', 'rgba(150, 160, 180, 0.4)', 'important');
       link.style.setProperty('font-size', '0.7rem', 'important');
     });
