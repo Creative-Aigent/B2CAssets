@@ -1,4 +1,4 @@
-/* AIMAN B2C Unified Sign-in/Sign-up — v7 with light mode */
+/* AIMAN B2C Unified Sign-in/Sign-up — v7a */
 
 /* ── Design tokens (dark, default) ── */
 :root {
@@ -19,7 +19,7 @@
   --radius-lg: 20px;
   --page-bg: #080c14;
   --card-bg: rgba(12, 16, 28, 0.8);
-  --card-border: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.03);
   --card-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.03),
     0 20px 50px -12px rgba(0, 0, 0, 0.5),

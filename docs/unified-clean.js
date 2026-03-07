@@ -1,4 +1,4 @@
-/* AIMAN B2C Unified Sign-in/Sign-up — v7 clean JS */
+/* AIMAN B2C Unified Sign-in/Sign-up — v7a JS */
 (function () {
   'use strict';
 
@@ -45,7 +45,7 @@
     createSection.dataset.spacingFixed = 'true';
   }
 
-  /* ── Force-remove underlines from all links (B2C injects inline styles) ── */
+  /* ── Force-remove underlines and fix colors on links (B2C injects inline styles) ── */
   function cleanLinks(api) {
     api.querySelectorAll('a').forEach(function (link) {
       link.style.setProperty('text-decoration', 'none', 'important');
@@ -53,6 +53,12 @@
       link.style.setProperty('border-bottom', 'none', 'important');
       link.style.setProperty('outline', 'none', 'important');
       link.style.setProperty('box-shadow', 'none', 'important');
+    });
+    // Force "Change Phone Number" to muted color
+    var optionsLinks = api.querySelectorAll('.options a');
+    optionsLinks.forEach(function (link) {
+      link.style.setProperty('color', 'rgba(150, 160, 180, 0.4)', 'important');
+      link.style.setProperty('font-size', '0.7rem', 'important');
     });
   }
 
