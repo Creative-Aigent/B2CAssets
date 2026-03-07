@@ -1,4 +1,4 @@
-/* AIMAN B2C Unified Sign-in/Sign-up — v6 clean JS */
+/* AIMAN B2C Unified Sign-in/Sign-up — v7 clean JS */
 (function () {
   'use strict';
 

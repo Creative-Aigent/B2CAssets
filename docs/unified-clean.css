@@ -1,6 +1,6 @@
-/* AIMAN B2C Unified Sign-in/Sign-up — v6 professional redesign */
+/* AIMAN B2C Unified Sign-in/Sign-up — v7 with light mode */
 
-/* ── Design tokens ── */
+/* ── Design tokens (dark, default) ── */
 :root {
   --brand: #7c5cfc;
   --brand-hover: #6a4de8;
@@ -17,6 +17,72 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
+  --page-bg: #080c14;
+  --card-bg: rgba(12, 16, 28, 0.8);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 20px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 80px -20px rgba(124, 92, 252, 0.08);
+  --glow-color: rgba(124, 92, 252, 0.06);
+  --logo-url: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg');
+  --input-bg: rgba(15, 20, 35, 0.65);
+  --input-bg-focus: rgba(15, 20, 35, 0.8);
+  --checkbox-border: rgba(255, 255, 255, 0.12);
+  --checkbox-hover: rgba(255, 255, 255, 0.2);
+  --divider-line: var(--border);
+  --btn-gradient: linear-gradient(180deg, #7c5cfc 0%, #6a4de8 100%);
+  --btn-gradient-hover: linear-gradient(180deg, #8b6dff 0%, #7558f0 100%);
+  --btn-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(124, 92, 252, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --btn-shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(124, 92, 252, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --signup-border: rgba(255, 255, 255, 0.1);
+  --signup-color: rgba(200, 210, 230, 0.65);
+  --signup-hover-bg: rgba(124, 92, 252, 0.08);
+  --signup-hover-border: rgba(124, 92, 252, 0.3);
+  --error-color: #f87171;
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(150,160,180,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* ── Light mode tokens ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --brand: #6c4ff0;
+    --brand-hover: #5b3dd4;
+    --brand-glow: rgba(108, 79, 240, 0.18);
+    --brand-subtle: rgba(108, 79, 240, 0.06);
+    --surface: rgba(255, 255, 255, 0.7);
+    --surface-hover: rgba(255, 255, 255, 0.9);
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 0, 0, 0.15);
+    --border-focus: rgba(108, 79, 240, 0.5);
+    --text-primary: #1a1a2e;
+    --text-secondary: rgba(40, 40, 60, 0.7);
+    --text-muted: rgba(80, 80, 110, 0.5);
+    --page-bg: #f0f0f5;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-border: rgba(0, 0, 0, 0.06);
+    --card-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.04),
+      0 20px 50px -12px rgba(0, 0, 0, 0.1),
+      0 0 80px -20px rgba(108, 79, 240, 0.06);
+    --glow-color: rgba(108, 79, 240, 0.04);
+    --logo-url: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-dark.svg');
+    --input-bg: rgba(245, 245, 250, 0.8);
+    --input-bg-focus: rgba(255, 255, 255, 1);
+    --checkbox-border: rgba(0, 0, 0, 0.15);
+    --checkbox-hover: rgba(0, 0, 0, 0.25);
+    --divider-line: rgba(0, 0, 0, 0.06);
+    --btn-gradient: linear-gradient(180deg, #7c5cfc 0%, #6c4ff0 100%);
+    --btn-gradient-hover: linear-gradient(180deg, #8b6dff 0%, #7c5cfc 100%);
+    --btn-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(108, 79, 240, 0.15);
+    --btn-shadow-hover: 0 1px 3px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(108, 79, 240, 0.2);
+    --signup-border: rgba(0, 0, 0, 0.1);
+    --signup-color: rgba(40, 40, 60, 0.6);
+    --signup-hover-bg: rgba(108, 79, 240, 0.05);
+    --signup-hover-border: rgba(108, 79, 240, 0.25);
+    --error-color: #dc2626;
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(60,60,80,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  }
 }
 
 /* ── Reset ── */
@@ -24,7 +90,7 @@
 
 /* ── Page background ── */
 html, body {
-  background: #080c14 !important;
+  background: var(--page-bg) !important;
   margin: 0 !important;
   padding: 0 !important;
   height: 100vh !important;
@@ -43,7 +109,7 @@ body::before {
   transform: translate(-50%, -50%) !important;
   width: 600px !important;
   height: 600px !important;
-  background: radial-gradient(circle, rgba(124, 92, 252, 0.06) 0%, transparent 70%) !important;
+  background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%) !important;
   pointer-events: none !important;
   z-index: 0 !important;
 }
@@ -52,7 +118,7 @@ body::before {
 .ext-container, .ext-container-margin, .ext-container-padding,
 [class*="ext-"], [id*="ext-"], [class*="container"], [id*="container"] {
   background: transparent !important;
-  background-color: #080c14 !important;
+  background-color: var(--page-bg) !important;
   height: 100% !important;
   display: flex !important;
   align-items: center !important;
@@ -63,16 +129,13 @@ body::before {
 #api {
   position: relative !important;
   z-index: 1 !important;
-  background: rgba(12, 16, 28, 0.8) !important;
+  background: var(--card-bg) !important;
   backdrop-filter: blur(40px) saturate(1.2) !important;
   -webkit-backdrop-filter: blur(40px) saturate(1.2) !important;
-  border: 1px solid var(--border) !important;
+  border: 1px solid var(--card-border) !important;
   border-radius: var(--radius-lg) !important;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 20px 50px -12px rgba(0, 0, 0, 0.5),
-    0 0 80px -20px rgba(124, 92, 252, 0.08) !important;
-  padding: 2.5rem 2.25rem 2rem !important;
+  box-shadow: var(--card-shadow) !important;
+  padding: 2.75rem 2.25rem 2rem !important;
   max-width: 400px !important;
   width: 92vw !important;
   margin: auto !important;
@@ -83,10 +146,10 @@ body::before {
 #api::before {
   content: "" !important;
   display: block !important;
-  width: 130px !important;
-  height: 44px !important;
+  width: 140px !important;
+  height: 52px !important;
   margin: 0 auto 1.25rem auto !important;
-  background-image: url('https://creative-aigent.github.io/B2CAssets/aiman-logo-white.svg') !important;
+  background-image: var(--logo-url) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: contain !important;
@@ -134,7 +197,7 @@ body::before {
 #api input[type="email"],
 #api input[type="password"],
 #api select {
-  background: var(--surface) !important;
+  background: var(--input-bg) !important;
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-md) !important;
   color: var(--text-primary) !important;
@@ -152,7 +215,7 @@ body::before {
   outline: none !important;
   border-color: var(--border-focus) !important;
   box-shadow: 0 0 0 3px var(--brand-glow) !important;
-  background: var(--surface-hover) !important;
+  background: var(--input-bg-focus) !important;
 }
 
 #api input::placeholder, #api select::placeholder {
@@ -170,9 +233,9 @@ body::before {
   margin: 0 0.5rem 0 0 !important;
   display: inline-block !important;
   vertical-align: middle !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+  border: 1.5px solid var(--checkbox-border) !important;
   border-radius: 4px !important;
-  background: var(--surface) !important;
+  background: var(--input-bg) !important;
   cursor: pointer !important;
   position: relative !important;
   transition: all 0.15s ease !important;
@@ -196,7 +259,7 @@ body::before {
 }
 
 #api input[type="checkbox"]:hover {
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: var(--checkbox-hover) !important;
 }
 
 /* Checkbox label */
@@ -225,7 +288,7 @@ body::before {
 
 /* ── Primary CTA (Sign in) ── */
 #api button, #api input[type="submit"] {
-  background: linear-gradient(180deg, #7c5cfc 0%, #6a4de8 100%) !important;
+  background: var(--btn-gradient) !important;
   border: none !important;
   border-radius: var(--radius-md) !important;
   color: #fff !important;
@@ -236,10 +299,7 @@ body::before {
   cursor: pointer !important;
   margin-top: 0.5rem !important;
   margin-bottom: 0 !important;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    0 4px 16px rgba(124, 92, 252, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  box-shadow: var(--btn-shadow) !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   text-transform: none !important;
   letter-spacing: 0.01em !important;
@@ -248,19 +308,14 @@ body::before {
 }
 
 #api button:hover, #api input[type="submit"]:hover {
-  background: linear-gradient(180deg, #8b6dff 0%, #7558f0 100%) !important;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    0 8px 24px rgba(124, 92, 252, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  background: var(--btn-gradient-hover) !important;
+  box-shadow: var(--btn-shadow-hover) !important;
   transform: translateY(-1px) !important;
 }
 
 #api button:active, #api input[type="submit"]:active {
   transform: translateY(0) !important;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    0 2px 8px rgba(124, 92, 252, 0.15) !important;
+  box-shadow: var(--btn-shadow) !important;
 }
 
 /* ── OR divider ── */
@@ -277,7 +332,7 @@ body::before {
   content: "" !important;
   flex: 1 !important;
   height: 1px !important;
-  background: linear-gradient(90deg, transparent, var(--border), transparent) !important;
+  background: linear-gradient(90deg, transparent, var(--divider-line), transparent) !important;
   border: none !important;
 }
 
@@ -310,16 +365,16 @@ body::before {
   text-align: center !important;
 }
 
-/* ── Sign Up — subtle secondary button ── */
+/* ── Sign Up — visible secondary button ── */
 #api .create a,
 #api #createAccount {
   display: block !important;
   width: 100% !important;
   padding: 0.7rem 1rem !important;
   background: transparent !important;
-  border: 1px solid var(--border) !important;
+  border: 1px solid var(--signup-border) !important;
   border-radius: var(--radius-md) !important;
-  color: var(--text-secondary) !important;
+  color: var(--signup-color) !important;
   font-size: 0.875rem !important;
   font-weight: 500 !important;
   text-align: center !important;
@@ -334,8 +389,8 @@ body::before {
 
 #api .create a:hover,
 #api #createAccount:hover {
-  background: var(--brand-subtle) !important;
-  border-color: rgba(124, 92, 252, 0.25) !important;
+  background: var(--signup-hover-bg) !important;
+  border-color: var(--signup-hover-border) !important;
   color: var(--text-primary) !important;
   text-decoration: none !important;
 }
@@ -345,8 +400,8 @@ body::before {
 #api button.accountButton,
 #api #signup {
   background: transparent !important;
-  border: 1px solid var(--border) !important;
-  color: var(--text-secondary) !important;
+  border: 1px solid var(--signup-border) !important;
+  color: var(--signup-color) !important;
   box-shadow: none !important;
   margin-top: 0 !important;
   font-weight: 500 !important;
@@ -355,8 +410,8 @@ body::before {
 #api button#createAccount:hover,
 #api button.accountButton:hover,
 #api #signup:hover {
-  background: var(--brand-subtle) !important;
-  border-color: rgba(124, 92, 252, 0.25) !important;
+  background: var(--signup-hover-bg) !important;
+  border-color: var(--signup-hover-border) !important;
   color: var(--text-primary) !important;
   box-shadow: none !important;
   transform: none !important;
@@ -439,7 +494,7 @@ body #api a {
 
 /* ── Error messages ── */
 #api .error {
-  color: #f87171 !important;
+  color: var(--error-color) !important;
   font-size: 0.8rem !important;
   margin-top: 0.35rem !important;
   font-weight: 400 !important;
@@ -447,7 +502,7 @@ body #api a {
 
 /* ── Select dropdown arrow ── */
 #api select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(150,160,180,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-image: var(--select-arrow) !important;
   background-repeat: no-repeat !important;
   background-position: right 1rem center !important;
   padding-right: 2.5rem !important;
