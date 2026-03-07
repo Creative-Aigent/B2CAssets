@@ -191,7 +191,7 @@
         if (api) {
           api.style.background = 'rgba(17, 25, 40, 0.78)';
           api.style.backdropFilter = 'blur(18px)';
-          api.style.border = '1px solid rgba(148, 163, 184, 0.08)';
+          api.style.border = 'none';
           api.style.borderRadius = '16px';
           api.style.boxShadow = '0 18px 36px rgba(15, 23, 42, 0.32)';
           api.style.padding = '2.25rem';
@@ -427,7 +427,7 @@
            // Use individual style properties instead of cssText for better B2C compatibility
            api.style.background = 'rgba(17, 25, 40, 0.85)';
            api.style.backdropFilter = 'blur(20px)';
-           api.style.border = '1px solid rgba(148, 163, 184, 0.08)';
+           api.style.border = 'none';
            api.style.borderRadius = '16px';
            api.style.boxShadow = '0 20px 40px rgba(15, 23, 42, 0.4)';
            api.style.padding = '2rem';
@@ -452,14 +452,13 @@
            }
          });
          
-         // B2C compliant: Don't bind click events on <a> elements
-         // Instead, we'll use CSS to style them properly
+         // B2C compliant: style links — force remove underlines
          const links = document.querySelectorAll('#api a');
          links.forEach(link => {
-           // Only style, don't bind events
            link.style.color = '#c4b5fd';
            link.style.textDecoration = 'none';
-           link.style.transition = 'color 0.2s ease';
+           link.style.borderBottom = 'none';
+           link.style.setProperty('text-decoration', 'none', 'important');
          });
          
        } catch (e) {
