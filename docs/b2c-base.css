@@ -102,6 +102,7 @@ body {
 
 #api .intro h1,
 #api .intro h2,
+#api .heading h1,
 #api > h1,
 #api > h2 {
   margin: 0 0 8px !important;
