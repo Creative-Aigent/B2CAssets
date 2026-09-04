@@ -57,6 +57,9 @@ body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   padding: 40px 20px;
   background-image:
@@ -81,7 +84,7 @@ body {
 #api {
   width: 100% !important;
   max-width: 432px !important;
-  margin: 0 auto !important;
+  margin: auto !important;
   padding: 40px 36px 34px !important;
   overflow: visible !important;
   color: var(--aiman-ink) !important;
