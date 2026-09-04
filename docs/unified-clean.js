@@ -1,137 +1,213 @@
-/* AIMAN B2C Unified Sign-in/Sign-up — v7a JS */
+/* B2C DOM enhancements. Styling remains in b2c-base.css. */
 (function () {
-  'use strict';
+  "use strict";
 
-  /* ── Help link patterns to remove ── */
-  var HELP_PATTERNS = [
+  var helpSelectors = [
+    'a[href*="what"]',
+    'a[href*="help"]',
+    'a[href*="info"]',
+    'a[href*="learn"]',
+    'a[href*="support"]',
+    ".help-link",
+    ".info-link",
+    ".what-is-this",
+    ".help-text",
+    ".info-text",
+    ".what-is-this-text",
+    ".what-is-this-link"
+  ];
+  var helpTextPatterns = [
     /what\s+is\s+this\??/i,
     /qu[eé]\s+es\s+esto\??/i,
-    /qu['']?est[-\s]?ce\s+que\s+c['']?est\??/i,
+    /qu['’]?est[-\s]?ce\s+que\s+c['’]?est\??/i,
     /was\s+ist\s+das\??/i,
     /これは何ですか\??/i
   ];
+  var priorityCountries = [
+    "United States",
+    "Canada",
+    "United Kingdom",
+    "France",
+    "Spain",
+    "United Arab Emirates"
+  ];
 
-  /* ── Remove "What is this?" links and text nodes ── */
-  function removeHelpLinks(root) {
-    if (!root) return;
-    // Remove link elements
-    root.querySelectorAll('a[href*="what"], a[href*="help"], a[href*="info"], .help-link, .info-link, .what-is-this').forEach(function (el) {
-      el.remove();
-    });
-    // Remove matching text nodes
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-    var toRemove = [];
+  function removeElement(element) {
+    if (element && element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
+  }
+
+  function removeHelpLinks(api) {
+    var elements;
+    var walker;
+    var nodesToRemove = [];
     var node;
+    var text;
+    var patternIndex;
+    var index;
+
+    if (!api) {
+      return;
+    }
+
+    elements = api.querySelectorAll(helpSelectors.join(","));
+    for (index = 0; index < elements.length; index += 1) {
+      removeElement(elements[index]);
+    }
+
+    walker = document.createTreeWalker(api, NodeFilter.SHOW_TEXT, null, false);
     while ((node = walker.nextNode())) {
-      var text = (node.textContent || '').replace(/\s+/g, ' ').trim();
-      if (text && HELP_PATTERNS.some(function (p) { return p.test(text); })) {
-        toRemove.push(node);
+      text = (node.textContent || "").replace(/\s+/g, " ").trim();
+      for (patternIndex = 0; text && patternIndex < helpTextPatterns.length; patternIndex += 1) {
+        if (helpTextPatterns[patternIndex].test(text)) {
+          nodesToRemove.push(node);
+          break;
+        }
       }
     }
-    toRemove.forEach(function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
+
+    for (index = 0; index < nodesToRemove.length; index += 1) {
+      removeElement(nodesToRemove[index]);
+    }
   }
 
-  /* ── Fix "Don't have an account?Sign up now" spacing ── */
-  function fixTextSpacing(api) {
-    var createSection = api.querySelector('.create p') || api.querySelector('.create');
-    if (!createSection || createSection.dataset.spacingFixed) return;
-    var link = createSection.querySelector('a');
-    if (link && link.previousSibling && link.previousSibling.nodeType === 3) {
-      var text = link.previousSibling.textContent;
-      if (text && !text.endsWith(' ')) {
-        link.previousSibling.textContent = text + ' ';
+  function fixCreateAccountSpacing(api) {
+    var create = api && (api.querySelector(".create p") || api.querySelector(".create"));
+    var link = create && create.querySelector("a");
+
+    if (!link || !link.previousSibling || link.previousSibling.nodeType !== 3) {
+      return;
+    }
+
+    if (link.previousSibling.textContent && !/\s$/.test(link.previousSibling.textContent)) {
+      link.previousSibling.textContent += " ";
+    }
+  }
+
+  function findOption(options, country) {
+    var index;
+
+    for (index = 0; index < options.length; index += 1) {
+      if (options[index].textContent.indexOf(country) >= 0) {
+        return options[index];
       }
     }
-    createSection.dataset.spacingFixed = 'true';
+
+    return null;
   }
 
-  /* ── Force-remove underlines and fix colors on links (B2C injects inline styles) ── */
-  function cleanLinks(api) {
-    api.querySelectorAll('a').forEach(function (link) {
-      link.style.setProperty('text-decoration', 'none', 'important');
-      link.style.setProperty('border', 'none', 'important');
-      link.style.setProperty('border-bottom', 'none', 'important');
-      link.style.setProperty('outline', 'none', 'important');
-      link.style.setProperty('box-shadow', 'none', 'important');
-
-      // Force "Change Phone Number" (and similar utility links) to muted color
-      var text = (link.textContent || '').trim().toLowerCase();
-      var isCreateLink = link.closest('.create') || link.id === 'createAccount';
-      if (!isCreateLink && text && (
-        text.indexOf('change') >= 0 ||
-        text.indexOf('phone') >= 0 ||
-        text.indexOf('forgot') >= 0 ||
-        text.indexOf('cancel') >= 0
-      )) {
-        link.style.setProperty('color', 'rgba(150, 160, 180, 0.4)', 'important');
-        link.style.setProperty('font-size', '0.7rem', 'important');
-      }
-    });
-    // Also try by container class (B2C uses .options, .change, or similar)
-    api.querySelectorAll('.options a, .change a, [class*="change"] a, [class*="option"] a').forEach(function (link) {
-      link.style.setProperty('color', 'rgba(150, 160, 180, 0.4)', 'important');
-      link.style.setProperty('font-size', '0.7rem', 'important');
-    });
-  }
-
-  /* ── Prioritise common countries in <select> dropdowns ── */
   function prioritizeCountries(api) {
-    api.querySelectorAll('select').forEach(function (select) {
-      if (select.dataset.prioritized) return;
-      var opts = Array.from(select.options);
-      if (opts.length < 10) return;
-      var names = ['United States', 'Canada', 'United Kingdom', 'France', 'Spain', 'United Arab Emirates'];
-      var priority = [];
-      names.forEach(function (name) {
-        var opt = opts.find(function (o) { return o.textContent.indexOf(name) >= 0; });
-        if (opt) priority.push(opt);
-      });
-      if (!priority.length) return;
-      var currentValue = select.value;
-      var placeholder = opts.find(function (o) { return !o.value || o.value === ''; });
-      while (select.firstChild) select.removeChild(select.firstChild);
-      if (placeholder) select.appendChild(placeholder);
-      priority.forEach(function (opt) { select.appendChild(opt); });
-      var sep = document.createElement('option');
-      sep.disabled = true;
-      sep.textContent = '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500';
-      select.appendChild(sep);
-      opts.forEach(function (opt) {
-        if (priority.indexOf(opt) < 0 && opt !== placeholder) select.appendChild(opt);
-      });
-      select.value = currentValue;
-      select.dataset.prioritized = 'true';
-    });
+    var selects;
+    var selectIndex;
+    var select;
+    var options;
+    var originalOptions;
+    var priorityOptions;
+    var placeholder;
+    var countryIndex;
+    var optionIndex;
+    var option;
+    var separator;
+    var selectedValue;
+
+    if (!api) {
+      return;
+    }
+
+    selects = api.querySelectorAll("select");
+    for (selectIndex = 0; selectIndex < selects.length; selectIndex += 1) {
+      select = selects[selectIndex];
+      if (select.getAttribute("data-aiman-prioritized") === "true" || select.options.length < 10) {
+        continue;
+      }
+
+      options = Array.prototype.slice.call(select.options);
+      priorityOptions = [];
+      placeholder = null;
+      selectedValue = select.value;
+
+      for (optionIndex = 0; optionIndex < options.length; optionIndex += 1) {
+        if (!options[optionIndex].value) {
+          placeholder = options[optionIndex];
+          break;
+        }
+      }
+
+      for (countryIndex = 0; countryIndex < priorityCountries.length; countryIndex += 1) {
+        option = findOption(options, priorityCountries[countryIndex]);
+        if (option) {
+          priorityOptions.push(option);
+        }
+      }
+
+      if (!priorityOptions.length) {
+        continue;
+      }
+
+      originalOptions = options.slice();
+      while (select.firstChild) {
+        select.removeChild(select.firstChild);
+      }
+
+      if (placeholder) {
+        select.appendChild(placeholder);
+      }
+
+      for (optionIndex = 0; optionIndex < priorityOptions.length; optionIndex += 1) {
+        select.appendChild(priorityOptions[optionIndex]);
+      }
+
+      separator = document.createElement("option");
+      separator.disabled = true;
+      separator.textContent = "------------";
+      select.appendChild(separator);
+
+      for (optionIndex = 0; optionIndex < originalOptions.length; optionIndex += 1) {
+        option = originalOptions[optionIndex];
+        if (option !== placeholder && priorityOptions.indexOf(option) < 0) {
+          select.appendChild(option);
+        }
+      }
+
+      select.value = selectedValue;
+      select.setAttribute("data-aiman-prioritized", "true");
+    }
   }
 
-  /* ── Main customisation pass ── */
-  function applyCustomizations() {
-    var api = document.getElementById('api');
-    if (!api) return;
+  function applyEnhancements() {
+    var api = document.getElementById("api");
+
     removeHelpLinks(api);
-    fixTextSpacing(api);
-    cleanLinks(api);
+    fixCreateAccountSpacing(api);
     prioritizeCountries(api);
   }
 
-  /* ── Bootstrap: run immediately, on load, and watch for B2C DOM mutations ── */
-  applyCustomizations();
-  document.addEventListener('DOMContentLoaded', applyCustomizations);
-  window.addEventListener('load', applyCustomizations);
+  function observeApi() {
+    var api = document.getElementById("api");
+    var observer;
 
-  // MutationObserver to catch B2C late DOM injections
-  function tryObserve() {
-    var api = document.getElementById('api');
-    if (!api) return false;
-    var observer = new MutationObserver(applyCustomizations);
+    if (!api || !window.MutationObserver) {
+      return false;
+    }
+
+    observer = new MutationObserver(applyEnhancements);
     observer.observe(api, { childList: true, subtree: true });
-    applyCustomizations();
+    applyEnhancements();
     return true;
   }
 
-  if (!tryObserve()) {
-    var poll = setInterval(function () {
-      if (tryObserve()) clearInterval(poll);
+  applyEnhancements();
+  document.addEventListener("DOMContentLoaded", applyEnhancements);
+  window.addEventListener("load", applyEnhancements);
+
+  if (!observeApi() && window.MutationObserver) {
+    var attempts = 0;
+    var poll = window.setInterval(function () {
+      attempts += 1;
+      if (observeApi() || attempts === 40) {
+        window.clearInterval(poll);
+      }
     }, 150);
   }
-})();
+}());

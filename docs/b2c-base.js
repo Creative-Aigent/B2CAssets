@@ -1,345 +1,213 @@
-  (function() {
-    const HELP_SELECTORS = [
-      'a[href*="what"]',
-      'a[href*="help"]',
-      'a[href*="info"]',
-      'a[href*="learn"]',
-      'a[href*="support"]',
-      '.help-link',
-      '.info-link',
-      '.what-is-this',
-      '.help-text',
-      '.info-text',
-      '.what-is-this-text',
-      '.what-is-this-link'
-    ];
+/* B2C DOM enhancements. Styling remains in b2c-base.css. */
+(function () {
+  "use strict";
 
-    const HELP_PARENT_SELECTORS = [
-      '.form-group .helpLink',
-      '.form-group .helpText',
-      '.form-group a[href*="what"]',
-      '.form-group a[href*="help"]',
-      '.form-group a[href*="info"]',
-      '.intro .helpLink',
-      '.intro .helpText',
-      '.intro a[href*="what"]',
-      '.intro a[href*="help"]',
-      '.intro a[href*="info"]'
-    ];
+  var helpSelectors = [
+    'a[href*="what"]',
+    'a[href*="help"]',
+    'a[href*="info"]',
+    'a[href*="learn"]',
+    'a[href*="support"]',
+    ".help-link",
+    ".info-link",
+    ".what-is-this",
+    ".help-text",
+    ".info-text",
+    ".what-is-this-text",
+    ".what-is-this-link"
+  ];
+  var helpTextPatterns = [
+    /what\s+is\s+this\??/i,
+    /qu[eé]\s+es\s+esto\??/i,
+    /qu['’]?est[-\s]?ce\s+que\s+c['’]?est\??/i,
+    /was\s+ist\s+das\??/i,
+    /これは何ですか\??/i
+  ];
+  var priorityCountries = [
+    "United States",
+    "Canada",
+    "United Kingdom",
+    "France",
+    "Spain",
+    "United Arab Emirates"
+  ];
 
-    const DEFAULT_HELP_TEXT_PATTERNS = [
-      /what\s+is\s+this\??/i,
-      /qué\s+es\s+esto\??/i,
-      /qu['’]?est[-\s]?ce\s+que\s+c['’]?est\??/i,
-      /was\s+ist\s+das\??/i,
-      /che\s+cosa\s+(?:\u00e8|e)\??/i,
-      /o\s+que\s+(?:\u00e9|e)\s+isso\??/i,
-      /что\s+это\??/i,
-      /這是甚麼\??/i,
-      /這是什麼\??/i,
-      /這\s*是\s*什麼\??/i,
-      /これは何ですか\??/i
-    ];
+  function removeElement(element) {
+    if (element && element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
+  }
 
-    function escapeRegExp(text) {
-      return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  function removeHelpLinks(api) {
+    var elements;
+    var walker;
+    var nodesToRemove = [];
+    var node;
+    var text;
+    var patternIndex;
+    var index;
+
+    if (!api) {
+      return;
     }
 
-    function coercePattern(pattern) {
-      if (pattern instanceof RegExp) {
-        return pattern;
+    elements = api.querySelectorAll(helpSelectors.join(","));
+    for (index = 0; index < elements.length; index += 1) {
+      removeElement(elements[index]);
+    }
+
+    walker = document.createTreeWalker(api, NodeFilter.SHOW_TEXT, null, false);
+    while ((node = walker.nextNode())) {
+      text = (node.textContent || "").replace(/\s+/g, " ").trim();
+      for (patternIndex = 0; text && patternIndex < helpTextPatterns.length; patternIndex += 1) {
+        if (helpTextPatterns[patternIndex].test(text)) {
+          nodesToRemove.push(node);
+          break;
+        }
+      }
+    }
+
+    for (index = 0; index < nodesToRemove.length; index += 1) {
+      removeElement(nodesToRemove[index]);
+    }
+  }
+
+  function fixCreateAccountSpacing(api) {
+    var create = api && (api.querySelector(".create p") || api.querySelector(".create"));
+    var link = create && create.querySelector("a");
+
+    if (!link || !link.previousSibling || link.previousSibling.nodeType !== 3) {
+      return;
+    }
+
+    if (link.previousSibling.textContent && !/\s$/.test(link.previousSibling.textContent)) {
+      link.previousSibling.textContent += " ";
+    }
+  }
+
+  function findOption(options, country) {
+    var index;
+
+    for (index = 0; index < options.length; index += 1) {
+      if (options[index].textContent.indexOf(country) >= 0) {
+        return options[index];
+      }
+    }
+
+    return null;
+  }
+
+  function prioritizeCountries(api) {
+    var selects;
+    var selectIndex;
+    var select;
+    var options;
+    var originalOptions;
+    var priorityOptions;
+    var placeholder;
+    var countryIndex;
+    var optionIndex;
+    var option;
+    var separator;
+    var selectedValue;
+
+    if (!api) {
+      return;
+    }
+
+    selects = api.querySelectorAll("select");
+    for (selectIndex = 0; selectIndex < selects.length; selectIndex += 1) {
+      select = selects[selectIndex];
+      if (select.getAttribute("data-aiman-prioritized") === "true" || select.options.length < 10) {
+        continue;
       }
 
-      if (typeof pattern === 'string' && pattern.trim().length > 0) {
-        return new RegExp(escapeRegExp(pattern.trim()), 'i');
-      }
+      options = Array.prototype.slice.call(select.options);
+      priorityOptions = [];
+      placeholder = null;
+      selectedValue = select.value;
 
-      return null;
-    }
-
-    const HELP_TEXT_PATTERNS = (window.B2C_HELP_TEXT_PATTERNS || DEFAULT_HELP_TEXT_PATTERNS)
-      .map(coercePattern)
-      .filter(Boolean);
-
-    function hideElements(selectors) {
-      const uniqueSelectors = Array.from(new Set(selectors));
-      uniqueSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-          if (!element.parentNode) {
-            return;
-          }
-
-          element.style.display = 'none';
-          element.style.visibility = 'hidden';
-          element.style.width = '0';
-          element.style.height = '0';
-          element.style.overflow = 'hidden';
-          element.style.position = 'absolute';
-          element.style.left = '-9999px';
-          element.style.opacity = '0';
-          element.style.pointerEvents = 'none';
-          element.style.zIndex = '-9999';
-          element.remove();
-        });
-      });
-    }
-
-    function hideParentElements(selectors) {
-      selectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-          const parent = element && element.parentNode;
-          if (!parent) {
-            return;
-          }
-
-          parent.style.display = 'none';
-          parent.style.visibility = 'hidden';
-          parent.style.width = '0';
-          parent.style.height = '0';
-          parent.style.overflow = 'hidden';
-          parent.style.position = 'absolute';
-          parent.style.left = '-9999px';
-          parent.style.opacity = '0';
-          parent.style.pointerEvents = 'none';
-          parent.style.zIndex = '-9999';
-          parent.remove();
-        });
-      });
-    }
-
-    function normalizeWhitespace(text) {
-      return text.replace(/\s+/g, ' ').trim();
-    }
-
-    function textMatchesPatterns(text, patterns) {
-      if (!text || !patterns.length) {
-        return false;
-      }
-
-      const normalized = normalizeWhitespace(text);
-      if (!normalized) {
-        return false;
-      }
-
-      return patterns.some(pattern => pattern.test(normalized));
-    }
-
-    function removeTextNodesMatching(root, patterns) {
-      if (!root) {
-        return;
-      }
-
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-      const nodesToRemove = [];
-
-      let current;
-      while ((current = walker.nextNode())) {
-        if (textMatchesPatterns(current.textContent, patterns)) {
-          nodesToRemove.push(current);
+      for (optionIndex = 0; optionIndex < options.length; optionIndex += 1) {
+        if (!options[optionIndex].value) {
+          placeholder = options[optionIndex];
+          break;
         }
       }
 
-      nodesToRemove.forEach(node => {
-        if (node.parentNode) {
-          node.parentNode.removeChild(node);
+      for (countryIndex = 0; countryIndex < priorityCountries.length; countryIndex += 1) {
+        option = findOption(options, priorityCountries[countryIndex]);
+        if (option) {
+          priorityOptions.push(option);
         }
-      });
-    }
-
-    function removeHelpLinks() {
-      try {
-        hideElements(HELP_SELECTORS);
-        hideParentElements(HELP_PARENT_SELECTORS);
-
-        const api = document.getElementById('api');
-        if (!api) {
-          return;
-        }
-
-        api.querySelectorAll('*').forEach(element => {
-          if (textMatchesPatterns(element.textContent, HELP_TEXT_PATTERNS)) {
-            element.style.display = 'none';
-            element.style.visibility = 'hidden';
-            element.style.width = '0';
-            element.style.height = '0';
-            element.style.overflow = 'hidden';
-            element.style.position = 'absolute';
-            element.style.left = '-9999px';
-            element.style.opacity = '0';
-            element.style.pointerEvents = 'none';
-            element.style.zIndex = '-9999';
-            element.remove();
-          }
-        });
-
-        hideParentElements(HELP_PARENT_SELECTORS);
-        removeTextNodesMatching(api, HELP_TEXT_PATTERNS);
-      } catch (e) {
-        console.warn('Error removing help links:', e);
-      }
-    }
-    
-    // Unified JavaScript to handle both sign-in and sign-up
-    function forceDarkTheme() {
-      try {
-        // Force background on all elements
-        document.body.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
-        document.documentElement.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
-        
-        // Force API container styling
-        const api = document.getElementById('api');
-        if (api) {
-          api.style.background = 'rgba(17, 25, 40, 0.78)';
-          api.style.backdropFilter = 'blur(18px)';
-          api.style.border = '1px solid rgba(148, 163, 184, 0.18)';
-          api.style.borderRadius = '16px';
-          api.style.boxShadow = '0 18px 36px rgba(15, 23, 42, 0.32)';
-          api.style.padding = '2.25rem';
-          api.style.maxWidth = '420px';
-          api.style.margin = '2.25rem auto';
-          api.style.minHeight = 'auto';
-          api.style.overflow = 'visible';
-          api.style.maxHeight = 'none';
-        }
-        
-        // Force all containers
-        const containers = document.querySelectorAll('.ext-container, .ext-container-margin, .ext-container-padding, [class*="ext-"], [id*="ext-"]');
-        containers.forEach(container => {
-          container.style.background = 'linear-gradient(135deg, #0b0f1a 0%, #0f172a 40%, #0f1c33 100%)';
-        });
-        
-        // Remove "What is this?" links
-        removeHelpLinks();
-        
-        // Style any new form elements that B2C injects
-        const inputs = document.querySelectorAll('#api input, #api select');
-        inputs.forEach(input => {
-          input.style.background = 'rgba(15, 23, 42, 0.55)';
-          input.style.border = '1px solid rgba(148, 163, 184, 0.28)';
-          input.style.borderRadius = '12px';
-          input.style.color = '#f1f5f9';
-          input.style.padding = '0.9rem 1rem';
-          input.style.fontSize = '0.95rem';
-          input.style.width = '100%';
-          input.style.marginBottom = '1rem';
-          input.style.boxShadow = 'none';
-        });
-
-        const checkboxes = document.querySelectorAll('#api input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-          checkbox.style.width = '16px';
-          checkbox.style.height = '16px';
-          checkbox.style.margin = '0';
-          checkbox.style.marginRight = '0.55rem';
-          checkbox.style.border = '1px solid rgba(148, 163, 184, 0.35)';
-          checkbox.style.borderRadius = '4px';
-          checkbox.style.background = 'rgba(15, 23, 42, 0.45)';
-        });
-
-        checkboxes.forEach(checkbox => {
-          const container = checkbox.closest('.form-group') || checkbox.parentElement;
-          if (container && !container.dataset.alignedCheckbox) {
-            container.style.display = 'grid';
-            container.style.gridTemplateColumns = 'auto 1fr';
-            container.style.alignItems = 'start';
-            container.style.columnGap = '0.55rem';
-            container.dataset.alignedCheckbox = 'true';
-          }
-
-          const label = container && container.querySelector('label');
-          if (label) {
-            label.style.margin = '0';
-            label.style.lineHeight = '1.3';
-            label.style.fontSize = '0.88rem';
-          }
-        });
-
-        // Style any new buttons that B2C injects
-        const buttons = document.querySelectorAll('#api button, #api input[type="submit"]');
-        buttons.forEach(button => {
-          button.style.background = '#6c4ff0';
-          button.style.border = '1px solid rgba(108, 79, 240, 0.5)';
-          button.style.borderRadius = '12px';
-          button.style.color = '#f8fafc';
-          button.style.padding = '0.85rem 1.15rem';
-          button.style.fontSize = '0.95rem';
-          button.style.fontWeight = '600';
-          button.style.width = '100%';
-          button.style.cursor = 'pointer';
-          button.style.marginTop = '1rem';
-          button.style.marginBottom = '1rem';
-          button.style.boxShadow = '0 6px 14px rgba(108, 79, 240, 0.3)';
-          button.style.textTransform = 'none';
-        });
-
-      } catch (e) {
-        console.warn('Theme force error:', e);
-      }
-    }
-    
-    function prioritizeCountries() {
-      try {
-        const selects = document.querySelectorAll('#api select');
-        selects.forEach(function(select) {
-          if (select.dataset.prioritized) return;
-          var opts = Array.from(select.options);
-          if (opts.length < 10) return;
-          var names = ['United States', 'Canada', 'United Kingdom', 'France', 'Spain', 'United Arab Emirates'];
-          var priority = [];
-          names.forEach(function(name) {
-            var opt = opts.find(function(o) { return o.textContent.indexOf(name) >= 0; });
-            if (opt) priority.push(opt);
-          });
-          if (priority.length === 0) return;
-          var currentValue = select.value;
-          var placeholder = opts.find(function(o) { return !o.value || o.value === ''; });
-          while (select.firstChild) select.removeChild(select.firstChild);
-          if (placeholder) select.appendChild(placeholder);
-          priority.forEach(function(opt) { select.appendChild(opt); });
-          var sep = document.createElement('option');
-          sep.disabled = true;
-          sep.textContent = '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500';
-          select.appendChild(sep);
-          opts.forEach(function(opt) {
-            if (priority.indexOf(opt) < 0 && opt !== placeholder) select.appendChild(opt);
-          });
-          select.value = currentValue;
-          select.dataset.prioritized = 'true';
-        });
-      } catch (e) {
-        console.warn('Country priority error:', e);
-      }
-    }
-
-    function applyCustomizations() {
-      forceDarkTheme();
-      removeHelpLinks();
-      prioritizeCountries();
-    }
-
-    // Run immediately and on load
-    applyCustomizations();
-    window.addEventListener('load', applyCustomizations);
-
-    // Watch for B2C content changes
-    const observer = new MutationObserver(applyCustomizations);
-
-    function tryObserveApi() {
-      const api = document.getElementById('api');
-      if (!api) {
-        return false;
       }
 
-      observer.observe(api, { childList: true, subtree: true });
-      applyCustomizations();
-      return true;
+      if (!priorityOptions.length) {
+        continue;
+      }
+
+      originalOptions = options.slice();
+      while (select.firstChild) {
+        select.removeChild(select.firstChild);
+      }
+
+      if (placeholder) {
+        select.appendChild(placeholder);
+      }
+
+      for (optionIndex = 0; optionIndex < priorityOptions.length; optionIndex += 1) {
+        select.appendChild(priorityOptions[optionIndex]);
+      }
+
+      separator = document.createElement("option");
+      separator.disabled = true;
+      separator.textContent = "------------";
+      select.appendChild(separator);
+
+      for (optionIndex = 0; optionIndex < originalOptions.length; optionIndex += 1) {
+        option = originalOptions[optionIndex];
+        if (option !== placeholder && priorityOptions.indexOf(option) < 0) {
+          select.appendChild(option);
+        }
+      }
+
+      select.value = selectedValue;
+      select.setAttribute("data-aiman-prioritized", "true");
+    }
+  }
+
+  function applyEnhancements() {
+    var api = document.getElementById("api");
+
+    removeHelpLinks(api);
+    fixCreateAccountSpacing(api);
+    prioritizeCountries(api);
+  }
+
+  function observeApi() {
+    var api = document.getElementById("api");
+    var observer;
+
+    if (!api || !window.MutationObserver) {
+      return false;
     }
 
-    if (!tryObserveApi()) {
-      const checkApi = setInterval(() => {
-        if (tryObserveApi()) {
-          clearInterval(checkApi);
-        }
-      }, 100);
-    }
-  })();
+    observer = new MutationObserver(applyEnhancements);
+    observer.observe(api, { childList: true, subtree: true });
+    applyEnhancements();
+    return true;
+  }
+
+  applyEnhancements();
+  document.addEventListener("DOMContentLoaded", applyEnhancements);
+  window.addEventListener("load", applyEnhancements);
+
+  if (!observeApi() && window.MutationObserver) {
+    var attempts = 0;
+    var poll = window.setInterval(function () {
+      attempts += 1;
+      if (observeApi() || attempts === 40) {
+        window.clearInterval(poll);
+      }
+    }, 150);
+  }
+}());
