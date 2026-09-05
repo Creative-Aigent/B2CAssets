@@ -1,0 +1,69 @@
+name: Auth release checks
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/auth-release-check.yml"
+      - "auth/**"
+      - "docs/releases/**"
+      - "scripts/build-auth-release.py"
+      - "scripts/check-auth-release-history.py"
+      - "tests/test_auth_release.py"
+      - "tests/theme-script.test.cjs"
+      - "tests/browser/**"
+      - "playwright.config.js"
+      - "package.json"
+      - "package-lock.json"
+  push:
+    paths:
+      - ".github/workflows/auth-release-check.yml"
+      - "auth/**"
+      - "docs/releases/**"
+      - "scripts/build-auth-release.py"
+      - "scripts/check-auth-release-history.py"
+      - "tests/test_auth_release.py"
+      - "tests/theme-script.test.cjs"
+      - "tests/browser/**"
+      - "playwright.config.js"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Protect existing releases
+        env:
+          AUTH_RELEASE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          # For PRs, check the same merged tree that checkout and tests use.
+          AUTH_RELEASE_HEAD_SHA: ${{ github.sha }}
+        run: python3 -B scripts/check-auth-release-history.py
+      - name: Test immutable packaging
+        run: python3 -B -m unittest discover -s tests -p 'test_auth_release.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install locked test dependencies
+        run: npm ci --ignore-scripts
+      - name: Test theme behavior without browser or tenant
+        run: node --test tests/theme-script.test.cjs
+      - name: Verify all release manifests and dependencies
+        run: python3 -B scripts/build-auth-release.py --verify-existing
+      - name: Install isolated browser
+        run: npx playwright install --with-deps chromium
+      - name: Verify candidate appearance and native control states
+        env:
+          B2C_RELEASE_ID: v14-theme-4
+        run: npm run test:browser

@@ -1,0 +1,164 @@
+{
+  "activationStatus": "not-activated",
+  "contentUrlBase": "https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/",
+  "files": {
+    "aiman-logo-dark.svg": {
+      "sha256": "6bd3881b84968ab5e502adaed10299188140d29b197b2a3c2640ead2c8b1e63a",
+      "sizeBytes": 2647
+    },
+    "aiman-logo-white.png": {
+      "sha256": "9baf8da417e5237a1485a718e882a31a8ea32d7017348f0f597975cacb4d2881",
+      "sizeBytes": 5160
+    },
+    "aiman-logo-white.svg": {
+      "sha256": "aae3aa4df974cf6da50ed49c71d2f887836f3b3a7e622d1196e1914871169519",
+      "sizeBytes": 2641
+    },
+    "auth-theme.css": {
+      "sha256": "b042e4dc4487fd3f55639f7f993df93a89904ac0eabebc376833c074e2235317",
+      "sizeBytes": 2670
+    },
+    "auth-theme.js": {
+      "sha256": "4371724dd5dc23d2bbaf3ab1a8ce440a95752ea0c6af222953b1caf535fbf634",
+      "sizeBytes": 1367
+    },
+    "b2c-base.css": {
+      "sha256": "c754955a25e05712a5b15caea2f0f5dfe235099508529c7d30183f76d932c4aa",
+      "sizeBytes": 14572
+    },
+    "country-list-customization-ar-phone-only.json": {
+      "sha256": "d9541e81ad2e30d93863f917b1e19ee83b7090b0d3843891aed103a066f1a64c",
+      "sizeBytes": 19285
+    },
+    "country-list-customization-ar.json": {
+      "sha256": "b1e296d3c7ef86fcaf52f3185cbeed788397ab1cf58ed225908465bea520a27f",
+      "sizeBytes": 22007
+    },
+    "country-list-customization-en-phone-only.json": {
+      "sha256": "7fe409c661f1c1dd8d475d149b22b84c2e6b061b2e8d8511ea45c57394ecdc14",
+      "sizeBytes": 19197
+    },
+    "country-list-customization-en.json": {
+      "sha256": "9e3a6a28567b7f6544d284eee96e87a575330be532f04032e1a56eed5e969816",
+      "sizeBytes": 20250
+    },
+    "country-list-customization-es-phone-only.json": {
+      "sha256": "443859ccce5a98bc4ddbf57e69b7773ce13f8248bef4b620e447626f61722f57",
+      "sizeBytes": 19206
+    },
+    "country-list-customization-es.json": {
+      "sha256": "24c3a1e7b86fd9616a6a2587dc2f90decdaa35103ac4db3070b23941210185bc",
+      "sizeBytes": 20344
+    },
+    "country-list-customization-fr-phone-only.json": {
+      "sha256": "a7b155660bc77207acb1ab5800488c64faed06cc2bf342a9ed37020cbb5fa7b5",
+      "sizeBytes": 19195
+    },
+    "country-list-customization-fr.json": {
+      "sha256": "33b33d11ddf0fb0f38f25910043965cedd9eab58c8e6526528824a984eab441d",
+      "sizeBytes": 20391
+    },
+    "country-list-customization.json": {
+      "sha256": "701a5fc8ecd670c28174df1422c0c557d7791579c821b044d5bb2250eb23fc4e",
+      "sizeBytes": 19171
+    },
+    "fonts/OFL-Lora.txt": {
+      "sha256": "948aed765160f7b974105606c21994715a171f89fca48e57bf1e0a23aca0bef1",
+      "sizeBytes": 4563
+    },
+    "fonts/OFL-Outfit.txt": {
+      "sha256": "0e5fcef5d93bfcae273c11c00f0bb453d3b5491860e1ac8b658767b7577c938f",
+      "sizeBytes": 4387
+    },
+    "fonts/lora-latin-ext-wght-normal.woff2": {
+      "sha256": "2a2d9c22c9863086a23f5013fede1428585321812b25f2662542c39d02967c5e",
+      "sizeBytes": 20088
+    },
+    "fonts/outfit-latin-ext-wght-normal.woff2": {
+      "sha256": "0f53d1c03b3918d744a843b5039001ee31695ca1e255e3914188df81beb461e9",
+      "sizeBytes": 14808
+    },
+    "phone-otp-clean.html": {
+      "sha256": "371995ee97c589d1f3dcd51fa9acafed61b121b1708a64fd7c13ba939808239d",
+      "sizeBytes": 865
+    },
+    "phone-signup-clean.css": {
+      "sha256": "ee702a022c48ae0edd8306a360329132bbbe69868f6b50597f9d76fd3b009e00",
+      "sizeBytes": 160
+    },
+    "phone-signup-clean.html": {
+      "sha256": "04cfcf811954940cc5839c052a4cf0dbba87c47a89d5ed8d9543f476c9cc38fd",
+      "sizeBytes": 867
+    },
+    "selfasserted-clean.css": {
+      "sha256": "6a0be0dacf489940022c0cc5398b77dcbe40c1b4e6077a30bc089b45d8deea7b",
+      "sizeBytes": 160
+    },
+    "selfasserted-clean.html": {
+      "sha256": "e16d3e06edee18d464ec26ed409b56a59bfa1149875186d2f16be9c6a798f734",
+      "sizeBytes": 868
+    },
+    "signin-phone-clean.html": {
+      "sha256": "3d7837d6b82ca98d8b9caa443eb1349e6b6252fceae78b20fc2b8b32de8f3c59",
+      "sizeBytes": 851
+    },
+    "unified-clean.css": {
+      "sha256": "9756a7b260cff494297d0c83783ede3ffa762c8d137cedeba37b78611a385dc0",
+      "sizeBytes": 170
+    },
+    "unified-clean.html": {
+      "sha256": "00b8777deb1cee201b4db7c78bc3cac0f3e7cb9b6ffc88af9e17442ef6a2c39a",
+      "sizeBytes": 863
+    }
+  },
+  "legalOrigin": "https://dev.agentaiman.com",
+  "pageLayouts": [
+    {
+      "apiContainerId": "api",
+      "pageLayout": "urn:com:microsoft:aad:b2c:elements:contract:multifactor:1.2.9",
+      "path": "phone-otp-clean.html",
+      "url": "https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/phone-otp-clean.html"
+    },
+    {
+      "apiContainerId": "api",
+      "pageLayout": "urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.21",
+      "path": "phone-signup-clean.html",
+      "url": "https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/phone-signup-clean.html"
+    },
+    {
+      "apiContainerId": "api",
+      "pageLayout": "urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.21",
+      "path": "selfasserted-clean.html",
+      "url": "https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/selfasserted-clean.html"
+    },
+    {
+      "apiContainerId": "api",
+      "pageLayout": "urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.21",
+      "path": "signin-phone-clean.html",
+      "url": "https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/signin-phone-clean.html"
+    },
+    {
+      "apiContainerId": "api",
+      "pageLayout": "urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.9",
+      "path": "unified-clean.html",
+      "url": "https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/unified-clean.html"
+    }
+  ],
+  "releaseId": "v14-theme-4",
+  "schemaVersion": 1,
+  "sourceGitCommit": "5537be973028caae05cfb60e2fd23dc557fbf40a",
+  "theme": {
+    "enhancementEnabled": true,
+    "requiresTenantJavaScriptEnablement": true,
+    "sourceFiles": {
+      "auth/theme.css": {
+        "sha256": "b042e4dc4487fd3f55639f7f993df93a89904ac0eabebc376833c074e2235317",
+        "sizeBytes": 2670
+      },
+      "auth/theme.js": {
+        "sha256": "4371724dd5dc23d2bbaf3ab1a8ce440a95752ea0c6af222953b1caf535fbf634",
+        "sizeBytes": 1367
+      }
+    }
+  }
+}

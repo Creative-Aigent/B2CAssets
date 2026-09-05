@@ -1,0 +1,85 @@
+:root {
+  --aiman-border-strong: #697591;
+  --aiman-primary-hover: linear-gradient(135deg, #755bd8 0%, #654bc6 100%);
+}
+
+#api .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-block-start: 12px;
+}
+
+/* An explicit UI preference wins over the device's color scheme. */
+html[data-aiman-theme="light"] {
+  color-scheme: light;
+  --aiman-canvas: #f5f7f6;
+  --aiman-panel: #ffffff;
+  --aiman-panel-raised: #eef2f1;
+  --aiman-input: #ffffff;
+  --aiman-ink: #121817;
+  --aiman-copy: #5d6966;
+  --aiman-muted: #64726d;
+  --aiman-border: #d9e0dd;
+  --aiman-border-strong: #788982;
+  --aiman-link: #6048c1;
+  --aiman-link-hover: #493398;
+  --aiman-focus: #7255b7;
+  --aiman-focus-ring: rgba(114, 85, 183, 0.22);
+  --aiman-primary: linear-gradient(110deg, #7957e8 0%, #685ce2 45%, #4f63d8 100%);
+  --aiman-primary-hover: linear-gradient(110deg, #704cd8 0%, #5f53d2 45%, #465ac9 100%);
+  --aiman-primary-shadow: 0 6px 18px rgba(91, 78, 205, 0.20);
+  --aiman-error: #9b3b2e;
+  --aiman-error-surface: #fbefec;
+  --aiman-error-border: #dcb5ae;
+  --aiman-success: #246443;
+}
+
+html[data-aiman-theme="light"] body {
+  color-scheme: light;
+  background-image:
+    radial-gradient(circle at 72% 8%, rgba(83, 147, 255, 0.055), transparent 30%),
+    radial-gradient(circle at 10% 92%, rgba(84, 198, 148, 0.04), transparent 26%),
+    radial-gradient(circle at 88% 74%, rgba(151, 112, 255, 0.04), transparent 30%) !important;
+}
+
+html[data-aiman-theme="light"] #api {
+  background: var(--aiman-panel) !important;
+  box-shadow: 0 24px 64px rgba(25, 50, 45, 0.08), 0 2px 8px rgba(25, 50, 45, 0.04) !important;
+}
+
+html[data-aiman-theme="light"] #api::before {
+  background-image: url("aiman-logo-dark.svg");
+}
+
+html[data-aiman-theme="light"] #api input:hover,
+html[data-aiman-theme="light"] #api select:hover,
+html[data-aiman-theme="light"] #api textarea:hover {
+  border-color: #586c62 !important;
+}
+
+html[data-aiman-theme="light"] #api input:focus,
+html[data-aiman-theme="light"] #api select:focus,
+html[data-aiman-theme="light"] #api textarea:focus {
+  background: var(--aiman-input) !important;
+}
+
+html[data-aiman-theme="light"] #api :is(
+  .claims-provider-list-buttons button,
+  .claims-provider-list-buttons input[type="button"],
+  .social button,
+  .social input[type="button"],
+  .socialAccount button,
+  .socialAccount input[type="button"],
+  #phoneVerificationControl_but_send_new_code,
+  #phoneVerificationControl_but_change_claims
+):hover {
+  background: #e7eeec !important;
+  border-color: #586c62 !important;
+}
+
+/* B2C owns visibility; neither native hidden state may be styled visible. */
+#api [hidden],
+#api [aria-hidden="true"] {
+  display: none !important;
+}

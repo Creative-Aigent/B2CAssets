@@ -1,0 +1,570 @@
+/* AIMAN Azure AD B2C auth surface. Targets B2C-rendered controls only. */
+
+@font-face {
+  font-family: "AIMAN Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/outfit-latin-ext-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "AIMAN Lora";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/lora-latin-ext-wght-normal.woff2") format("woff2");
+}
+
+:root {
+  --aiman-canvas: #0c1117;
+  --aiman-panel: #121827;
+  --aiman-panel-raised: #182033;
+  --aiman-input: #101624;
+  --aiman-ink: #f0f2ff;
+  --aiman-copy: #c8cde8;
+  --aiman-muted: #8891b4;
+  --aiman-border: #2c3449;
+  --aiman-border-strong: #46506a;
+  --aiman-link: #bdc9ff;
+  --aiman-link-hover: #e0e5ff;
+  --aiman-focus: #a78bfa;
+  --aiman-focus-ring: rgba(167, 139, 250, 0.34);
+  --aiman-primary: linear-gradient(135deg, #7158d8 0%, #6048c1 100%);
+  --aiman-primary-hover: linear-gradient(135deg, #7c63e1 0%, #6a51cb 100%);
+  --aiman-primary-shadow: 0 10px 22px rgba(82, 61, 181, 0.28);
+  --aiman-error: #fecaca;
+  --aiman-error-surface: rgba(190, 68, 73, 0.16);
+  --aiman-error-border: rgba(254, 202, 202, 0.24);
+  --aiman-success: #a9d3b2;
+  --aiman-radius: 20px;
+  --aiman-control-radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  color: var(--aiman-ink);
+  background: var(--aiman-canvas) !important;
+  font-family: "AIMAN Outfit", "Avenir Next", "Segoe UI", Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background-image:
+    radial-gradient(circle at 14% 6%, rgba(113, 88, 216, 0.15), transparent 31rem),
+    radial-gradient(circle at 88% 92%, rgba(79, 99, 216, 0.09), transparent 29rem) !important;
+  color-scheme: dark;
+}
+
+.ext-container,
+.ext-container-margin,
+.ext-container-padding,
+[class*="ext-"][class*="container"],
+[id*="ext-"][id*="container"] {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: calc(100vh - 80px) !important;
+  background: transparent !important;
+}
+
+#api {
+  width: 100% !important;
+  max-width: 432px !important;
+  margin: auto !important;
+  padding: 40px 36px 34px !important;
+  overflow: visible !important;
+  color: var(--aiman-ink) !important;
+  background: rgba(18, 24, 39, 0.96) !important;
+  border: 1px solid var(--aiman-border) !important;
+  border-radius: var(--aiman-radius) !important;
+  box-shadow:
+    0 28px 68px rgba(0, 0, 0, 0.36),
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035) !important;
+}
+
+#api::before {
+  display: block;
+  width: 142px;
+  height: 46px;
+  margin: 0 auto 28px;
+  content: "";
+  background: url("https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/aiman-logo-white.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+
+#api > .heading {
+  margin: 0 0 8px !important;
+  text-align: center !important;
+}
+
+#api > .heading h1 {
+  margin: 0 !important;
+  color: var(--aiman-ink) !important;
+  font-family: "AIMAN Lora", Georgia, serif !important;
+  font-size: 1.875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.2 !important;
+}
+
+#api > .intro,
+#api form > .intro {
+  margin: 0 0 26px !important;
+  text-align: center !important;
+}
+
+#api > .intro > p,
+#api form > .intro > p,
+#api form > .intro > h2 {
+  max-width: 22rem;
+  margin: 0 auto !important;
+  color: var(--aiman-copy) !important;
+  font-family: "AIMAN Outfit", "Avenir Next", "Segoe UI", Arial, sans-serif !important;
+  font-size: 0.975rem !important;
+  font-weight: 450 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.55 !important;
+  text-align: center !important;
+}
+
+#api form,
+#api .entry,
+#api #attributeList,
+#api .claims-provider-list-buttons {
+  margin: 0 !important;
+}
+
+#api .entry-item,
+#api .attrEntry,
+#api .form-group,
+#api .form-item {
+  margin: 0 0 18px !important;
+}
+
+#api .attr,
+#api .attr ul,
+#api .attr li,
+#api ul,
+#api ol {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+#api .attr > ul > li + li {
+  margin-top: 18px !important;
+}
+
+#api label,
+#api .entry-item label,
+#api .attrEntry label {
+  display: block;
+  margin: 0 0 8px !important;
+  color: var(--aiman-ink) !important;
+  font-family: "AIMAN Outfit", "Avenir Next", "Segoe UI", Arial, sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.35 !important;
+}
+
+#api label:empty {
+  display: none !important;
+}
+
+#api input[type="text"],
+#api input[type="tel"],
+#api input[type="email"],
+#api input[type="password"],
+#api input[type="number"],
+#api select,
+#api textarea {
+  display: block;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: 12px 14px !important;
+  color: var(--aiman-ink) !important;
+  background: var(--aiman-input) !important;
+  border: 1px solid var(--aiman-border-strong) !important;
+  border-radius: var(--aiman-control-radius) !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.14) !important;
+  font: inherit !important;
+  font-size: 1rem !important;
+  line-height: 1.4 !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+#api select {
+  appearance: auto !important;
+  -webkit-appearance: menulist !important;
+}
+
+#api input::placeholder,
+#api textarea::placeholder {
+  color: var(--aiman-muted) !important;
+  opacity: 1 !important;
+}
+
+#api input:hover,
+#api select:hover,
+#api textarea:hover {
+  border-color: #64708f !important;
+}
+
+#api input:focus,
+#api select:focus,
+#api textarea:focus {
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+  border-color: var(--aiman-focus) !important;
+  background: #131b2c !important;
+  box-shadow: 0 0 0 3px var(--aiman-focus-ring) !important;
+}
+
+#api .rememberMe,
+#api .form-group.checkbox,
+#api .form-item.checkbox {
+  display: flex;
+  align-items: flex-start !important;
+  margin: 2px 0 22px !important;
+}
+
+#api input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  flex: 0 0 auto !important;
+  margin: 1px 10px 0 0 !important;
+  padding: 0 !important;
+  accent-color: #8b6af1;
+}
+
+#api .rememberMe label,
+#api .form-group.checkbox label,
+#api .form-item.checkbox label {
+  margin: 0 !important;
+  color: var(--aiman-copy) !important;
+  font-size: 0.9rem !important;
+  font-weight: 450 !important;
+}
+
+#api button,
+#api input[type="submit"],
+#api input[type="button"] {
+  display: inline-flex;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: 12px 18px !important;
+  color: #ffffff !important;
+  background: var(--aiman-primary) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--aiman-control-radius) !important;
+  box-shadow: var(--aiman-primary-shadow) !important;
+  cursor: pointer !important;
+  font: inherit !important;
+  font-size: 0.975rem !important;
+  font-weight: 650 !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+#api button:hover,
+#api input[type="submit"]:hover,
+#api input[type="button"]:hover {
+  background: var(--aiman-primary-hover) !important;
+  box-shadow: 0 13px 25px rgba(82, 61, 181, 0.34) !important;
+  transform: translateY(-1px);
+}
+
+#api button:active,
+#api input[type="submit"]:active,
+#api input[type="button"]:active {
+  box-shadow: 0 6px 15px rgba(82, 61, 181, 0.24) !important;
+  transform: translateY(0);
+}
+
+#api button:disabled,
+#api input[type="submit"]:disabled,
+#api input[type="button"]:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.55 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#api .buttons {
+  margin: 24px 0 0 !important;
+}
+
+#api .buttons:empty {
+  display: none !important;
+}
+
+#api .buttons button + button,
+#api .buttons input + input {
+  margin-top: 10px !important;
+}
+
+#api .claims-provider-list-buttons button,
+#api .claims-provider-list-buttons input[type="button"],
+#api .social button,
+#api .social input[type="button"],
+#api .socialAccount button,
+#api .socialAccount input[type="button"],
+#api #phoneVerificationControl_but_send_new_code,
+#api #phoneVerificationControl_but_change_claims {
+  color: var(--aiman-copy) !important;
+  background: var(--aiman-panel-raised) !important;
+  border-color: var(--aiman-border-strong) !important;
+  box-shadow: none !important;
+}
+
+#api .claims-provider-list-buttons button:hover,
+#api .claims-provider-list-buttons input[type="button"]:hover,
+#api .social button:hover,
+#api .social input[type="button"]:hover,
+#api .socialAccount button:hover,
+#api .socialAccount input[type="button"]:hover,
+#api #phoneVerificationControl_but_send_new_code:hover,
+#api #phoneVerificationControl_but_change_claims:hover {
+  color: var(--aiman-ink) !important;
+  background: #202940 !important;
+  border-color: #7481a6 !important;
+  box-shadow: none !important;
+}
+
+#api a {
+  color: var(--aiman-link) !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 3px !important;
+}
+
+#api a:hover {
+  color: var(--aiman-link-hover) !important;
+}
+
+#api a:focus-visible,
+#api button:focus-visible,
+#api input[type="submit"]:focus-visible,
+#api input[type="button"]:focus-visible,
+#api input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--aiman-focus) !important;
+  outline-offset: 3px !important;
+}
+
+#api .divider {
+  display: flex;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 26px 0 0 !important;
+  color: var(--aiman-muted) !important;
+  font-size: 0.75rem !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+#api .divider::before,
+#api .divider::after {
+  flex: 1;
+  height: 1px;
+  content: "";
+  background: var(--aiman-border);
+}
+
+#api .divider h2,
+#api .divider p,
+#api .divider span {
+  margin: 0 !important;
+  color: var(--aiman-muted) !important;
+  font-family: "AIMAN Outfit", "Avenir Next", "Segoe UI", Arial, sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 650 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+}
+
+#api .create {
+  margin-top: 20px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid var(--aiman-border) !important;
+  text-align: center !important;
+}
+
+#api .create p {
+  margin: 0 !important;
+  color: var(--aiman-copy) !important;
+  font-size: 0.9rem !important;
+  font-weight: 450 !important;
+  line-height: 1.5 !important;
+}
+
+#api .create a,
+#api #createAccount {
+  display: inline;
+  min-height: 0 !important;
+  margin-left: 0.35rem !important;
+  padding: 0 !important;
+  color: var(--aiman-link) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-size: inherit !important;
+  font-weight: 650 !important;
+  transform: none !important;
+}
+
+#api .claims-provider-list-text-links-bottom-under-form {
+  margin-top: 18px !important;
+  text-align: center !important;
+}
+
+#api .claims-provider-list-text-links-bottom-under-form > div {
+  text-align: center !important;
+}
+
+#api #ChangePhoneNumber {
+  color: var(--aiman-muted) !important;
+  font-size: 0.825rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+#api #ChangePhoneNumber:hover {
+  color: var(--aiman-copy) !important;
+  text-decoration: underline !important;
+}
+
+#api .options,
+#api .forgotPassword,
+#api .password-reset {
+  margin: 14px 0 0 !important;
+  color: var(--aiman-copy) !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+}
+
+#api .attrEntry > a[href^="javascript"] {
+  display: inline-block;
+  margin-top: 7px !important;
+  color: var(--aiman-muted) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+#api .attrEntry > a[href^="javascript"]:hover {
+  color: var(--aiman-copy) !important;
+  text-decoration: underline !important;
+}
+
+#api [aria-hidden="true"] {
+  display: none !important;
+}
+
+#api .error:empty {
+  display: none !important;
+}
+
+#api .error:not(.verificationErrorText):not([aria-hidden="true"]):not(:empty),
+#api .verificationErrorText [role="alert"][aria-hidden="false"] {
+  display: block;
+  margin: 0 0 14px !important;
+  padding: 10px 12px !important;
+  color: var(--aiman-error) !important;
+  background: var(--aiman-error-surface) !important;
+  border: 1px solid var(--aiman-error-border) !important;
+  border-radius: 8px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+}
+
+#api .verificationInfoText [role="alert"][aria-hidden="false"],
+#api .verificationSuccessText [role="alert"][aria-hidden="false"] {
+  display: block;
+  margin: 0 0 14px !important;
+  color: var(--aiman-success) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+}
+
+#api .disclaimer-container,
+#api .legal,
+#api .privacy,
+#api [class*="legal"] {
+  margin-top: 22px !important;
+  padding-top: 18px !important;
+  color: var(--aiman-muted) !important;
+  border-top: 1px solid var(--aiman-border) !important;
+  font-size: 0.75rem !important;
+  line-height: 1.55 !important;
+  text-align: center !important;
+}
+
+#api .disclaimer-container a {
+  margin-left: 0.4rem !important;
+  font-size: inherit !important;
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 24px 12px;
+  }
+
+  .ext-container,
+  .ext-container-margin,
+  .ext-container-padding,
+  [class*="ext-"][class*="container"],
+  [id*="ext-"][id*="container"] {
+    min-height: calc(100vh - 48px) !important;
+  }
+
+  #api {
+    padding: 32px 22px 28px !important;
+    border-radius: 18px !important;
+  }
+
+  #api::before {
+    width: 132px;
+    height: 43px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
