@@ -178,7 +178,8 @@ function textContrast(sample) {
 async function pressTab(page, browserName) {
   // macOS WebKit uses Option-Tab for all controls when full keyboard access is off.
   // Keep the same reachability/visible-focus assertions on every control in both engines.
-  await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
+  const fullKeyboardAccess = browserName === 'webkit' && process.platform === 'darwin';
+  await page.keyboard.press(fullKeyboardAccess ? 'Alt+Tab' : 'Tab');
 }
 
 async function assertTheme(page, fixture, theme, { javaScript = true } = {}) {

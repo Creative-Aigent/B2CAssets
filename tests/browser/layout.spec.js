@@ -58,8 +58,12 @@ for (const viewport of viewports) {
           await expect(focused).toBeVisible();
           await expect.poll(() => focused.evaluate(element => {
             const rect = element.getBoundingClientRect();
-            return rect.top >= 0 && rect.bottom <= innerHeight + 1;
-          }), { message: 'Native keyboard scrolling brings the whole focused control into view' }).toBe(true);
+            return {
+              id: element.id, top: rect.top, bottom: rect.bottom, viewportHeight: innerHeight,
+              fullyInViewport: rect.top >= 0 && rect.bottom <= innerHeight + 1,
+            };
+          }), { message: 'Native keyboard scrolling brings the whole focused control into view' })
+            .toEqual(expect.objectContaining({ fullyInViewport: true }));
           const focus = await focused.evaluate(element => {
             const rect = element.getBoundingClientRect();
             return {

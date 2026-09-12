@@ -205,8 +205,9 @@ blocked storage, native visibility/validation and handlers, 390px mobile,
 fixtures for existing password/reveal/cancel/provider markup. These extra
 fixtures do not add customer sign-in methods. RTL/enlarged text, loading,
 disabled/hover/pressed states, focus and contrast are covered. macOS WebKit uses
-Option-Tab to traverse all controls; the same reachability and focus assertions
-apply. Native scrolling is allowed to settle before checking viewport bounds.
+Option-Tab to traverse all controls; Linux WebKit and Chromium use Tab. The same
+reachability and focus assertions apply. Native scrolling is allowed to settle
+before checking viewport bounds.
 
 Increased contrast is browser-emulated. Reduced transparency and unsupported
 backdrop support are checked by activating the **shipped CSS branches** in the
