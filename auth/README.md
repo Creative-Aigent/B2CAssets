@@ -209,6 +209,15 @@ Option-Tab to traverse all controls; Linux WebKit and Chromium use Tab. The same
 reachability and focus assertions apply. Native scrolling is allowed to settle
 before checking viewport bounds.
 
+CI runs Chromium on Ubuntu and WebKit on macOS, the Safari platform. Linux
+WebKitGTK reveals the caret/text rather than the complete padded input during
+native Tab scrolling: six long-signup viewport assertions failed with 13-14px
+of the field below the viewport. This is a known unverified Linux WebKit
+limitation, not a passing result. No CSS change, scripted scrolling, relaxed
+focus/geometry assertion or skipped form case masks it; the complete WebKit
+suite retains those assertions on macOS. Running both projects locally on
+Linux may reproduce these failures.
+
 Increased contrast is browser-emulated. Reduced transparency and unsupported
 backdrop support are checked by activating the **shipped CSS branches** in the
 offline response because Playwright cannot emulate those native conditions.

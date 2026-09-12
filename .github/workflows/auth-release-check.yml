@@ -33,7 +33,17 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    name: Verify ${{ matrix.browser }} on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            browser: chromium
+          # Safari-native focus/scroll behavior; WebKitGTK reveals only the caret.
+          - os: macos-15
+            browser: webkit
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -62,8 +72,8 @@ jobs:
       - name: Verify all release manifests and dependencies
         run: python3 -B scripts/build-auth-release.py --verify-existing
       - name: Install isolated browsers
-        run: npx playwright install --with-deps chromium webkit
+        run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Verify candidate appearance and native control states
         env:
           B2C_RELEASE_ID: v15-silver-glass
-        run: npm run test:browser
+        run: npm run test:browser -- --project=${{ matrix.browser }}
