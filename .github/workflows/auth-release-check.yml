@@ -61,9 +61,9 @@ jobs:
         run: node --test tests/theme-script.test.cjs
       - name: Verify all release manifests and dependencies
         run: python3 -B scripts/build-auth-release.py --verify-existing
-      - name: Install isolated browser
-        run: npx playwright install --with-deps chromium
+      - name: Install isolated browsers
+        run: npx playwright install --with-deps chromium webkit
       - name: Verify candidate appearance and native control states
         env:
-          B2C_RELEASE_ID: v14-theme-4
+          B2C_RELEASE_ID: v15-silver-glass
         run: npm run test:browser

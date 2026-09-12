@@ -1,0 +1,929 @@
+{
+  "LocalizedStrings": [],
+  "LocalizedCollections": [
+    {
+      "ElementType": "ClaimType",
+      "ElementId": "countryCode",
+      "TargetCollection": "Restriction",
+      "Override": true,
+      "Items": [
+        {
+          "Name": "Canada (+1)",
+          "Value": "CA"
+        },
+        {
+          "Name": "Egypt (+20)",
+          "Value": "EG"
+        },
+        {
+          "Name": "France (+33)",
+          "Value": "FR"
+        },
+        {
+          "Name": "Mexico (+52)",
+          "Value": "MX"
+        },
+        {
+          "Name": "Morocco (+212)",
+          "Value": "MA"
+        },
+        {
+          "Name": "Spain (+34)",
+          "Value": "ES"
+        },
+        {
+          "Name": "United Arab Emirates (+971)",
+          "Value": "AE"
+        },
+        {
+          "Name": "United Kingdom (+44)",
+          "Value": "GB"
+        },
+        {
+          "Name": "United States (+1)",
+          "Value": "US"
+        },
+        {
+          "Name": "───────────────",
+          "Value": "SEPARATOR"
+        },
+        {
+          "Name": "Afghanistan (+93)",
+          "Value": "AF"
+        },
+        {
+          "Name": "Albania (+355)",
+          "Value": "AL"
+        },
+        {
+          "Name": "Algeria (+213)",
+          "Value": "DZ"
+        },
+        {
+          "Name": "American Samoa (+1)",
+          "Value": "AS"
+        },
+        {
+          "Name": "Andorra (+376)",
+          "Value": "AD"
+        },
+        {
+          "Name": "Angola (+244)",
+          "Value": "AO"
+        },
+        {
+          "Name": "Anguilla (+1)",
+          "Value": "AI"
+        },
+        {
+          "Name": "Antarctica (+672)",
+          "Value": "AQ"
+        },
+        {
+          "Name": "Antigua and Barbuda (+1)",
+          "Value": "AG"
+        },
+        {
+          "Name": "Argentina (+54)",
+          "Value": "AR"
+        },
+        {
+          "Name": "Armenia (+374)",
+          "Value": "AM"
+        },
+        {
+          "Name": "Aruba (+297)",
+          "Value": "AW"
+        },
+        {
+          "Name": "Australia (+61)",
+          "Value": "AU"
+        },
+        {
+          "Name": "Austria (+43)",
+          "Value": "AT"
+        },
+        {
+          "Name": "Azerbaijan (+994)",
+          "Value": "AZ"
+        },
+        {
+          "Name": "Bahamas (+1)",
+          "Value": "BS"
+        },
+        {
+          "Name": "Bahrain (+973)",
+          "Value": "BH"
+        },
+        {
+          "Name": "Bangladesh (+880)",
+          "Value": "BD"
+        },
+        {
+          "Name": "Barbados (+1)",
+          "Value": "BB"
+        },
+        {
+          "Name": "Belarus (+375)",
+          "Value": "BY"
+        },
+        {
+          "Name": "Belgium (+32)",
+          "Value": "BE"
+        },
+        {
+          "Name": "Belize (+501)",
+          "Value": "BZ"
+        },
+        {
+          "Name": "Benin (+229)",
+          "Value": "BJ"
+        },
+        {
+          "Name": "Bermuda (+1)",
+          "Value": "BM"
+        },
+        {
+          "Name": "Bhutan (+975)",
+          "Value": "BT"
+        },
+        {
+          "Name": "Bolivia (+591)",
+          "Value": "BO"
+        },
+        {
+          "Name": "Bosnia and Herzegovina (+387)",
+          "Value": "BA"
+        },
+        {
+          "Name": "Botswana (+267)",
+          "Value": "BW"
+        },
+        {
+          "Name": "Brazil (+55)",
+          "Value": "BR"
+        },
+        {
+          "Name": "British Indian Ocean Territory (+246)",
+          "Value": "IO"
+        },
+        {
+          "Name": "Brunei (+673)",
+          "Value": "BN"
+        },
+        {
+          "Name": "Bulgaria (+359)",
+          "Value": "BG"
+        },
+        {
+          "Name": "Burkina Faso (+226)",
+          "Value": "BF"
+        },
+        {
+          "Name": "Burundi (+257)",
+          "Value": "BI"
+        },
+        {
+          "Name": "Cambodia (+855)",
+          "Value": "KH"
+        },
+        {
+          "Name": "Cameroon (+237)",
+          "Value": "CM"
+        },
+        {
+          "Name": "Cape Verde (+238)",
+          "Value": "CV"
+        },
+        {
+          "Name": "Cayman Islands (+1)",
+          "Value": "KY"
+        },
+        {
+          "Name": "Central African Republic (+236)",
+          "Value": "CF"
+        },
+        {
+          "Name": "Chad (+235)",
+          "Value": "TD"
+        },
+        {
+          "Name": "Chile (+56)",
+          "Value": "CL"
+        },
+        {
+          "Name": "China (+86)",
+          "Value": "CN"
+        },
+        {
+          "Name": "Christmas Island (+61)",
+          "Value": "CX"
+        },
+        {
+          "Name": "Cocos Islands (+61)",
+          "Value": "CC"
+        },
+        {
+          "Name": "Colombia (+57)",
+          "Value": "CO"
+        },
+        {
+          "Name": "Comoros (+269)",
+          "Value": "KM"
+        },
+        {
+          "Name": "Congo (+242)",
+          "Value": "CG"
+        },
+        {
+          "Name": "Cook Islands (+682)",
+          "Value": "CK"
+        },
+        {
+          "Name": "Costa Rica (+506)",
+          "Value": "CR"
+        },
+        {
+          "Name": "Croatia (+385)",
+          "Value": "HR"
+        },
+        {
+          "Name": "Cuba (+53)",
+          "Value": "CU"
+        },
+        {
+          "Name": "Cyprus (+357)",
+          "Value": "CY"
+        },
+        {
+          "Name": "Czech Republic (+420)",
+          "Value": "CZ"
+        },
+        {
+          "Name": "Denmark (+45)",
+          "Value": "DK"
+        },
+        {
+          "Name": "Djibouti (+253)",
+          "Value": "DJ"
+        },
+        {
+          "Name": "Dominica (+1)",
+          "Value": "DM"
+        },
+        {
+          "Name": "Dominican Republic (+1)",
+          "Value": "DO"
+        },
+        {
+          "Name": "Ecuador (+593)",
+          "Value": "EC"
+        },
+        {
+          "Name": "El Salvador (+503)",
+          "Value": "SV"
+        },
+        {
+          "Name": "Equatorial Guinea (+240)",
+          "Value": "GQ"
+        },
+        {
+          "Name": "Eritrea (+291)",
+          "Value": "ER"
+        },
+        {
+          "Name": "Estonia (+372)",
+          "Value": "EE"
+        },
+        {
+          "Name": "Ethiopia (+251)",
+          "Value": "ET"
+        },
+        {
+          "Name": "Falkland Islands (+500)",
+          "Value": "FK"
+        },
+        {
+          "Name": "Faroe Islands (+298)",
+          "Value": "FO"
+        },
+        {
+          "Name": "Fiji (+679)",
+          "Value": "FJ"
+        },
+        {
+          "Name": "Finland (+358)",
+          "Value": "FI"
+        },
+        {
+          "Name": "French Polynesia (+689)",
+          "Value": "PF"
+        },
+        {
+          "Name": "Gabon (+241)",
+          "Value": "GA"
+        },
+        {
+          "Name": "Gambia (+220)",
+          "Value": "GM"
+        },
+        {
+          "Name": "Georgia (+995)",
+          "Value": "GE"
+        },
+        {
+          "Name": "Germany (+49)",
+          "Value": "DE"
+        },
+        {
+          "Name": "Ghana (+233)",
+          "Value": "GH"
+        },
+        {
+          "Name": "Gibraltar (+350)",
+          "Value": "GI"
+        },
+        {
+          "Name": "Greece (+30)",
+          "Value": "GR"
+        },
+        {
+          "Name": "Greenland (+299)",
+          "Value": "GL"
+        },
+        {
+          "Name": "Grenada (+1)",
+          "Value": "GD"
+        },
+        {
+          "Name": "Guam (+1)",
+          "Value": "GU"
+        },
+        {
+          "Name": "Guatemala (+502)",
+          "Value": "GT"
+        },
+        {
+          "Name": "Guinea (+224)",
+          "Value": "GN"
+        },
+        {
+          "Name": "Guinea-Bissau (+245)",
+          "Value": "GW"
+        },
+        {
+          "Name": "Guyana (+592)",
+          "Value": "GY"
+        },
+        {
+          "Name": "Haiti (+509)",
+          "Value": "HT"
+        },
+        {
+          "Name": "Honduras (+504)",
+          "Value": "HN"
+        },
+        {
+          "Name": "Hong Kong (+852)",
+          "Value": "HK"
+        },
+        {
+          "Name": "Hungary (+36)",
+          "Value": "HU"
+        },
+        {
+          "Name": "Iceland (+354)",
+          "Value": "IS"
+        },
+        {
+          "Name": "India (+91)",
+          "Value": "IN"
+        },
+        {
+          "Name": "Indonesia (+62)",
+          "Value": "ID"
+        },
+        {
+          "Name": "Iran (+98)",
+          "Value": "IR"
+        },
+        {
+          "Name": "Iraq (+964)",
+          "Value": "IQ"
+        },
+        {
+          "Name": "Ireland (+353)",
+          "Value": "IE"
+        },
+        {
+          "Name": "Israel (+972)",
+          "Value": "IL"
+        },
+        {
+          "Name": "Italy (+39)",
+          "Value": "IT"
+        },
+        {
+          "Name": "Ivory Coast (+225)",
+          "Value": "CI"
+        },
+        {
+          "Name": "Jamaica (+1)",
+          "Value": "JM"
+        },
+        {
+          "Name": "Japan (+81)",
+          "Value": "JP"
+        },
+        {
+          "Name": "Jordan (+962)",
+          "Value": "JO"
+        },
+        {
+          "Name": "Kazakhstan (+7)",
+          "Value": "KZ"
+        },
+        {
+          "Name": "Kenya (+254)",
+          "Value": "KE"
+        },
+        {
+          "Name": "Kiribati (+686)",
+          "Value": "KI"
+        },
+        {
+          "Name": "Kuwait (+965)",
+          "Value": "KW"
+        },
+        {
+          "Name": "Kyrgyzstan (+996)",
+          "Value": "KG"
+        },
+        {
+          "Name": "Laos (+856)",
+          "Value": "LA"
+        },
+        {
+          "Name": "Latvia (+371)",
+          "Value": "LV"
+        },
+        {
+          "Name": "Lebanon (+961)",
+          "Value": "LB"
+        },
+        {
+          "Name": "Lesotho (+266)",
+          "Value": "LS"
+        },
+        {
+          "Name": "Liberia (+231)",
+          "Value": "LR"
+        },
+        {
+          "Name": "Libya (+218)",
+          "Value": "LY"
+        },
+        {
+          "Name": "Liechtenstein (+423)",
+          "Value": "LI"
+        },
+        {
+          "Name": "Lithuania (+370)",
+          "Value": "LT"
+        },
+        {
+          "Name": "Luxembourg (+352)",
+          "Value": "LU"
+        },
+        {
+          "Name": "Macau (+853)",
+          "Value": "MO"
+        },
+        {
+          "Name": "Macedonia (+389)",
+          "Value": "MK"
+        },
+        {
+          "Name": "Madagascar (+261)",
+          "Value": "MG"
+        },
+        {
+          "Name": "Malawi (+265)",
+          "Value": "MW"
+        },
+        {
+          "Name": "Malaysia (+60)",
+          "Value": "MY"
+        },
+        {
+          "Name": "Maldives (+960)",
+          "Value": "MV"
+        },
+        {
+          "Name": "Mali (+223)",
+          "Value": "ML"
+        },
+        {
+          "Name": "Malta (+356)",
+          "Value": "MT"
+        },
+        {
+          "Name": "Marshall Islands (+692)",
+          "Value": "MH"
+        },
+        {
+          "Name": "Mauritania (+222)",
+          "Value": "MR"
+        },
+        {
+          "Name": "Mauritius (+230)",
+          "Value": "MU"
+        },
+        {
+          "Name": "Micronesia (+691)",
+          "Value": "FM"
+        },
+        {
+          "Name": "Moldova (+373)",
+          "Value": "MD"
+        },
+        {
+          "Name": "Monaco (+377)",
+          "Value": "MC"
+        },
+        {
+          "Name": "Mongolia (+976)",
+          "Value": "MN"
+        },
+        {
+          "Name": "Montenegro (+382)",
+          "Value": "ME"
+        },
+        {
+          "Name": "Montserrat (+1)",
+          "Value": "MS"
+        },
+        {
+          "Name": "Mozambique (+258)",
+          "Value": "MZ"
+        },
+        {
+          "Name": "Myanmar (+95)",
+          "Value": "MM"
+        },
+        {
+          "Name": "Namibia (+264)",
+          "Value": "NA"
+        },
+        {
+          "Name": "Nauru (+674)",
+          "Value": "NR"
+        },
+        {
+          "Name": "Nepal (+977)",
+          "Value": "NP"
+        },
+        {
+          "Name": "Netherlands (+31)",
+          "Value": "NL"
+        },
+        {
+          "Name": "New Caledonia (+687)",
+          "Value": "NC"
+        },
+        {
+          "Name": "New Zealand (+64)",
+          "Value": "NZ"
+        },
+        {
+          "Name": "Nicaragua (+505)",
+          "Value": "NI"
+        },
+        {
+          "Name": "Niger (+227)",
+          "Value": "NE"
+        },
+        {
+          "Name": "Nigeria (+234)",
+          "Value": "NG"
+        },
+        {
+          "Name": "Niue (+683)",
+          "Value": "NU"
+        },
+        {
+          "Name": "Norfolk Island (+672)",
+          "Value": "NF"
+        },
+        {
+          "Name": "North Korea (+850)",
+          "Value": "KP"
+        },
+        {
+          "Name": "Northern Mariana Islands (+1)",
+          "Value": "MP"
+        },
+        {
+          "Name": "Norway (+47)",
+          "Value": "NO"
+        },
+        {
+          "Name": "Oman (+968)",
+          "Value": "OM"
+        },
+        {
+          "Name": "Pakistan (+92)",
+          "Value": "PK"
+        },
+        {
+          "Name": "Palau (+680)",
+          "Value": "PW"
+        },
+        {
+          "Name": "Palestine (+970)",
+          "Value": "PS"
+        },
+        {
+          "Name": "Panama (+507)",
+          "Value": "PA"
+        },
+        {
+          "Name": "Papua New Guinea (+675)",
+          "Value": "PG"
+        },
+        {
+          "Name": "Paraguay (+595)",
+          "Value": "PY"
+        },
+        {
+          "Name": "Peru (+51)",
+          "Value": "PE"
+        },
+        {
+          "Name": "Philippines (+63)",
+          "Value": "PH"
+        },
+        {
+          "Name": "Pitcairn Islands (+64)",
+          "Value": "PN"
+        },
+        {
+          "Name": "Poland (+48)",
+          "Value": "PL"
+        },
+        {
+          "Name": "Portugal (+351)",
+          "Value": "PT"
+        },
+        {
+          "Name": "Puerto Rico (+1)",
+          "Value": "PR"
+        },
+        {
+          "Name": "Qatar (+974)",
+          "Value": "QA"
+        },
+        {
+          "Name": "Romania (+40)",
+          "Value": "RO"
+        },
+        {
+          "Name": "Russia (+7)",
+          "Value": "RU"
+        },
+        {
+          "Name": "Rwanda (+250)",
+          "Value": "RW"
+        },
+        {
+          "Name": "Saint Helena (+290)",
+          "Value": "SH"
+        },
+        {
+          "Name": "Saint Kitts and Nevis (+1)",
+          "Value": "KN"
+        },
+        {
+          "Name": "Saint Lucia (+1)",
+          "Value": "LC"
+        },
+        {
+          "Name": "Saint Pierre and Miquelon (+508)",
+          "Value": "PM"
+        },
+        {
+          "Name": "Saint Vincent and the Grenadines (+1)",
+          "Value": "VC"
+        },
+        {
+          "Name": "Samoa (+685)",
+          "Value": "WS"
+        },
+        {
+          "Name": "San Marino (+378)",
+          "Value": "SM"
+        },
+        {
+          "Name": "Sao Tome and Principe (+239)",
+          "Value": "ST"
+        },
+        {
+          "Name": "Saudi Arabia (+966)",
+          "Value": "SA"
+        },
+        {
+          "Name": "Senegal (+221)",
+          "Value": "SN"
+        },
+        {
+          "Name": "Serbia (+381)",
+          "Value": "RS"
+        },
+        {
+          "Name": "Seychelles (+248)",
+          "Value": "SC"
+        },
+        {
+          "Name": "Sierra Leone (+232)",
+          "Value": "SL"
+        },
+        {
+          "Name": "Singapore (+65)",
+          "Value": "SG"
+        },
+        {
+          "Name": "Slovakia (+421)",
+          "Value": "SK"
+        },
+        {
+          "Name": "Slovenia (+386)",
+          "Value": "SI"
+        },
+        {
+          "Name": "Solomon Islands (+677)",
+          "Value": "SB"
+        },
+        {
+          "Name": "Somalia (+252)",
+          "Value": "SO"
+        },
+        {
+          "Name": "South Africa (+27)",
+          "Value": "ZA"
+        },
+        {
+          "Name": "South Korea (+82)",
+          "Value": "KR"
+        },
+        {
+          "Name": "South Sudan (+211)",
+          "Value": "SS"
+        },
+        {
+          "Name": "Sri Lanka (+94)",
+          "Value": "LK"
+        },
+        {
+          "Name": "Sudan (+249)",
+          "Value": "SD"
+        },
+        {
+          "Name": "Suriname (+597)",
+          "Value": "SR"
+        },
+        {
+          "Name": "Swaziland (+268)",
+          "Value": "SZ"
+        },
+        {
+          "Name": "Sweden (+46)",
+          "Value": "SE"
+        },
+        {
+          "Name": "Switzerland (+41)",
+          "Value": "CH"
+        },
+        {
+          "Name": "Syria (+963)",
+          "Value": "SY"
+        },
+        {
+          "Name": "Taiwan (+886)",
+          "Value": "TW"
+        },
+        {
+          "Name": "Tajikistan (+992)",
+          "Value": "TJ"
+        },
+        {
+          "Name": "Tanzania (+255)",
+          "Value": "TZ"
+        },
+        {
+          "Name": "Thailand (+66)",
+          "Value": "TH"
+        },
+        {
+          "Name": "Timor-Leste (+670)",
+          "Value": "TL"
+        },
+        {
+          "Name": "Togo (+228)",
+          "Value": "TG"
+        },
+        {
+          "Name": "Tokelau (+690)",
+          "Value": "TK"
+        },
+        {
+          "Name": "Tonga (+676)",
+          "Value": "TO"
+        },
+        {
+          "Name": "Trinidad and Tobago (+1)",
+          "Value": "TT"
+        },
+        {
+          "Name": "Tunisia (+216)",
+          "Value": "TN"
+        },
+        {
+          "Name": "Turkey (+90)",
+          "Value": "TR"
+        },
+        {
+          "Name": "Turkmenistan (+993)",
+          "Value": "TM"
+        },
+        {
+          "Name": "Turks and Caicos Islands (+1)",
+          "Value": "TC"
+        },
+        {
+          "Name": "Tuvalu (+688)",
+          "Value": "TV"
+        },
+        {
+          "Name": "Uganda (+256)",
+          "Value": "UG"
+        },
+        {
+          "Name": "Ukraine (+380)",
+          "Value": "UA"
+        },
+        {
+          "Name": "Uruguay (+598)",
+          "Value": "UY"
+        },
+        {
+          "Name": "Uzbekistan (+998)",
+          "Value": "UZ"
+        },
+        {
+          "Name": "Vanuatu (+678)",
+          "Value": "VU"
+        },
+        {
+          "Name": "Vatican City (+379)",
+          "Value": "VA"
+        },
+        {
+          "Name": "Venezuela (+58)",
+          "Value": "VE"
+        },
+        {
+          "Name": "Vietnam (+84)",
+          "Value": "VN"
+        },
+        {
+          "Name": "Virgin Islands, British (+1)",
+          "Value": "VG"
+        },
+        {
+          "Name": "Virgin Islands, U.S. (+1)",
+          "Value": "VI"
+        },
+        {
+          "Name": "Wallis and Futuna (+681)",
+          "Value": "WF"
+        },
+        {
+          "Name": "Western Sahara (+212)",
+          "Value": "EH"
+        },
+        {
+          "Name": "Yemen (+967)",
+          "Value": "YE"
+        },
+        {
+          "Name": "Zambia (+260)",
+          "Value": "ZM"
+        },
+        {
+          "Name": "Zimbabwe (+263)",
+          "Value": "ZW"
+        }
+      ]
+    }
+  ]
+}

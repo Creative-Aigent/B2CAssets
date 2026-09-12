@@ -44,11 +44,18 @@ test('same-tab OTP/recovery inherit the preference; a new explicit hint updates 
   expect(await page.evaluate(() => Object.values(sessionStorage))).toContain('dark');
 });
 
-test('a new tab session without a hint defaults to dark even on a light device', async ({ page, auth }) => {
-  await page.emulateMedia({ colorScheme: 'light' });
-  await auth.open(cases[0]);
-  await assertTheme(page, cases[0], 'dark');
-});
+for (const theme of ['light', 'dark']) {
+  test(`a new tab without a hint follows ${theme} OS appearance without saving a choice`, async ({ page, auth }) => {
+    await page.emulateMedia({ colorScheme: theme });
+    await auth.open(cases[0]);
+    await expect(page.locator('html')).not.toHaveAttribute('data-aiman-theme');
+    await assertTheme(page, cases[0], theme, { javaScript: false });
+    expect(await page.evaluate(() => sessionStorage.length)).toBe(0);
+    const opposite = theme === 'light' ? 'dark' : 'light';
+    await page.emulateMedia({ colorScheme: opposite });
+    await assertTheme(page, cases[0], opposite, { javaScript: false });
+  });
+}
 
 const invalidQueries = [
   ['empty', 'aiman_theme='],
@@ -65,7 +72,8 @@ for (const [description, query] of invalidQueries) {
   test(`invalid ${description} hint is not a theme, DOM content, or a request`, async ({ page, auth }) => {
     await page.emulateMedia({ colorScheme: 'light' });
     await auth.open(cases[0], query);
-    await assertTheme(page, cases[0], 'dark');
+    await assertTheme(page, cases[0], 'light', { javaScript: false });
+    await expect(page.locator('html')).not.toHaveAttribute('data-aiman-theme');
     await assertPlatformUntouched(page);
     await expect(page.locator('#injected')).toHaveCount(0);
     const injected = await page.evaluate(() => ({
@@ -112,7 +120,8 @@ for (const blockedStorage of ['getter', 'read-write', 'quota']) {
       expect(await page.evaluate(() => window.__platformFixture.submits)).toBe(0);
     }
     await auth.open(cases[3]);
-    await assertTheme(page, cases[3], 'dark');
+    await page.emulateMedia({ colorScheme: 'light' });
+    await assertTheme(page, cases[3], 'light', { javaScript: false });
     await page.locator(cases[3].input).fill('123456');
     await expect(page.locator(cases[3].input)).toHaveValue('123456');
   });
@@ -122,11 +131,11 @@ test.describe('JavaScript unavailable', () => {
   test.use({ javaScriptEnabled: false });
   for (const fixture of cases) {
     for (const device of ['light', 'dark']) {
-      test(`${fixture.name}: default dark and usable controls on ${device} device`, async ({ page, auth }, testInfo) => {
+      test(`${fixture.name}: usable controls follow ${device} device without JavaScript`, async ({ page, auth }, testInfo) => {
         await page.emulateMedia({ colorScheme: device });
         await auth.open(fixture, 'aiman_theme=light');
         await expect(page.locator('html')).not.toHaveAttribute('data-aiman-theme');
-        await assertTheme(page, fixture, 'dark', { javaScript: false });
+        await assertTheme(page, fixture, device, { javaScript: false });
         await page.locator(fixture.input).fill(fixture.input === '#email' ? 'edited@example.test' : '123456');
         await expect(page.locator(fixture.input)).toHaveValue(fixture.input === '#email' ? 'edited@example.test' : '123456');
         await expect(page.locator(fixture.input)).toHaveAttribute('required', '');

@@ -175,6 +175,12 @@ function textContrast(sample) {
   return contrast(composite(foreground, background), background);
 }
 
+async function pressTab(page, browserName) {
+  // macOS WebKit uses Option-Tab for all controls when full keyboard access is off.
+  // Keep the same reachability/visible-focus assertions on every control in both engines.
+  await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
+}
+
 async function assertTheme(page, fixture, theme, { javaScript = true } = {}) {
   if (javaScript) await expect(page.locator('html')).toHaveAttribute('data-aiman-theme', theme);
   const expectedInputBackground = await page.locator(fixture.input).evaluate(element => {
@@ -242,5 +248,5 @@ async function assertPlatformUntouched(page) {
 module.exports = {
   test, expect, cases, assetBase, readRelease, renderTemplate, attachJson,
   rgba, composite, luminance, contrast, colors, backgroundOf, textContrast,
-  assertTheme, assertPlatformUntouched,
+  assertTheme, assertPlatformUntouched, pressTab,
 };

@@ -16,8 +16,11 @@ module.exports = defineConfig({
   outputDir: path.join(__dirname, 'test-results', releaseId),
   timeout: 30_000,
   expect: { timeout: 5_000 },
+  projects: [
+    { name: 'chromium', use: { browserName: 'chromium' } },
+    { name: 'webkit', use: { browserName: 'webkit' } },
+  ],
   use: {
-    browserName: 'chromium',
     headless: true,
     viewport: { width: 1440, height: 900 },
     serviceWorkers: 'block',

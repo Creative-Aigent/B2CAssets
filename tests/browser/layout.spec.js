@@ -1,4 +1,4 @@
-const { test, expect, cases, assertTheme } = require('./harness');
+const { test, expect, cases, assertTheme, pressTab } = require('./harness');
 
 const viewports = [
   { name: 'mobile', width: 390, height: 844 },
@@ -11,7 +11,7 @@ for (const viewport of viewports) {
   for (const fixture of cases) {
     if (viewport.name === 'desktop' && fixture.name !== 'long-signup') continue;
     for (const theme of ['light', 'dark']) {
-      test(`${fixture.name}: ${theme} ${viewport.name} has reachable controls without horizontal overflow`, async ({ page, auth }, testInfo) => {
+      test(`${fixture.name}: ${theme} ${viewport.name} has reachable controls without horizontal overflow`, async ({ page, auth, browserName }, testInfo) => {
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
         await auth.open(fixture, `aiman_theme=${theme}`);
         await assertTheme(page, fixture, theme);
@@ -53,9 +53,13 @@ for (const viewport of viewports) {
         const count = await focusable.count();
         const reached = new Set();
         for (let index = 0; index < count; index++) {
-          await page.keyboard.press('Tab');
+          await pressTab(page, browserName);
           const focused = page.locator(':focus');
           await expect(focused).toBeVisible();
+          await expect.poll(() => focused.evaluate(element => {
+            const rect = element.getBoundingClientRect();
+            return rect.top >= 0 && rect.bottom <= innerHeight + 1;
+          }), { message: 'Native keyboard scrolling brings the whole focused control into view' }).toBe(true);
           const focus = await focused.evaluate(element => {
             const rect = element.getBoundingClientRect();
             return {

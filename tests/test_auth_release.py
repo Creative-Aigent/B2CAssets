@@ -52,6 +52,9 @@ class AuthReleaseTests(unittest.TestCase):
             + release.SOURCE_BASE + 'aiman-logo-dark.svg?v=13"); }\n', encoding="utf-8")
         (auth / "theme.js").write_text(
             '"use strict"; document.documentElement.dataset.theme = "light";\n', encoding="utf-8")
+        (auth / "fonts").mkdir()
+        for name in release.THEME_FONT_FILES:
+            shutil.copyfile(ROOT / "auth" / name, auth / name)
         return release.theme_overlay(self.repo)
 
     def edit_manifest(self, directory, change):
@@ -394,7 +397,7 @@ class AuthReleaseTests(unittest.TestCase):
         overlay = self.overlay()
         directory = self.build("test-theme", with_theme=True)
         manifest = release.verify_release(directory)
-        self.assertEqual(len(manifest["files"]), 27)
+        self.assertEqual(len(manifest["files"]), 30)
         self.assertTrue(manifest["theme"]["enhancementEnabled"])
         self.assertTrue(manifest["theme"]["requiresTenantJavaScriptEnablement"])
         self.assertEqual(manifest["activationStatus"], "not-activated")
@@ -410,6 +413,31 @@ class AuthReleaseTests(unittest.TestCase):
             self.assertIn("background: var(--aiman-canvas,#0c1117);", head)
             self.assertNotIn("background: #0c1117 !important", text)
             self.assertEqual(text.count('<div id="api"></div>'), 1)
+
+    def test_silver_glass_packages_licensed_fonts_and_preserves_all_locale_bytes(self):
+        overlay = release.theme_overlay(ROOT)
+        bundle = self.bundle(overlay=overlay)
+        manifest = json.loads(bundle[release.MANIFEST])
+        for name in release.THEME_FONT_FILES:
+            self.assertEqual(bundle[name], (ROOT / "auth" / name).read_bytes())
+            self.assertEqual(manifest["theme"]["sourceFiles"][f"auth/{name}"], release.digest(bundle[name]))
+        for name in release.LOCALE_FILES:
+            self.assertEqual(bundle[name], self.source[name])
+        self.assertIn(b"SIL OPEN FONT LICENSE Version 1.1", bundle["fonts/OFL-InterTight.txt"])
+
+    def test_partial_font_overlay_is_rejected(self):
+        overlay = self.overlay()
+        del overlay["fonts/OFL-InterTight.txt"]
+        with self.assertRaisesRegex(release.ReleaseError, "complete licensed font set"):
+            self.bundle(overlay=overlay)
+
+    def test_historical_fontless_theme_candidate_still_verifies(self):
+        overlay = self.overlay()
+        legacy = {name: overlay[name] for name in release.THEME_FILES}
+        bundle = self.bundle(overlay=legacy)
+        self.assertEqual(set(bundle), release.BASE_FILES | release.THEME_FILES | {release.MANIFEST})
+        manifest = json.loads(bundle.pop(release.MANIFEST))
+        release.validate_bundle(bundle, manifest)
 
     def test_candidate_display_priorities_preserve_b2c_visibility_and_baseline(self):
         baseline = self.bundle()

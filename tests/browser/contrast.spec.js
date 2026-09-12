@@ -1,19 +1,19 @@
 const {
-  test, expect, cases, rgba, composite, contrast, colors, backgroundOf, textContrast, assertTheme, attachJson,
+  test, expect, cases, rgba, composite, contrast, colors, backgroundOf, textContrast, assertTheme, attachJson, pressTab,
 } = require('./harness');
 
-function gradientContrast(sample) {
+function actionContrast(sample) {
   const stops = sample.backgroundImage.match(/rgba?\([^)]+\)/g) || [];
-  expect(stops.length, 'Primary CTA uses the complete generated gradient').toBeGreaterThanOrEqual(2);
+  if (!stops.length) return textContrast(sample);
   return Math.min(...stops.map(stop => {
     const background = composite(rgba(stop), backgroundOf(sample));
     return contrast(composite(rgba(sample.color), background), background);
   }));
 }
 
-async function focusWithKeyboard(page, selector) {
+async function focusWithKeyboard(page, selector, browserName) {
   for (let attempts = 0; attempts < 40; attempts++) {
-    await page.keyboard.press('Tab');
+    await pressTab(page, browserName);
     if (await page.locator(selector).evaluate(element => element === document.activeElement)) return;
   }
   throw new Error(`Keyboard could not reach ${selector} in 40 Tab presses`);
@@ -21,7 +21,7 @@ async function focusWithKeyboard(page, selector) {
 
 for (const fixture of cases) {
   for (const theme of ['light', 'dark']) {
-    test(`${fixture.name}: ${theme} text, CTA endpoints, control boundaries and keyboard focus contrast`, async ({ page, auth }, testInfo) => {
+    test(`${fixture.name}: ${theme} text, CTA endpoints, control boundaries and keyboard focus contrast`, async ({ page, auth, browserName }, testInfo) => {
       await auth.open(fixture, `aiman_theme=${theme}`);
       await assertTheme(page, fixture, theme);
       await page.locator('#pageError').evaluate(element => element.setAttribute('aria-hidden', 'false'));
@@ -56,21 +56,22 @@ for (const fixture of cases) {
 
       const cta = page.locator(fixture.primary);
       const normalCta = await colors(cta);
-      evidence.cta = { normal: gradientContrast(normalCta) };
+      expect(normalCta.backgroundImage.match(/rgba?\([^)]+\)/g)).toHaveLength(2);
+      evidence.cta = { normal: actionContrast(normalCta) };
       expect(evidence.cta.normal, 'CTA text contrasts >=4.5:1 at every normal gradient stop').toBeGreaterThanOrEqual(4.5);
       await cta.hover();
       await expect(cta).not.toHaveCSS('background-image', normalCta.backgroundImage);
-      await expect.configure({ soft: true }).poll(async () => gradientContrast(await colors(cta)), {
-        message: 'CTA text contrasts >=4.5:1 at every hover gradient stop',
+      await expect.configure({ soft: true }).poll(async () => actionContrast(await colors(cta)), {
+        message: 'CTA text contrasts >=4.5:1 on hover',
       }).toBeGreaterThanOrEqual(4.5);
-      evidence.cta.hover = gradientContrast(await colors(cta));
+      evidence.cta.hover = actionContrast(await colors(cta));
       await page.mouse.move(0, 0);
       await page.evaluate(() => {
         document.activeElement.blur();
         window.scrollTo(0, 0);
       });
 
-      await focusWithKeyboard(page, fixture.input);
+      await focusWithKeyboard(page, fixture.input, browserName);
       await expect(input).toBeFocused();
       const expectedFocusColor = await input.evaluate(element => {
         const style = document.createElement('span').style;
@@ -90,7 +91,7 @@ for (const fixture of cases) {
       evidence.inputFocus = focusedInput;
 
       for (const selector of [fixture.primary, '#helpLink']) {
-        await focusWithKeyboard(page, selector);
+        await focusWithKeyboard(page, selector, browserName);
         const focused = await colors(page.locator(selector));
         expect(focused.outlineStyle, `${selector} keyboard focus outline`).not.toBe('none');
         expect(parseFloat(focused.outlineWidth), `${selector} focus width`).toBeGreaterThanOrEqual(2);

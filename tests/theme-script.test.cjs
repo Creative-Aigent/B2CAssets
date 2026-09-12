@@ -31,7 +31,7 @@ function run(search = "", saved, failure) {
     },
     console: { warn: message => warnings.push(message) },
   });
-  assert.deepEqual([...attributes.keys()], ["data-aiman-theme"]);
+  assert.deepEqual([...attributes.keys()], attributes.size ? ["data-aiman-theme"] : []);
   return { theme: attributes.get("data-aiman-theme"), values, warnings };
 }
 
@@ -43,8 +43,10 @@ for (const theme of ["light", "dark"]) {
   });
 }
 
-test("unhinted direct visits preserve the existing dark fallback", () => {
-  assert.equal(run().theme, "dark");
+test("unhinted direct visits leave system appearance to CSS without persisting it", () => {
+  const result = run();
+  assert.equal(result.theme, undefined);
+  assert.equal(result.values.size, 0);
 });
 
 test("subsequent sign-up, verification and recovery pages use the tab preference", () => {
@@ -64,14 +66,14 @@ for (const query of [
 ]) {
   test(`invalid appearance hint is ignored: ${query}`, () => {
     const result = run(query);
-    assert.equal(result.theme, "dark");
+    assert.equal(result.theme, undefined);
     assert.equal(result.values.size, 0);
     assert.equal(result.warnings.length, 1);
   });
 }
 
 test("malformed saved data cannot become a DOM attribute value", () => {
-  assert.equal(run("", "<style>").theme, "dark");
+  assert.equal(run("", "<style>").theme, undefined);
 });
 
 for (const name of ["SecurityError", "QuotaExceededError"]) {
@@ -82,8 +84,8 @@ for (const name of ["SecurityError", "QuotaExceededError"]) {
   });
 }
 
-test("blocked tab storage without a hint preserves the dark fallback", () => {
-  assert.equal(run("", undefined, new DOMException("Blocked", "SecurityError")).theme, "dark");
+test("blocked tab storage without a hint leaves system appearance to CSS", () => {
+  assert.equal(run("", undefined, new DOMException("Blocked", "SecurityError")).theme, undefined);
 });
 
 test("unexpected script errors are not silently swallowed", () => {

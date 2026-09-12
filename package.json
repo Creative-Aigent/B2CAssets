@@ -4,6 +4,7 @@
   "private": true,
   "description": "Offline regression tests for immutable AIMAN B2C template releases",
   "scripts": {
+    "preview": "node scripts/preview-auth.cjs",
     "test:unit": "node --test tests/theme-script.test.cjs",
     "test:browser": "playwright test"
   },
