@@ -16,6 +16,12 @@ const errors = `
   </div>
   <div id="inlineError" class="error itemLevel" style="display: none" role="alert">
     <p>Fixture only: inline hidden validation message.</p>
+  </div>
+  <div class="verificationInfoText">
+    <div id="verificationInfo" role="alert" aria-hidden="true">Fixture only: a code has been requested.</div>
+  </div>
+  <div class="verificationSuccessText">
+    <div id="verificationSuccess" role="alert" aria-hidden="true">Fixture only: verification succeeded.</div>
   </div>`;
 
 const hiddenControls = `

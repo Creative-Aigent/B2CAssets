@@ -1,6 +1,7 @@
 const {
   test, expect, cases, assetBase, assertTheme, assertPlatformUntouched, attachJson,
 } = require('./harness');
+const { releaseId } = require('./release');
 
 for (const fixture of cases) {
   for (const theme of ['light', 'dark']) {
@@ -21,7 +22,11 @@ for (const fixture of cases) {
       expect(assets.some(url => /\.css(?:\?|$)/.test(url) && !url.endsWith('/auth-theme.css')),
         'Full source template CSS is loaded, not just the overlay').toBe(true);
       expect(assets.some(url => url.includes('/fonts/')), 'Bundled font is loaded offline').toBe(true);
-      expect(assets.some(url => url.includes('aiman-logo-')), 'Bundled logo is loaded offline').toBe(true);
+      if (releaseId === 'v18-aiman-identity') {
+        expect(assets, 'Supplied full logo is loaded offline').toContain(`${assetBase}aiman.svg`);
+      } else {
+        expect(assets.some(url => url.includes('aiman-logo-')), 'Bundled logo is loaded offline').toBe(true);
+      }
       await attachJson(testInfo, 'computed-theme-before-screenshot', computed);
       await page.screenshot({ path: testInfo.outputPath(`${fixture.name}-${theme}-desktop.png`), fullPage: true, animations: 'disabled' });
     });

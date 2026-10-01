@@ -2,6 +2,9 @@ const {
   test, expect, cases, assertTheme, assertPlatformUntouched, colors, textContrast,
   rgba, composite, contrast, attachJson, readRelease, assetBase,
 } = require('./harness');
+const { releaseId } = require('./release');
+const identity = releaseId === 'v18-aiman-identity';
+const journey = identity || releaseId === 'v16-aiman-journey' || releaseId === 'v17-aiman-journey';
 
 const palette = {
   light: {
@@ -19,6 +22,22 @@ const palette = {
     backdropStops: ['rgb(60, 70, 88)', 'rgb(47, 57, 72)', 'rgb(37, 45, 57)', 'rgb(30, 37, 48)', 'rgb(40, 49, 62)'],
   },
 };
+if (journey) {
+  Object.assign(palette.light, {
+    canvas: 'rgb(250, 249, 247)', fill: 'rgb(255, 255, 255)', solid: 'rgb(255, 255, 255)',
+    hover: 'rgb(24, 63, 174)', pressed: 'rgb(15, 42, 107)',
+    chrome: 'rgb(75, 85, 99)', backdropStops: ['rgb(227, 234, 251)', 'rgb(250, 249, 247)'],
+  });
+  Object.assign(palette.dark, {
+    canvas: 'rgb(17, 24, 32)', panel: 'rgb(24, 33, 44)', fill: 'rgb(24, 33, 44)', solid: 'rgb(24, 33, 44)',
+    hover: 'rgb(24, 63, 174)', pressed: 'rgb(15, 42, 107)',
+    chrome: 'rgb(184, 196, 212)', backdropStops: ['rgb(32, 51, 84)', 'rgb(17, 24, 32)'],
+  });
+}
+if (identity) {
+  palette.light.ink = 'rgb(17, 24, 39)';
+  palette.dark.ink = 'rgb(244, 246, 250)';
+}
 
 async function material(page) {
   return page.locator('#api').evaluate(element => {
@@ -31,7 +50,8 @@ async function material(page) {
       panel: form.backgroundColor, panelRadius: form.borderRadius,
       glass: glass.backgroundColor, rim: glass.borderTopColor, shadow: glass.boxShadow,
       blur: glass.backdropFilter || glass.webkitBackdropFilter,
-      logo: glass.backgroundImage, glassRadius: glass.borderRadius,
+      logo: glass.backgroundImage, mask: glass.maskImage || glass.webkitMaskImage,
+      glassRadius: glass.borderRadius,
       font: heading.fontFamily, weight: heading.fontWeight,
       transparentForms: [...element.querySelectorAll('form, .error, input:not([type="checkbox"]), select, textarea')]
         .filter(node => node.getClientRects().length)
@@ -53,25 +73,53 @@ for (const theme of ['light', 'dark']) {
       const expected = palette[theme];
       expect(value.canvas).toBe(expected.canvas);
       expect(value.panel).toBe(expected.panel);
-      expect(value.glass).toBe(expected.fill);
-      expect(value.rim).toBe(expected.rim);
-      expect(value.blur).toBe('blur(20px) saturate(1.12)');
-      expect(value.lighting).toContain('radial-gradient');
-      expect(value.shadow).toContain('inset');
-      expect(value.panelRadius).toBe('22px');
-      expect(value.glassRadius).toBe('22px');
-      expect(value.font).toContain('Inter Tight');
-      expect(value.weight).toBe('550');
+      if (identity) {
+        expect(value.glass).toBe(expected.ink);
+        expect(value.mask).toContain('/aiman.svg');
+        expect(value.logo).toBe('none');
+        expect(value.blur).toBe('none');
+        expect(value.shadow).toBe('none');
+        expect(value.panelRadius).toBe('20px');
+        expect(auth.requests.some(url => url.endsWith('/aiman.svg'))).toBe(true);
+      } else {
+        expect(value.glass).toBe(expected.fill);
+        expect(value.rim).toBe(expected.rim);
+        expect(value.blur).toBe('blur(20px) saturate(1.12)');
+        if (journey && theme === 'light') expect(value.shadow).toBe('none');
+        else expect(value.shadow).toContain('inset');
+        expect(value.panelRadius).toBe(journey ? '16px' : '22px');
+        expect(value.glassRadius).toBe(journey ? '16px' : '22px');
+        expect(value.logo).toContain(theme === 'light' ? 'aiman-logo-dark.svg' : 'aiman-logo-white.svg');
+      }
+      if (releaseId === 'v16-aiman-journey') expect(value.lighting).toBe('none');
+      else expect(value.lighting).toContain('radial-gradient');
+      expect(value.font).toContain(journey ? 'Plus Jakarta Sans' : 'Inter Tight');
+      expect(value.weight).toBe(journey ? '800' : '550');
       expect(value.transparentForms).toEqual([]);
-      expect(value.logo).toContain(theme === 'light' ? 'aiman-logo-dark.svg' : 'aiman-logo-white.svg');
-      expect(auth.requests.some(url => url.endsWith('/fonts/inter-tight-latin-wght-normal.woff2'))).toBe(true);
+      expect(auth.requests.some(url => url.endsWith(journey
+        ? '/fonts/plus-jakarta-sans-latin-800-normal.woff2' : '/fonts/inter-tight-latin-wght-normal.woff2'))).toBe(true);
       expect(auth.requests.some(url => /\/fonts\/(lora|outfit)/.test(url))).toBe(false);
       await expect(page.locator(fixture.input)).toHaveCSS('font-size', '16px');
-      await expect(page.locator(fixture.input)).toHaveCSS('border-radius', '13px');
+      await expect(page.locator(fixture.input)).toHaveCSS('border-radius', journey ? '12px' : '13px');
       await expect(page.locator(`label[for="${fixture.input.slice(1)}"]`)).toHaveCSS('font-size', '14px');
       await page.locator('#pageError').evaluate(element => { element.setAttribute('aria-hidden', 'false'); });
-      await expect(page.locator('#pageError')).toHaveCSS('background-color', expected.panel);
+      await expect(page.locator('#pageError')).toHaveCSS('background-color',
+        journey && !identity && theme === 'dark' ? 'rgb(42, 49, 61)' : expected.panel);
       expect(textContrast(await colors(page.locator('#pageError p')))).toBeGreaterThanOrEqual(4.5);
+      if (identity) {
+        expect(auth.requests.some(url => url.includes('/fonts/inter-tight'))).toBe(false);
+        await expect(page.locator(fixture.primary)).toHaveCSS('font-weight', '700');
+        for (const selector of ['#verificationInfo', '#verificationSuccess']) {
+          await expect(page.locator(selector)).toBeHidden();
+          await page.locator(selector).evaluate(element => element.setAttribute('aria-hidden', 'false'));
+          await expect(page.locator(selector)).toBeVisible();
+          expect(textContrast(await colors(page.locator(selector)))).toBeGreaterThanOrEqual(4.5);
+        }
+        await expect(page.locator('#verificationSuccess')).toHaveCSS('background-color', 'rgb(255, 200, 61)');
+        await expect(page.locator('#verificationSuccess')).toHaveCSS('color', 'rgb(61, 46, 0)');
+        await expect(page.locator('#verificationInfo')).not.toHaveCSS('background-color', 'rgb(255, 200, 61)');
+        await expect(page.locator(fixture.primary)).toHaveCSS('color', 'rgb(255, 255, 255)');
+      }
 
       // Conservative contrast bound across every stop of the actual canvas lighting.
       const ratios = expected.backdropStops.map(stop =>
@@ -125,7 +173,7 @@ for (const theme of ['light', 'dark']) {
       await auth.open(cases[0], `aiman_theme=${theme}`);
       await assertPlatformUntouched(page);
       const value = await material(page);
-      expect(value.glass).toBe(palette[theme].solid);
+      expect(value.glass).toBe(identity ? palette[theme].ink : palette[theme].solid);
       expect(value.blur).toBe('none');
       expect(value.lighting).toBe('none');
       await page.locator(cases[0].input).focus();

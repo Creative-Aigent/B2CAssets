@@ -4,6 +4,8 @@ const visibilityStates = [
   ['#pageError', 'aria'],
   ['#nativeError', 'hidden'],
   ['#inlineError', 'inline'],
+  ['#verificationInfo', 'aria'],
+  ['#verificationSuccess', 'aria'],
   ['#nativeHiddenControl', 'hidden'],
   ['#ariaHiddenControl', 'aria'],
   ['#inlineHiddenControl', 'inline'],

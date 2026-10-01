@@ -43,11 +43,29 @@ PHONE_LOCALES = {
 LOCALE_FILES = FULL_LOCALES | PHONE_LOCALES | {"country-list-customization.json"}
 BASE_FILES = set(PAGE_LAYOUTS) | CSS_FILES | FONT_FILES | LOGO_FILES | LOCALE_FILES
 THEME_FILES = {"auth-theme.css", "auth-theme.js"}
-THEME_FONT_FILES = {
+LEGACY_THEME_FONT_FILES = {
     "fonts/OFL-InterTight.txt",
     "fonts/inter-tight-latin-wght-normal.woff2",
     "fonts/inter-tight-latin-wght-italic.woff2",
 }
+EARLY_JOURNEY_FONT_FILES = LEGACY_THEME_FONT_FILES | {
+    "fonts/OFL-PlusJakartaSans.txt",
+    "fonts/plus-jakarta-sans-latin-400-normal.woff2",
+    "fonts/plus-jakarta-sans-latin-700-normal.woff2",
+    "fonts/plus-jakarta-sans-latin-800-normal.woff2",
+}
+THEME_FONT_FILES = {
+    "fonts/OFL-PlusJakartaSans.txt",
+    "fonts/plus-jakarta-sans-latin-400-normal.woff2",
+    "fonts/plus-jakarta-sans-latin-600-normal.woff2",
+    "fonts/plus-jakarta-sans-latin-700-normal.woff2",
+    "fonts/plus-jakarta-sans-latin-800-normal.woff2",
+}
+THEME_ASSET_FILES = THEME_FONT_FILES | {"aiman.svg"}
+# These exact inventories belong to retained immutable candidates.
+THEME_ASSET_INVENTORIES = (
+    set(), LEGACY_THEME_FONT_FILES, EARLY_JOURNEY_FONT_FILES, THEME_ASSET_FILES,
+)
 LEGAL_STRINGS = {
     "disclaimer_link_1_url": ("https://creativeaigent.com/privacy-policy", "/privacy"),
     "disclaimer_link_2_url": ("https://creativeaigent.com/terms-of-service", "/terms"),
@@ -353,7 +371,7 @@ def rewrite_locale(data, name, legal_origin):
 def theme_overlay(repo):
     result = {}
     sources = [("theme.css", "auth-theme.css"), ("theme.js", "auth-theme.js")]
-    sources.extend((name, name) for name in sorted(THEME_FONT_FILES))
+    sources.extend((name, name) for name in sorted(THEME_ASSET_FILES))
     for source, destination in sources:
         path = safe_disk_path(Path(repo) / "auth" / source)
         require(path.is_file() and stat.S_ISREG(path.lstat().st_mode), f"Missing theme overlay: {path}")
@@ -373,8 +391,8 @@ def prepare_release(commit, source_files, release_id, *, overlay=None, legal_ori
     require(re.fullmatch(r"[0-9a-f]{40}", commit) is not None, "Invalid source Git commit.")
     require(set(source_files) == BASE_FILES, "Baseline assets are missing or unexpected.")
     overlay = {} if overlay is None else overlay
-    require(not overlay or set(overlay) in (THEME_FILES, THEME_FILES | THEME_FONT_FILES),
-            "Both theme overlay files and, when supplied, the complete licensed font set are required.")
+    require(not overlay or any(set(overlay) == THEME_FILES | assets for assets in THEME_ASSET_INVENTORIES),
+            "Both theme overlay files and, when supplied, the complete licensed font set and brand assets are required.")
     files = dict(source_files, **overlay)
     for name, data in list(files.items()):
         if name in LOCALE_FILES:
@@ -437,14 +455,17 @@ def validate_bundle(files, manifest):
     require(theme.get("requiresTenantJavaScriptEnablement") is enabled, "Invalid JavaScript enablement metadata.")
     sources = theme.get("sourceFiles")
     legacy_sources = {"auth/theme.css", "auth/theme.js"}
-    font_sources = {f"auth/{name}" for name in THEME_FONT_FILES}
+    asset_sources = {
+        frozenset(legacy_sources | {f"auth/{name}" for name in assets}): assets
+        for assets in THEME_ASSET_INVENTORIES
+    }
     require(isinstance(sources, dict)
-            and (set(sources) in (legacy_sources, legacy_sources | font_sources) if enabled else not sources),
+            and (frozenset(sources) in asset_sources if enabled else not sources),
             "Invalid theme source metadata.")
     for record in sources.values():
         validate_digest_record(record)
-    fonts = THEME_FONT_FILES if font_sources.issubset(sources) else set()
-    expected = BASE_FILES | (THEME_FILES | fonts if enabled else set())
+    assets = asset_sources[frozenset(sources)] if enabled else set()
+    expected = BASE_FILES | (THEME_FILES | assets if enabled else set())
     records = manifest.get("files")
     require(isinstance(records, dict), "Missing manifest file inventory.")
     for path in records:

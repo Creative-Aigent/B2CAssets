@@ -1,0 +1,483 @@
+/* Silver & Glass, aligned to creativeaigent.app 6e20173.
+   The existing brand becomes shell chrome; B2C's form stays opaque and untouched. */
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/inter-tight-latin-wght-italic.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: light;
+  --aiman-font: "Inter Tight", "Segoe UI", Arial, sans-serif;
+  --aiman-canvas: #edf0f4;
+  --aiman-panel: #ffffff;
+  --aiman-panel-subtle: #f3f5f8;
+  --aiman-panel-raised: #e7ecf3;
+  --aiman-input: #ffffff;
+  --aiman-ink: #242832;
+  --aiman-copy: #56606e;
+  --aiman-muted: #56606e;
+  --aiman-border: #cbd0d9;
+  --aiman-border-strong: #788392;
+  --aiman-chrome-text: #46515f;
+  --aiman-link: #635080;
+  --aiman-link-hover: #635080;
+  --aiman-focus: #635080;
+  --aiman-selection: #e9e5f1;
+  --aiman-action-start: #363947;
+  --aiman-action-highlight: #515564;
+  --aiman-action-text: #ffffff;
+  --aiman-action-hover: #262937;
+  --aiman-action-pressed: #202330;
+  --aiman-action-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 3px 7px -4px rgba(0, 0, 0, 0.4);
+  --aiman-action-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 9px -4px rgba(0, 0, 0, 0.4);
+  --aiman-panel-shadow: 0 1px 2px rgba(30, 40, 60, 0.05), 0 12px 26px -22px rgba(30, 40, 60, 0.28);
+  --aiman-control-shadow: inset 0 1px 2px rgba(30, 40, 60, 0.04);
+  --aiman-glass-fill: rgba(248, 250, 253, 0.74);
+  --aiman-glass-solid: #eef1f5;
+  --aiman-glass-rim: rgba(255, 255, 255, 0.94);
+  --aiman-glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.96), inset 1px 0 0 rgba(255, 255, 255, 0.72), 0 10px 30px -22px rgba(33, 43, 61, 0.36);
+  --aiman-lighting: radial-gradient(ellipse at 82% -15%, #ffffff 0%, rgba(255, 255, 255, 0) 55%), radial-gradient(ellipse at -15% 80%, #d6dce5 0%, rgba(214, 220, 229, 0) 52%), linear-gradient(145deg, #eff2f6, #e6eaf0 72%, #f5f6f8);
+  --aiman-logo: url("aiman-logo-dark.svg");
+  --aiman-error: #983649;
+  --aiman-error-surface: #ffffff;
+  --aiman-error-border: #983649;
+  --aiman-success: #2e634c;
+  --aiman-radius: 22px;
+  --aiman-control-radius: 13px;
+  --aiman-dialog-radius: 24px;
+}
+
+/* No explicit hint: CSS follows the OS, including when B2C excludes scripts.
+   Keep these roles identical to the explicit dark block below. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-aiman-theme="light"]) {
+    color-scheme: dark;
+    --aiman-canvas: #202630;
+    --aiman-panel: #2a313d;
+    --aiman-panel-subtle: #303946;
+    --aiman-panel-raised: #35404e;
+    --aiman-input: #2a313d;
+    --aiman-ink: #f0f2f7;
+    --aiman-copy: #b9c1d0;
+    --aiman-muted: #b9c1d0;
+    --aiman-border: #46505f;
+    --aiman-border-strong: #8999ad;
+    --aiman-chrome-text: #b9c1d0;
+    --aiman-link: #c5b6e0;
+    --aiman-link-hover: #c5b6e0;
+    --aiman-focus: #c5b6e0;
+    --aiman-selection: #403a50;
+    --aiman-action-start: #e0e5ee;
+    --aiman-action-highlight: #f7f9fc;
+    --aiman-action-text: #242b36;
+    --aiman-action-hover: #f3f6fc;
+    --aiman-action-pressed: #d0d7e2;
+    --aiman-panel-shadow: 0 1px 2px rgba(0, 0, 0, 0.22), 0 12px 28px -20px rgba(0, 0, 0, 0.45);
+    --aiman-control-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18);
+    --aiman-glass-fill: rgba(31, 38, 49, 0.84);
+    --aiman-glass-solid: #252d39;
+    --aiman-glass-rim: rgba(205, 218, 239, 0.25);
+    --aiman-glass-shadow: inset 0 1px 0 rgba(216, 226, 246, 0.20), inset 1px 0 0 rgba(216, 226, 246, 0.09), 0 12px 32px -22px rgba(0, 0, 0, 0.7);
+    --aiman-lighting: radial-gradient(ellipse at 85% -15%, #3c4658 0%, rgba(60, 70, 88, 0) 58%), radial-gradient(ellipse at -10% 90%, #2f3948 0%, rgba(47, 57, 72, 0) 53%), linear-gradient(145deg, #252d39, #1e2530 70%, #28313e);
+    --aiman-logo: url("aiman-logo-white.svg");
+    --aiman-error: #f1adb8;
+    --aiman-error-surface: #2a313d;
+    --aiman-error-border: #f1adb8;
+    --aiman-success: #a6d9bf;
+  }
+}
+
+html[data-aiman-theme="dark"] {
+  color-scheme: dark;
+  --aiman-canvas: #202630;
+  --aiman-panel: #2a313d;
+  --aiman-panel-subtle: #303946;
+  --aiman-panel-raised: #35404e;
+  --aiman-input: #2a313d;
+  --aiman-ink: #f0f2f7;
+  --aiman-copy: #b9c1d0;
+  --aiman-muted: #b9c1d0;
+  --aiman-border: #46505f;
+  --aiman-border-strong: #8999ad;
+  --aiman-chrome-text: #b9c1d0;
+  --aiman-link: #c5b6e0;
+  --aiman-link-hover: #c5b6e0;
+  --aiman-focus: #c5b6e0;
+  --aiman-selection: #403a50;
+  --aiman-action-start: #e0e5ee;
+  --aiman-action-highlight: #f7f9fc;
+  --aiman-action-text: #242b36;
+  --aiman-action-hover: #f3f6fc;
+  --aiman-action-pressed: #d0d7e2;
+  --aiman-panel-shadow: 0 1px 2px rgba(0, 0, 0, 0.22), 0 12px 28px -20px rgba(0, 0, 0, 0.45);
+  --aiman-control-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18);
+  --aiman-glass-fill: rgba(31, 38, 49, 0.84);
+  --aiman-glass-solid: #252d39;
+  --aiman-glass-rim: rgba(205, 218, 239, 0.25);
+  --aiman-glass-shadow: inset 0 1px 0 rgba(216, 226, 246, 0.20), inset 1px 0 0 rgba(216, 226, 246, 0.09), 0 12px 32px -22px rgba(0, 0, 0, 0.7);
+  --aiman-lighting: radial-gradient(ellipse at 85% -15%, #3c4658 0%, rgba(60, 70, 88, 0) 58%), radial-gradient(ellipse at -10% 90%, #2f3948 0%, rgba(47, 57, 72, 0) 53%), linear-gradient(145deg, #252d39, #1e2530 70%, #28313e);
+  --aiman-logo: url("aiman-logo-white.svg");
+  --aiman-error: #f1adb8;
+  --aiman-error-surface: #2a313d;
+  --aiman-error-border: #f1adb8;
+  --aiman-success: #a6d9bf;
+}
+
+html,
+body {
+  font-family: var(--aiman-font) !important;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  color-scheme: inherit;
+  padding: 148px 20px 40px;
+  background-image: var(--aiman-lighting) !important;
+}
+
+::selection {
+  color: var(--aiman-ink);
+  background: var(--aiman-selection);
+}
+
+#api {
+  position: relative;
+  background: var(--aiman-panel) !important;
+  border-radius: var(--aiman-radius) !important;
+  box-shadow: var(--aiman-panel-shadow) !important;
+  overflow-wrap: anywhere;
+}
+
+/* The original logo pseudo-element is the only frosted shell surface.
+   Its reserved space is outside the opaque form, not a translucent form stack. */
+#api::before {
+  position: absolute;
+  inset-block-start: -108px;
+  inset-inline-start: -1px;
+  width: calc(100% + 2px);
+  height: 84px;
+  margin: 0;
+  color: var(--aiman-chrome-text);
+  background: var(--aiman-logo) center / 126px 42px no-repeat var(--aiman-glass-solid);
+  border: 1px solid var(--aiman-glass-rim);
+  border-radius: var(--aiman-radius);
+  box-shadow: var(--aiman-glass-shadow);
+}
+
+#api > .heading h1 {
+  font-family: var(--aiman-font) !important;
+  font-size: 30px !important;
+  font-weight: 550 !important;
+  letter-spacing: -0.035em !important;
+  text-wrap: balance;
+}
+
+#api > .intro > p,
+#api form > .intro > p,
+#api form > .intro > h2,
+#api label,
+#api .entry-item label,
+#api .attrEntry label,
+#api .divider h2,
+#api .divider p,
+#api .divider span {
+  font-family: var(--aiman-font) !important;
+}
+
+#api > .intro > p,
+#api form > .intro > p,
+#api form > .intro > h2 {
+  font-size: 16px !important;
+}
+
+#api label,
+#api .entry-item label,
+#api .attrEntry label {
+  font-size: 14px !important;
+  font-weight: 550 !important;
+}
+
+#api input,
+#api select,
+#api textarea {
+  box-shadow: var(--aiman-control-shadow) !important;
+  transition: box-shadow 140ms ease;
+}
+
+#api input:hover,
+#api select:hover,
+#api textarea:hover {
+  border-color: var(--aiman-border-strong) !important;
+}
+
+#api input:focus,
+#api select:focus,
+#api textarea:focus {
+  background: var(--aiman-input) !important;
+  border-color: var(--aiman-focus) !important;
+  outline: 3px solid var(--aiman-focus) !important;
+  outline-offset: 3px !important;
+  box-shadow: var(--aiman-control-shadow), inset 0 0 0 1px var(--aiman-focus) !important;
+}
+
+#api input[type="checkbox"],
+#api input[type="radio"] {
+  accent-color: var(--aiman-action-start);
+}
+
+#api button,
+#api input[type="submit"],
+#api input[type="button"] {
+  color: var(--aiman-action-text) !important;
+  background: linear-gradient(180deg, var(--aiman-action-highlight), var(--aiman-action-start) 45%) !important;
+  border-color: var(--aiman-action-start) !important;
+  box-shadow: var(--aiman-action-shadow) !important;
+  font-size: 16px !important;
+  font-weight: 550 !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition: box-shadow 140ms ease;
+}
+
+#api button:hover,
+#api input[type="submit"]:hover,
+#api input[type="button"]:hover {
+  background: var(--aiman-action-hover) !important;
+  box-shadow: var(--aiman-action-shadow-hover) !important;
+  transform: none;
+}
+
+#api button:active,
+#api input[type="submit"]:active,
+#api input[type="button"]:active {
+  background: var(--aiman-action-pressed) !important;
+  box-shadow: var(--aiman-action-shadow) !important;
+  transform: none;
+}
+
+#api :is(
+  .claims-provider-list-buttons button,
+  .claims-provider-list-buttons input[type="button"],
+  .social button,
+  .social input[type="button"],
+  .socialAccount button,
+  .socialAccount input[type="button"],
+  #phoneVerificationControl_but_send_new_code,
+  #phoneVerificationControl_but_change_claims,
+  #sendNewCode,
+  #cancel
+) {
+  color: var(--aiman-ink) !important;
+  background: var(--aiman-panel-subtle) !important;
+  border-color: var(--aiman-border-strong) !important;
+  box-shadow: var(--aiman-control-shadow) !important;
+}
+
+#api :is(
+  .claims-provider-list-buttons button,
+  .claims-provider-list-buttons input[type="button"],
+  .social button,
+  .social input[type="button"],
+  .socialAccount button,
+  .socialAccount input[type="button"],
+  #phoneVerificationControl_but_send_new_code,
+  #phoneVerificationControl_but_change_claims,
+  #sendNewCode,
+  #cancel
+):hover {
+  color: var(--aiman-ink) !important;
+  background: var(--aiman-panel-raised) !important;
+  border-color: var(--aiman-border-strong) !important;
+  box-shadow: var(--aiman-control-shadow) !important;
+}
+
+#api button:disabled,
+#api input[type="submit"]:disabled,
+#api input[type="button"]:disabled {
+  color: var(--aiman-muted) !important;
+  background: var(--aiman-panel-subtle) !important;
+  border-color: var(--aiman-border-strong) !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+}
+
+/* :focus also covers WebKit's native/roving focus behavior. */
+#api a:focus,
+#api button:focus,
+#api input[type="submit"]:focus,
+#api input[type="button"]:focus,
+#api input[type="checkbox"]:focus,
+#api input[type="radio"]:focus {
+  outline: 3px solid var(--aiman-focus) !important;
+  outline-offset: 3px !important;
+}
+
+#api .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-block-start: 12px;
+}
+
+#api :is(.links a, .forgotPassword a, .password-reset a, .helpLink) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+#api .error:not(.verificationErrorText):not([aria-hidden="true"]):not(:empty),
+#api .verificationErrorText [role="alert"][aria-hidden="false"] {
+  border-radius: var(--aiman-control-radius) !important;
+}
+
+#api dialog,
+#api [role="dialog"] {
+  color: var(--aiman-ink);
+  background: var(--aiman-panel);
+  border: 1px solid var(--aiman-border-strong);
+  border-radius: var(--aiman-dialog-radius);
+}
+
+#api [role="status"],
+#api .working {
+  color: var(--aiman-copy);
+  background-color: var(--aiman-panel);
+  font-size: 14px;
+}
+
+/* B2C owns visibility, including later verification steps. */
+#api [hidden],
+#api [aria-hidden="true"] {
+  display: none !important;
+}
+
+@media (max-width: 520px) {
+  body { padding: 128px 12px 24px; }
+  #api::before { inset-block-start: -104px; height: 80px; }
+  #api > .heading h1 { font-size: 28px !important; }
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #api::before {
+    background-color: var(--aiman-glass-fill);
+    -webkit-backdrop-filter: blur(20px) saturate(1.12);
+    backdrop-filter: blur(20px) saturate(1.12);
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body { background-image: none !important; }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  body { background-image: none !important; }
+  #api::before {
+    background-color: var(--aiman-glass-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  #api,
+  #api::before {
+    border-color: var(--aiman-border-strong) !important;
+    box-shadow: none !important;
+  }
+  #api button,
+  #api input[type="submit"],
+  #api input[type="button"] {
+    background-image: none !important;
+    background-color: var(--aiman-action-start) !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  html, body, #api, #api::before {
+    background-color: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+    box-shadow: none !important;
+  }
+  #api::before { --aiman-logo: url("aiman-logo-dark.svg"); }
+  #api input, #api select, #api textarea, #api button {
+    forced-color-adjust: auto;
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    border-color: ButtonText !important;
+    box-shadow: none !important;
+  }
+  #api :is(a, button, input, select, textarea):focus {
+    outline-color: Highlight !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #api *, #api::before {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* AIMAN journey candidate. Native identity-provider controls remain authoritative. */
+@font-face {
+  font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/plus-jakarta-sans-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/plus-jakarta-sans-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 800; font-display: swap;
+  src: url("fonts/plus-jakarta-sans-latin-800-normal.woff2") format("woff2");
+}
+:root {
+  --aiman-font: "Plus Jakarta Sans", sans-serif;
+  --aiman-canvas: #faf9f7; --aiman-panel: #fff; --aiman-panel-subtle: #f3f1ed;
+  --aiman-ink: #111827; --aiman-copy: #4b5563; --aiman-muted: #4b5563;
+  --aiman-border: #d9d4cb; --aiman-link: #1f4fd8; --aiman-link-hover: #183fae;
+  --aiman-focus: #1f4fd8; --aiman-selection: #e3eafb;
+  --aiman-action-start: #1f4fd8; --aiman-action-highlight: #1f4fd8;
+  --aiman-action-text: #fff; --aiman-action-hover: #183fae; --aiman-action-pressed: #0f2a6b;
+  --aiman-radius: 16px; --aiman-control-radius: 12px; --aiman-dialog-radius: 20px;
+  --aiman-lighting: radial-gradient(ellipse at 80% 0%, #e3eafb 0%, transparent 60%);
+  --aiman-glass-fill: #fff; --aiman-glass-solid: #fff; --aiman-glass-shadow: none;
+}
+:root[data-aiman-theme="dark"] {
+  --aiman-canvas: #111820; --aiman-panel: #18212c; --aiman-input: #18212c;
+  --aiman-panel-subtle: #203354; --aiman-ink: #f1f5f9; --aiman-copy: #b8c4d4;
+  --aiman-muted: #b8c4d4; --aiman-border: #3e4d60; --aiman-link: #a9c2ff;
+  --aiman-link-hover: #c7d7ff; --aiman-focus: #a9c2ff; --aiman-selection: #203354;
+  --aiman-action-start: #1f4fd8; --aiman-action-highlight: #1f4fd8; --aiman-action-text: #fff;
+  --aiman-action-hover: #183fae; --aiman-action-pressed: #0f2a6b;
+  --aiman-lighting: radial-gradient(ellipse at 80% 0%, #203354 0%, transparent 60%);
+  --aiman-glass-fill: #18212c; --aiman-glass-solid: #18212c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-aiman-theme="light"]) {
+    --aiman-canvas: #111820; --aiman-panel: #18212c; --aiman-input: #18212c;
+    --aiman-panel-subtle: #203354; --aiman-ink: #f1f5f9; --aiman-copy: #b8c4d4;
+    --aiman-muted: #b8c4d4; --aiman-border: #3e4d60; --aiman-link: #a9c2ff;
+    --aiman-link-hover: #c7d7ff; --aiman-focus: #a9c2ff; --aiman-selection: #203354;
+    --aiman-action-start: #1f4fd8; --aiman-action-highlight: #1f4fd8; --aiman-action-text: #fff;
+    --aiman-action-hover: #183fae; --aiman-action-pressed: #0f2a6b;
+    --aiman-lighting: radial-gradient(ellipse at 80% 0%, #203354 0%, transparent 60%);
+    --aiman-glass-fill: #18212c; --aiman-glass-solid: #18212c;
+  }
+}
+#api :is(h1, .intro h2) { font-weight: 800 !important; letter-spacing: -.035em; }

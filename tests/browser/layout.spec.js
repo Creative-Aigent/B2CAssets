@@ -1,7 +1,15 @@
 const { test, expect, cases, assertTheme, pressTab } = require('./harness');
+const { releaseId } = require('./release');
+const identity = releaseId === 'v18-aiman-identity';
 
 const viewports = [
+  // Extend the current candidate's matrix, not the retained v15 acceptance scope.
+  ...(identity ? [{ name: 'narrow-mobile', width: 320, height: 568 }] : []),
   { name: 'mobile', width: 390, height: 844 },
+  ...(identity ? [
+    { name: 'wide-mobile', width: 430, height: 932 },
+    { name: 'tablet', width: 768, height: 1024 },
+  ] : []),
   // Reduced viewport approximates keyboard space; it is not a real on-screen keyboard.
   { name: 'short-keyboard-approximation', width: 360, height: 480 },
   { name: 'desktop', width: 1440, height: 900 },
@@ -47,6 +55,20 @@ for (const viewport of viewports) {
         expect(geometry.headingTop).toBeLessThan(geometry.viewportHeight);
         if (fixture.name === 'long-signup') {
           expect(geometry.panelHeight, 'Signup fixture really is taller than the viewport').toBeGreaterThan(geometry.viewportHeight);
+        }
+        if (identity) {
+          const smallTargets = await page.locator('#api').evaluate(api =>
+            [...api.querySelectorAll('button, a, input:not([type="checkbox"]), select, label[for="rememberMe"], label[for="termsConsent"]')]
+              .filter(element => element.getClientRects().length)
+              .filter(element => {
+                const rect = element.getBoundingClientRect();
+                return rect.width < 44 || rect.height < 44;
+              }).map(element => ({
+                target: element.id || element.htmlFor,
+                width: element.getBoundingClientRect().width,
+                height: element.getBoundingClientRect().height,
+              })));
+          expect(smallTargets, 'Native actions and associated checkbox labels have 44px targets').toEqual([]);
         }
 
         const focusable = page.locator('#api input:visible, #api select:visible, #api button:visible, #api a:visible');
