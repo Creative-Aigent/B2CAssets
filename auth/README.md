@@ -23,7 +23,7 @@ explicit choice wins over the operating system preference. Sign-up retains
 an authorization code, token, phone number or account identifier. Later
 sign-up, verification and recovery pages can reuse the appearance in that
 tab. Storage being unavailable does not prevent applying an explicit hint.
-Without a valid hint or saved preference, the **v18 identity candidate** leaves the
+Without a valid hint or saved preference, the **v19 Iris candidate** leaves the
 root attribute unset and follows `prefers-color-scheme` in CSS. OS changes remain
 live and are never persisted as an explicit choice. This also works when B2C
 excludes the script; an explicit app choice cannot be honored in that case.
@@ -37,47 +37,57 @@ The script belongs in the HTML head with `defer`. Do not enable or reference
 the legacy `docs/b2c-base.js` or `docs/unified-clean.js`; they manipulate
 Microsoft's injected controls and are not part of these releases.
 
-## AIMAN Journey appearance contract
+## AIMAN Iris appearance contract
 
-`auth/theme.css` is the authoring source for **v18-aiman-identity**, not a
-modification to any existing release. It matches the app's
-`docs/design/journey-identity-reference` and `ux/src/styles/journey-theme.css`:
-warm neutral light surfaces, deep neutral/ocean dark surfaces, Ocean
-`#1f4fd8` primary actions and light blue links in dark mode. Sunflower `#ffc83d`
-with `#3d2e00` text identifies only the native `verificationSuccessText` state.
-Informational messages and pending states do not imply successful verification.
+`auth/theme.css` is now the authoring source for **v19-aiman-iris**, a new
+immutable local candidate. It applies the approved AIMAN Iris language from the
+app repository: flat opaque light/dark surfaces, neutral selected and
+informational states, violet only for the primary action, links and the keyboard
+focus ring, and fact colours only for success, warning and error. There is no
+glass, blur, decorative banner or gradient. The full AIMAN wordmark remains in
+the existing `#api::before` slot as a theme-coloured mask. Native B2C controls,
+handlers, required fields, validation, recovery and session behaviour remain
+provider-owned.
 
-The supplied full `ux/public/brand/aiman.svg` is copied byte-for-byte to
-`auth/aiman.svg`. The existing `#api::before` decorative slot displays this
-single logo with a theme-colored mask, not a mark plus separately typeset name.
-There is no floating glass header or duplicate brand tile. Retained dark/white
-baseline logos provide the no-mask fallback. Forms, errors and dialogs remain
-opaque. Native controls are never moved or recreated.
+Iris tokens used by v19:
 
-Panels/dialogs have 20px corners; controls have 12px corners. Headings use
-Plus Jakarta Sans 800; buttons 700; labels 600. Body and inputs are 16px,
-labels 14px, with existing small metadata retained. Fields/buttons retain
-48px targets. Links and associated checkbox labels have at least 44px targets
-without replacing the native checkbox. Editable field boundaries are stronger
-than decorative dividers to retain measured 3:1 contrast. WebKit's select uses
-`menulist-button` and an explicit height, retaining the native popup, options
-and handlers. Short-height views reduce padding, and long forms use native
-scrolling with root scroll padding and control scroll margins so keyboard
-focus can reveal the whole field, not just its caret. Button transitions
-affect shadows only, not color interpolation or position.
+- Canvas/panel: `#FAFAFC` / `#FFFFFF` in light and `#09090E` / `#12121A` in
+  dark. Subtle and raised neutral surfaces are used for secondary controls and
+  non-successful information, not as action colour.
+- Editable field boundaries use `#8B8BA0` in light and `#6E6E86` in dark,
+  separate from decorative dividers, to retain the measured 3:1 boundary
+  contrast. Inputs and selects keep 12px corners and 48px height; WebKit keeps
+  the native `menulist-button` select.
+- Primary buttons are pills (`999px`) using `#5B3DF5` in light and `#8E7DFF`
+  in dark, with the approved hover/pressed violet values. Secondary/native
+  verification controls are neutral. Focus is a 3px solid Iris ring with a 2px
+  offset.
+- Headings use local Outfit 700 with `-0.02em` title tracking. Interface,
+  labels, inputs and body use local Inter Tight. Body and inputs are 16px;
+  labels are 14px semibold; interactive link and checkbox-label targets remain
+  at least 44px. No external font service is requested.
+- Native success/confirmed verification uses green text on the green wash.
+  Warning/needs-review uses amber. Informational or pending messages remain
+  neutral and never reuse the success colour. Errors use red text and border.
 
-Unsupported backdrop filtering, reduced transparency and increased contrast
-remove canvas lighting. Forced colors retain system colors,
-native controls and visible focus. Reduced motion disables animation and
-transitions. Explicit `:focus` styling also covers native WebKit focus.
+`auth/fonts/` contains the app's Outfit variable font
+`outfit-latin-wght-normal.woff2` and SIL OFL license `OFL-Outfit.txt`, plus the
+existing Inter Tight variable files/license. v19 bundles Outfit and Inter Tight
+and does not bundle or request Plus Jakarta Sans. The Plus Jakarta Sans files
+remain on disk only for v16-v18 provenance and retained release verification.
+The pinned baseline Lora/Outfit files remain for provenance but are not
+requested by v19.
 
-`auth/fonts/` contains the app's unmodified Plus Jakarta Sans Latin WOFF2
-files at weights 400/600/700/800, with SIL OFL 1.1 in
-`OFL-PlusJakartaSans.txt`. They are bundled on the same release asset origin
-as the CSS; no external font service is called. Missing glyphs, including
-Arabic, use the existing system fallback stack. Inter Tight sources and older
-releases remain intact; v18 does not package or request Inter Tight. The pinned
-baseline Lora/Outfit files remain for provenance but are not requested.
+## Historical Journey/Identity appearance contract
+
+v16-v18 remain immutable, never-activated local candidates. Their Journey and
+Identity appearance used warm neutral light surfaces, deep neutral/ocean dark
+surfaces, Ocean `#1f4fd8` primary actions and Plus Jakarta Sans. v18 restricted
+Sunflower `#ffc83d` to native successful verification and kept informational
+messages non-successful. The supplied full `ux/public/brand/aiman.svg` was
+copied byte-for-byte to `auth/aiman.svg` for those candidates as well. Those
+bundles and their font inventories are retained unchanged; v19 does not rewrite
+or remove them.
 
 ## Source and served-surface inventory
 
@@ -85,10 +95,11 @@ The pinned source is deployed v13 commit
 `5537be973028caae05cfb60e2fd23dc557fbf40a`. Mutable root `docs/` assets and
 `docs/releases/v13-baseline/` are deliberately unchanged. `v14-theme-4` is a
 historical, never-activated candidate; it is not overwritten. The retained
-`v15-silver-glass`, `v16-aiman-journey` and `v17-aiman-journey` bundles are also
-unchanged. The new candidate is **`docs/releases/v18-aiman-identity/`**, marked
-`not-activated`. v16 and v17 were already uncommitted local work when this
-identity pass began and have not been replaced or removed.
+`v15-silver-glass`, `v16-aiman-journey`, `v17-aiman-journey` and
+`v18-aiman-identity` bundles are also unchanged. The new candidate is
+**`docs/releases/v19-aiman-iris/`**, marked `not-activated`. v16-v18 were
+already uncommitted local work when this Iris pass began and have not been
+replaced or removed.
 
 | Template | Existing layout contract | Shared stylesheet route |
 |---|---|---|
@@ -103,7 +114,7 @@ the same layout metadata and no added form or body script. All five load the
 same `auth-theme.css` and deferred head-only `auth-theme.js`. Absolute template
 asset URLs, CSS imports, relative CSS font/logo URLs and manifest hashes resolve
 inside the selected immutable release. The real tenant mappings are not inferred
-from these files and were not inspected or changed for v18.
+from these files and were not inspected or changed for v19.
 
 ## Activation is a separate operation
 
@@ -112,18 +123,18 @@ working five page-layout URLs. Each manifest deliberately records
 `activationStatus: "not-activated"`; it is a build artifact, not live tenant
 state.
 
-**v18 deployment implications:** publication requires a separately reviewed
+**v19 deployment implications:** publication requires a separately reviewed
 commit/push to the configured HTTPS Pages host, followed by verifying asset
 responses, font MIME types and CORS. Tenant activation requires a separately
 authorized administrator to record the existing configuration and apply all five
-URLs from the v18 manifest on a candidate flow with compatible layout/JavaScript
+URLs from the v19 manifest on a candidate flow with compatible layout/JavaScript
 settings. Neither publication nor activation is performed by the local build or
 preview. No policies, claims, tenant settings or localization overrides are
 changed by this appearance release. Its locale files are byte-identical to v13;
 do **not** upload them as part of this visual-only change. Keep the complete
 existing localization/session/recovery configuration.
 
-Historical v14 investigation (not a v18 live test): an isolated unauthenticated
+Historical v14 investigation (not a v19 live test): an isolated unauthenticated
 probe of the existing phone flow confirmed the
 initial B2C document retains `aiman_theme=light`. A browser-local substitution
 adding the head script did not result in script execution; sign-in remained
@@ -188,7 +199,7 @@ python3 scripts/build-auth-release.py \
   --source-ref 5537be973028caae05cfb60e2fd23dc557fbf40a
 
 python3 scripts/build-auth-release.py \
-  --release-id v18-aiman-identity \
+  --release-id v19-aiman-iris \
   --source-ref 5537be973028caae05cfb60e2fd23dc557fbf40a \
   --with-theme
 
@@ -197,8 +208,9 @@ python3 -m unittest discover -s tests -p 'test_auth_release.py'
 node --test tests/theme-script.test.cjs
 npm ci
 npx playwright install chromium webkit
-B2C_RELEASE_ID=v18-aiman-identity npm run test:browser
-B2C_RELEASE_ID=v18-aiman-identity npm run preview
+B2C_RELEASE_ID=v19-aiman-iris npm run test:browser
+B2C_RELEASE_ID=v18-aiman-identity npm run test:browser # retained-release regression
+B2C_RELEASE_ID=v19-aiman-iris npm run preview
 ```
 
 The preview binds only `127.0.0.1:4317`; use `B2C_PREVIEW_PORT` for another
@@ -222,13 +234,14 @@ reachability and focus assertions apply. Native scrolling is allowed to settle
 before checking viewport bounds.
 
 The unchanged CI configuration still selects v15, with Chromium on Ubuntu and
-WebKit on macOS. v18 has been validated locally, not dispatched to CI.
+WebKit on macOS. v19 has been validated locally, not dispatched to CI.
 Historical v15 Linux WebKitGTK testing left six long-signup viewport failures
-where only the caret/text was revealed. The v18 authoring pass also reproduced
+where only the caret/text was revealed. The v18 authoring pass reproduced
 partial-field focus scrolling on macOS and fixed its candidate using CSS scroll
-padding/margins. Strict whole-control viewport assertions remain unchanged.
-No scripted scrolling, changed keyboard order or skipped form case masks it.
-Linux WebKitGTK has not been rerun for v18.
+padding/margins; v19 retains those accessibility geometry checks. Strict
+whole-control viewport assertions remain unchanged. No scripted scrolling,
+changed keyboard order or skipped form case masks it. Linux WebKitGTK has not
+been rerun for v19.
 
 Increased contrast is browser-emulated. Reduced transparency and unsupported
 backdrop support are checked by activating the **shipped CSS branches** in the
@@ -239,9 +252,10 @@ copy representative captures to session artifacts, not tracked assets.
 These checks are not live tenant acceptance, real OTP/recovery tests, assistive
 technology testing or a physical-device keyboard test.
 
-See [v18 local review and acceptance](identity-v18-review.md) for exact command
-results, preserved dirty work, the historical expanded-matrix findings and the
-still-required tenant verification. Passing fixtures do not authorize publication.
+See [v19 local review and acceptance](identity-v19-review.md) for exact command
+results, preserved dirty work, screenshots and the still-required tenant
+verification. See [v18 local review](identity-v18-review.md) for the retained
+Identity candidate history. Passing fixtures do not authorize publication.
 
 Earlier never-published drafts were
 archived outside the publishable `docs/` tree: dark borders and hover text

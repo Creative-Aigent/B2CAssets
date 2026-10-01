@@ -1,12 +1,14 @@
 const { test, expect, cases, assertTheme, pressTab } = require('./harness');
 const { releaseId } = require('./release');
 const identity = releaseId === 'v18-aiman-identity';
+const iris = releaseId === 'v19-aiman-iris';
+const expandedCandidate = identity || iris;
 
 const viewports = [
   // Extend the current candidate's matrix, not the retained v15 acceptance scope.
-  ...(identity ? [{ name: 'narrow-mobile', width: 320, height: 568 }] : []),
+  ...(expandedCandidate ? [{ name: 'narrow-mobile', width: 320, height: 568 }] : []),
   { name: 'mobile', width: 390, height: 844 },
-  ...(identity ? [
+  ...(expandedCandidate ? [
     { name: 'wide-mobile', width: 430, height: 932 },
     { name: 'tablet', width: 768, height: 1024 },
   ] : []),
@@ -56,7 +58,7 @@ for (const viewport of viewports) {
         if (fixture.name === 'long-signup') {
           expect(geometry.panelHeight, 'Signup fixture really is taller than the viewport').toBeGreaterThan(geometry.viewportHeight);
         }
-        if (identity) {
+        if (expandedCandidate) {
           const smallTargets = await page.locator('#api').evaluate(api =>
             [...api.querySelectorAll('button, a, input:not([type="checkbox"]), select, label[for="rememberMe"], label[for="termsConsent"]')]
               .filter(element => element.getClientRects().length)

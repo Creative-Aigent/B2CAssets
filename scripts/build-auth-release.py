@@ -61,10 +61,15 @@ THEME_FONT_FILES = {
     "fonts/plus-jakarta-sans-latin-700-normal.woff2",
     "fonts/plus-jakarta-sans-latin-800-normal.woff2",
 }
+IRIS_THEME_FONT_FILES = LEGACY_THEME_FONT_FILES | {
+    "fonts/OFL-Outfit.txt",
+    "fonts/outfit-latin-wght-normal.woff2",
+}
 THEME_ASSET_FILES = THEME_FONT_FILES | {"aiman.svg"}
+IRIS_THEME_ASSET_FILES = IRIS_THEME_FONT_FILES | {"aiman.svg"}
 # These exact inventories belong to retained immutable candidates.
 THEME_ASSET_INVENTORIES = (
-    set(), LEGACY_THEME_FONT_FILES, EARLY_JOURNEY_FONT_FILES, THEME_ASSET_FILES,
+    set(), LEGACY_THEME_FONT_FILES, EARLY_JOURNEY_FONT_FILES, THEME_ASSET_FILES, IRIS_THEME_ASSET_FILES,
 )
 LEGAL_STRINGS = {
     "disclaimer_link_1_url": ("https://creativeaigent.com/privacy-policy", "/privacy"),
@@ -368,10 +373,14 @@ def rewrite_locale(data, name, legal_origin):
     return json_bytes(value)
 
 
-def theme_overlay(repo):
+def theme_asset_files_for_release(release_id):
+    return IRIS_THEME_ASSET_FILES if release_id == "v19-aiman-iris" else THEME_ASSET_FILES
+
+
+def theme_overlay(repo, release_id=None):
     result = {}
     sources = [("theme.css", "auth-theme.css"), ("theme.js", "auth-theme.js")]
-    sources.extend((name, name) for name in sorted(THEME_ASSET_FILES))
+    sources.extend((name, name) for name in sorted(theme_asset_files_for_release(release_id)))
     for source, destination in sources:
         path = safe_disk_path(Path(repo) / "auth" / source)
         require(path.is_file() and stat.S_ISREG(path.lstat().st_mode), f"Missing theme overlay: {path}")
@@ -623,7 +632,7 @@ def build_release(repo, release_id, source_ref=DEFAULT_SOURCE_REF, *, with_theme
     validate_legal_origin(legal_origin)
     safe_disk_path(Path(repo) / "docs" / "releases" / release_id)
     commit, files = read_git_source(repo, source_ref)
-    overlay = theme_overlay(repo) if with_theme else None
+    overlay = theme_overlay(repo, release_id) if with_theme else None
     bundle = prepare_release(commit, files, release_id, overlay=overlay, legal_origin=legal_origin)
     return write_release(repo, release_id, bundle)
 

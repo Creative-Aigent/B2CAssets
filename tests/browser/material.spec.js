@@ -4,6 +4,7 @@ const {
 } = require('./harness');
 const { releaseId } = require('./release');
 const identity = releaseId === 'v18-aiman-identity';
+const iris = releaseId === 'v19-aiman-iris';
 const journey = identity || releaseId === 'v16-aiman-journey' || releaseId === 'v17-aiman-journey';
 
 const palette = {
@@ -38,12 +39,31 @@ if (identity) {
   palette.light.ink = 'rgb(17, 24, 39)';
   palette.dark.ink = 'rgb(244, 246, 250)';
 }
+if (iris) {
+  Object.assign(palette.light, {
+    canvas: 'rgb(250, 250, 252)', panel: 'rgb(255, 255, 255)',
+    fill: 'rgb(255, 255, 255)', solid: 'rgb(244, 244, 249)',
+    ink: 'rgb(11, 11, 18)', chrome: 'rgb(83, 83, 106)',
+    hover: 'rgb(74, 47, 224)', pressed: 'rgb(58, 34, 201)',
+    backdropStops: ['rgb(250, 250, 252)', 'rgb(255, 255, 255)'],
+  });
+  Object.assign(palette.dark, {
+    canvas: 'rgb(9, 9, 14)', panel: 'rgb(18, 18, 26)',
+    fill: 'rgb(18, 18, 26)', solid: 'rgb(25, 25, 36)',
+    ink: 'rgb(246, 246, 251)', chrome: 'rgb(169, 169, 190)',
+    hover: 'rgb(164, 151, 255)', pressed: 'rgb(122, 104, 240)',
+    backdropStops: ['rgb(9, 9, 14)', 'rgb(18, 18, 26)'],
+  });
+}
 
 async function material(page) {
   return page.locator('#api').evaluate(element => {
     const form = getComputedStyle(element);
     const glass = getComputedStyle(element, '::before');
     const heading = getComputedStyle(element.querySelector('h1'));
+    const body = getComputedStyle(document.body);
+    const action = getComputedStyle(element.querySelector('button, input[type="submit"], input[type="button"]'));
+    const input = getComputedStyle(element.querySelector('input:not([type="checkbox"]), select, textarea'));
     return {
       canvas: getComputedStyle(document.body).backgroundColor,
       lighting: getComputedStyle(document.body).backgroundImage,
@@ -52,7 +72,9 @@ async function material(page) {
       blur: glass.backdropFilter || glass.webkitBackdropFilter,
       logo: glass.backgroundImage, mask: glass.maskImage || glass.webkitMaskImage,
       glassRadius: glass.borderRadius,
-      font: heading.fontFamily, weight: heading.fontWeight,
+      font: heading.fontFamily, weight: heading.fontWeight, letterSpacing: heading.letterSpacing,
+      bodyFont: body.fontFamily, buttonRadius: action.borderRadius,
+      inputRadius: input.borderRadius,
       transparentForms: [...element.querySelectorAll('form, .error, input:not([type="checkbox"]), select, textarea')]
         .filter(node => node.getClientRects().length)
         .filter(node => getComputedStyle(node).backdropFilter !== 'none'
@@ -73,7 +95,15 @@ for (const theme of ['light', 'dark']) {
       const expected = palette[theme];
       expect(value.canvas).toBe(expected.canvas);
       expect(value.panel).toBe(expected.panel);
-      if (identity) {
+      if (iris) {
+        expect(value.glass).toBe(expected.ink);
+        expect(value.mask).toContain('/aiman.svg');
+        expect(value.logo).toBe('none');
+        expect(value.blur).toBe('none');
+        expect(value.shadow).toBe('none');
+        expect(value.panelRadius).toBe('22px');
+        expect(auth.requests.some(url => url.endsWith('/aiman.svg'))).toBe(true);
+      } else if (identity) {
         expect(value.glass).toBe(expected.ink);
         expect(value.mask).toContain('/aiman.svg');
         expect(value.logo).toBe('none');
@@ -91,22 +121,53 @@ for (const theme of ['light', 'dark']) {
         expect(value.glassRadius).toBe(journey ? '16px' : '22px');
         expect(value.logo).toContain(theme === 'light' ? 'aiman-logo-dark.svg' : 'aiman-logo-white.svg');
       }
-      if (releaseId === 'v16-aiman-journey') expect(value.lighting).toBe('none');
+      if (releaseId === 'v16-aiman-journey' || iris) expect(value.lighting).toBe('none');
       else expect(value.lighting).toContain('radial-gradient');
-      expect(value.font).toContain(journey ? 'Plus Jakarta Sans' : 'Inter Tight');
-      expect(value.weight).toBe(journey ? '800' : '550');
+      expect(value.font).toContain(iris ? 'Outfit' : (journey ? 'Plus Jakarta Sans' : 'Inter Tight'));
+      expect(value.bodyFont).toContain(iris ? 'Inter Tight' : (journey ? 'Plus Jakarta Sans' : 'Inter Tight'));
+      expect(value.weight).toBe(iris ? '700' : (journey ? '800' : '550'));
+      if (iris) expect(value.letterSpacing).toBe('-0.6px');
       expect(value.transparentForms).toEqual([]);
       expect(auth.requests.some(url => url.endsWith(journey
         ? '/fonts/plus-jakarta-sans-latin-800-normal.woff2' : '/fonts/inter-tight-latin-wght-normal.woff2'))).toBe(true);
-      expect(auth.requests.some(url => /\/fonts\/(lora|outfit)/.test(url))).toBe(false);
+      if (iris) {
+        expect(auth.requests.some(url => /\/fonts\/(lora|outfit-latin-ext)/.test(url))).toBe(false);
+      } else {
+        expect(auth.requests.some(url => /\/fonts\/(lora|outfit)/.test(url))).toBe(false);
+      }
       await expect(page.locator(fixture.input)).toHaveCSS('font-size', '16px');
-      await expect(page.locator(fixture.input)).toHaveCSS('border-radius', journey ? '12px' : '13px');
+      await expect(page.locator(fixture.input)).toHaveCSS('border-radius', iris || journey ? '12px' : '13px');
       await expect(page.locator(`label[for="${fixture.input.slice(1)}"]`)).toHaveCSS('font-size', '14px');
       await page.locator('#pageError').evaluate(element => { element.setAttribute('aria-hidden', 'false'); });
       await expect(page.locator('#pageError')).toHaveCSS('background-color',
         journey && !identity && theme === 'dark' ? 'rgb(42, 49, 61)' : expected.panel);
       expect(textContrast(await colors(page.locator('#pageError p')))).toBeGreaterThanOrEqual(4.5);
-      if (identity) {
+      if (iris) {
+        expect(auth.requests.some(url => url.includes('/fonts/plus-jakarta'))).toBe(false);
+        expect(auth.requests.some(url => url.endsWith('/fonts/outfit-latin-wght-normal.woff2'))).toBe(true);
+        expect(auth.requests.some(url => url.endsWith('/fonts/inter-tight-latin-wght-normal.woff2'))).toBe(true);
+        await expect(page.locator(fixture.primary)).toHaveCSS('border-radius', '999px');
+        await expect(page.locator(fixture.primary)).toHaveCSS('font-weight', '700');
+        await expect(page.locator(fixture.primary)).toHaveCSS('color',
+          theme === 'dark' ? 'rgb(11, 11, 18)' : 'rgb(255, 255, 255)');
+        await page.locator(fixture.input).focus();
+        await expect(page.locator(fixture.input)).toHaveCSS('outline-width', '3px');
+        await expect(page.locator(fixture.input)).toHaveCSS('outline-offset', '2px');
+        for (const selector of ['#verificationInfo', '#verificationSuccess']) {
+          await expect(page.locator(selector)).toBeHidden();
+          await page.locator(selector).evaluate(element => element.setAttribute('aria-hidden', 'false'));
+          await expect(page.locator(selector)).toBeVisible();
+          expect(textContrast(await colors(page.locator(selector)))).toBeGreaterThanOrEqual(4.5);
+        }
+        await expect(page.locator('#verificationSuccess')).toHaveCSS('background-color',
+          theme === 'dark' ? 'rgb(15, 38, 28)' : 'rgb(226, 246, 236)');
+        await expect(page.locator('#verificationSuccess')).toHaveCSS('color',
+          theme === 'dark' ? 'rgb(94, 224, 170)' : 'rgb(11, 115, 80)');
+        await expect(page.locator('#verificationInfo')).toHaveCSS('background-color',
+          theme === 'dark' ? 'rgb(25, 25, 36)' : 'rgb(244, 244, 249)');
+        await expect(page.locator('#verificationInfo')).not.toHaveCSS('background-color',
+          theme === 'dark' ? 'rgb(15, 38, 28)' : 'rgb(226, 246, 236)');
+      } else if (identity) {
         expect(auth.requests.some(url => url.includes('/fonts/inter-tight'))).toBe(false);
         await expect(page.locator(fixture.primary)).toHaveCSS('font-weight', '700');
         for (const selector of ['#verificationInfo', '#verificationSuccess']) {
@@ -173,7 +234,7 @@ for (const theme of ['light', 'dark']) {
       await auth.open(cases[0], `aiman_theme=${theme}`);
       await assertPlatformUntouched(page);
       const value = await material(page);
-      expect(value.glass).toBe(identity ? palette[theme].ink : palette[theme].solid);
+      expect(value.glass).toBe(identity || iris ? palette[theme].ink : palette[theme].solid);
       expect(value.blur).toBe('none');
       expect(value.lighting).toBe('none');
       await page.locator(cases[0].input).focus();

@@ -4,6 +4,7 @@ const crypto = require('node:crypto');
 const { test: base, expect } = require('@playwright/test');
 const { cases, platformBootstrap } = require('./fixtures');
 const { releaseId, releaseDirectory, assetBase } = require('./release');
+const iris = releaseId === 'v19-aiman-iris';
 
 const identityOrigin = 'https://identity.example.test';
 const contentTypes = {
@@ -211,7 +212,8 @@ async function assertTheme(page, fixture, theme, { javaScript = true } = {}) {
   if (theme === 'light') {
     expect(luminance(rgba(copySample.color)), 'Light surface has dark copy').toBeLessThan(0.2);
   } else {
-    expect(luminance(rgba(copySample.color)), 'Dark surface has light copy').toBeGreaterThan(0.5);
+    expect(luminance(rgba(copySample.color)), 'Dark surface has light copy')
+      .toBeGreaterThan(iris ? 0.35 : 0.5);
   }
   expect(textContrast(copySample), 'Intro copy contrast').toBeGreaterThanOrEqual(4.5);
   expect(samples.canvas.colorScheme).toBe(theme);

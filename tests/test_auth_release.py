@@ -414,18 +414,32 @@ class AuthReleaseTests(unittest.TestCase):
             self.assertNotIn("background: #0c1117 !important", text)
             self.assertEqual(text.count('<div id="api"></div>'), 1)
 
-    def test_journey_packages_licensed_fonts_and_brand_and_preserves_all_locale_bytes(self):
-        overlay = release.theme_overlay(ROOT)
-        bundle = self.bundle(overlay=overlay)
-        manifest = json.loads(bundle[release.MANIFEST])
+    def test_existing_identity_release_keeps_jakarta_inventory(self):
+        directory = ROOT / "docs" / "releases" / "v18-aiman-identity"
+        manifest = release.verify_release(directory)
         for name in release.THEME_ASSET_FILES:
+            self.assertIn(name, manifest["files"])
+        self.assertEqual(manifest["activationStatus"], "not-activated")
+        self.assertIn(b"SIL OPEN FONT LICENSE Version 1.1", (directory / "fonts/OFL-PlusJakartaSans.txt").read_bytes())
+        self.assertIn(b'viewBox="28 320 530 170"', (directory / "aiman.svg").read_bytes())
+        self.assertFalse(any("inter-tight" in name for name in manifest["files"]))
+        self.assertNotIn("fonts/outfit-latin-wght-normal.woff2", manifest["files"])
+
+    def test_iris_packages_outfit_inter_tight_and_brand_without_jakarta(self):
+        overlay = release.theme_overlay(ROOT, "v19-aiman-iris")
+        bundle = self.bundle("v19-aiman-iris", overlay=overlay)
+        manifest = json.loads(bundle[release.MANIFEST])
+        self.assertEqual(manifest["activationStatus"], "not-activated")
+        for name in release.IRIS_THEME_ASSET_FILES:
             self.assertEqual(bundle[name], (ROOT / "auth" / name).read_bytes())
             self.assertEqual(manifest["theme"]["sourceFiles"][f"auth/{name}"], release.digest(bundle[name]))
-        for name in release.LOCALE_FILES:
-            self.assertEqual(bundle[name], self.source[name])
-        self.assertIn(b"SIL OPEN FONT LICENSE Version 1.1", bundle["fonts/OFL-PlusJakartaSans.txt"])
+        self.assertIn(b"SIL OPEN FONT LICENSE Version 1.1", bundle["fonts/OFL-Outfit.txt"])
         self.assertIn(b'viewBox="28 320 530 170"', bundle["aiman.svg"])
-        self.assertNotIn("fonts/inter-tight-latin-wght-normal.woff2", bundle)
+        self.assertIn("fonts/outfit-latin-wght-normal.woff2", bundle)
+        self.assertIn("fonts/inter-tight-latin-wght-normal.woff2", bundle)
+        self.assertIn("fonts/inter-tight-latin-wght-italic.woff2", bundle)
+        self.assertNotIn("fonts/OFL-PlusJakartaSans.txt", bundle)
+        self.assertFalse(any("plus-jakarta" in name for name in bundle))
         self.assertEqual(bundle["auth-theme.js"], (ROOT / "auth/theme.js").read_bytes())
 
     def test_partial_font_overlay_is_rejected(self):

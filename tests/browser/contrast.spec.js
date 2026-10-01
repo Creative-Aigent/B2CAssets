@@ -1,6 +1,9 @@
 const {
   test, expect, cases, rgba, composite, contrast, colors, backgroundOf, textContrast, assertTheme, attachJson, pressTab,
 } = require('./harness');
+const { releaseId } = require('./release');
+
+const iris = releaseId === 'v19-aiman-iris';
 
 function actionContrast(sample) {
   const stops = sample.backgroundImage.match(/rgba?\([^)]+\)/g) || [];
@@ -56,11 +59,21 @@ for (const fixture of cases) {
 
       const cta = page.locator(fixture.primary);
       const normalCta = await colors(cta);
-      expect(normalCta.backgroundImage.match(/rgba?\([^)]+\)/g)).toHaveLength(2);
-      evidence.cta = { normal: actionContrast(normalCta) };
-      expect(evidence.cta.normal, 'CTA text contrasts >=4.5:1 at every normal gradient stop').toBeGreaterThanOrEqual(4.5);
+      if (iris) {
+        expect(normalCta.backgroundImage).toBe('none');
+        evidence.cta = { normal: textContrast(normalCta) };
+        expect(evidence.cta.normal, 'CTA text contrasts >=4.5:1 on the flat Iris action').toBeGreaterThanOrEqual(4.5);
+      } else {
+        expect(normalCta.backgroundImage.match(/rgba?\([^)]+\)/g)).toHaveLength(2);
+        evidence.cta = { normal: actionContrast(normalCta) };
+        expect(evidence.cta.normal, 'CTA text contrasts >=4.5:1 at every normal gradient stop').toBeGreaterThanOrEqual(4.5);
+      }
       await cta.hover();
-      await expect(cta).not.toHaveCSS('background-image', normalCta.backgroundImage);
+      if (iris) {
+        await expect(cta).not.toHaveCSS('background-color', normalCta.backgroundColor);
+      } else {
+        await expect(cta).not.toHaveCSS('background-image', normalCta.backgroundImage);
+      }
       await expect.configure({ soft: true }).poll(async () => actionContrast(await colors(cta)), {
         message: 'CTA text contrasts >=4.5:1 on hover',
       }).toBeGreaterThanOrEqual(4.5);
@@ -79,15 +92,28 @@ for (const fixture of cases) {
         return style.color;
       });
       // Measure the settled focus state, not the first frame of its transition.
-      await expect(input).toHaveCSS('border-color', expectedFocusColor);
-      await expect.poll(async () => (await colors(input)).boxShadow).not.toBe(normal.boxShadow);
-      await expect.poll(async () => {
-        const focused = await colors(input);
-        return contrast(composite(rgba(focused.borderColor), backgroundOf(focused)), backgroundOf(focused));
-      }, { message: 'Keyboard-focused input border contrasts >=3:1' }).toBeGreaterThanOrEqual(3);
-      const focusedInput = await colors(input);
-      expect(focusedInput.borderColor, 'Keyboard focus is visibly different from rest').not.toBe(normal.borderColor);
-      expect(focusedInput.boxShadow, 'Input has an additional visible focus ring').not.toBe(normal.boxShadow);
+      let focusedInput;
+      if (iris) {
+        await expect(input).toHaveCSS('outline-color', expectedFocusColor);
+        await expect(input).toHaveCSS('outline-width', '3px');
+        await expect(input).toHaveCSS('outline-offset', '2px');
+        focusedInput = await colors(input);
+        expect(focusedInput.outlineStyle, 'Iris input has a visible focus ring').toBe('solid');
+        expect(focusedInput.outlineColor, 'Keyboard focus is visibly different from rest').not.toBe(normal.outlineColor);
+        const adjacent = backgroundOf(focusedInput, false);
+        expect(contrast(composite(rgba(focusedInput.outlineColor), adjacent), adjacent),
+          'Keyboard-focused Iris outline contrasts >=3:1').toBeGreaterThanOrEqual(3);
+      } else {
+        await expect(input).toHaveCSS('border-color', expectedFocusColor);
+        await expect.poll(async () => (await colors(input)).boxShadow).not.toBe(normal.boxShadow);
+        await expect.poll(async () => {
+          const focused = await colors(input);
+          return contrast(composite(rgba(focused.borderColor), backgroundOf(focused)), backgroundOf(focused));
+        }, { message: 'Keyboard-focused input border contrasts >=3:1' }).toBeGreaterThanOrEqual(3);
+        focusedInput = await colors(input);
+        expect(focusedInput.borderColor, 'Keyboard focus is visibly different from rest').not.toBe(normal.borderColor);
+        expect(focusedInput.boxShadow, 'Input has an additional visible focus ring').not.toBe(normal.boxShadow);
+      }
       evidence.inputFocus = focusedInput;
 
       for (const selector of [fixture.primary, '#helpLink']) {
