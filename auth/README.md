@@ -23,7 +23,7 @@ explicit choice wins over the operating system preference. Sign-up retains
 an authorization code, token, phone number or account identifier. Later
 sign-up, verification and recovery pages can reuse the appearance in that
 tab. Storage being unavailable does not prevent applying an explicit hint.
-Without a valid hint or saved preference, the **v20 Personal Edition candidate** (like
+Without a valid hint or saved preference, the **v20 Personal Edition release** (like
 v19 Iris) leaves the
 root attribute unset and follows `prefers-color-scheme` in CSS. OS changes remain
 live and are never persisted as an explicit choice. This also works when B2C
@@ -40,8 +40,8 @@ Microsoft's injected controls and are not part of these releases.
 
 ## AIMAN Personal Edition appearance contract
 
-`auth/theme.css` is now the authoring source for **v20-personal-edition**, a new
-immutable release candidate. It applies the approved Personal Edition language
+`auth/theme.css` is now the authoring source for **v20-personal-edition**, an
+immutable release. It applies the approved Personal Edition language
 from the app repository (`ux/DESIGN.md`): flat opaque white/near-black surfaces,
 black ink, one electric blue (`#0648FF`) for the primary action, links and the
 keyboard focus ring, and fact colours only for confirmed, needs-review and
@@ -105,11 +105,12 @@ The pinned template source is v13 commit
 `5537be973028caae05cfb60e2fd23dc557fbf40a`; that source is not evidence of
 the current tenant mappings. Mutable root `docs/` assets and
 `docs/releases/v13-baseline/` are deliberately unchanged. On November 3,
-2026, a read-only portal inspection found that the customer flow's five
+2026, a pre-activation portal inspection found that the customer flow's five
 custom pages used `v14-theme-4`. That bundle is not overwritten. The retained
 `v15-silver-glass`, `v16-aiman-journey`, `v17-aiman-journey`,
 `v18-aiman-identity` and `v19-aiman-iris` bundles are also unchanged. The new
-candidate is **`docs/releases/v20-personal-edition/`**, marked `not-activated`.
+release is **`docs/releases/v20-personal-edition/`**; its `not-activated`
+manifest value records build-time status, not live tenant configuration.
 
 | Template | Template `pageLayout` metadata | Shared stylesheet route |
 |---|---|---|
@@ -126,11 +127,12 @@ asset URLs, CSS imports, relative CSS font/logo URLs and manifest hashes resolve
 inside the selected immutable release.
 
 The November 3, 2026 portal inspection showed these tenant-selected layout
-versions on the v14-backed customer flow: unified sign-up/sign-in `2.1.9`,
+versions before activation: unified sign-up/sign-in `2.1.9`,
 multifactor `1.2.3`, phone sign-in `2.1.9`, phone sign-up `2.1.9`, and
-phone sign-up recovery-email collection `2.1.34`. Several differ from the
-template metadata above. The existing v14 templates have the same metadata as
-v20, but that is not proof that v20 works with the tenant's versions.
+phone sign-up recovery-email collection `2.1.34`; all five versions were
+retained during activation. Several differ from the template metadata above.
+The existing v14 templates have the same metadata as v20, but that is not
+proof that v20 works with the tenant's versions.
 [Microsoft's guidance](https://learn.microsoft.com/en-us/azure/active-directory-b2c/javascript-and-page-layout?pivots=b2c-user-flow)
 specifies the user-flow version in the portal; recheck the actual settings and
 validate v20 with them instead of inferring compatibility from a meta tag.
@@ -144,32 +146,48 @@ state.
 
 **v20 deployment implications:** publication requires a separately reviewed
 commit/push to the configured HTTPS Pages host, followed by verifying asset
-responses, font MIME types and CORS. Tenant activation requires a separately
-authorized administrator to record the existing configuration and apply all five
-URLs from the v20 manifest on a candidate flow with compatible layout/JavaScript
-settings. Neither publication nor activation is performed by the local build or
-preview. No policies, claims, tenant settings or localization overrides are
-changed by this appearance release. Its locale files are byte-identical to v13;
-do **not** upload them as part of this visual-only change. Keep the complete
-existing localization/session/recovery configuration.
+responses, font MIME types and CORS. Tenant activation is a separate authorized
+operation. Neither publication nor activation is performed by the local build
+or preview. Activation changes page-layout URLs, not identity providers,
+claims, authentication/session settings or localization overrides. The
+locale files are byte-identical to v13; do **not** upload them as part of
+this visual-only change. Keep the existing localization/session/recovery
+configuration.
+
+On November 3, 2026, the owner authorized activation on the existing
+`creativeaigentdev` `B2C_1_signupsigninphone` flow without a separate
+candidate-flow rehearsal. Its five custom page URLs were changed from v14 to
+v20, retaining the selected page-layout versions. A portal reload confirmed
+the mappings; fresh unauthenticated browser contexts subsequently loaded v20
+on the initial sign-in and phone sign-up pages. Completed sign-in, sign-up,
+SMS, recovery, existing-account data and rollback remain unverified. Do not
+treat this observation as a completed end-to-end acceptance or evidence for
+another tenant.
 
 Historical v14 investigation (not a v19 live test): an isolated unauthenticated
 probe of the existing phone flow confirmed the
 initial B2C document retains `aiman_theme=light`. A browser-local substitution
 adding the head script did not result in script execution; sign-in remained
 usable. On November 3, 2026, the portal showed JavaScript enabled, but actual
-v20 script execution and theme continuity remain an activation gate, not a
-completed handoff.
+v20 script execution and theme continuity were not established by that probe.
 
-The full candidate was also substituted through the native loader in an
-isolated browser: its CSS loaded, but the native sanitizer excluded `script`
-and no theme script was requested. Azure CLI access to this tenant's user
-flows returns `403` for missing `IdentityUserFlow.Read.All` or
+In another earlier probe, the full candidate was substituted through the
+native loader in an isolated browser: its CSS loaded, but no script element
+remained in the final DOM and no theme script was requested. The cause was
+not established. Azure CLI access to this tenant's user flows returns `403`
+for missing `IdentityUserFlow.Read.All` or
 `IdentityUserFlow.ReadWrite.All`. Requesting the read-only scope through Azure
 CLI returns `AADSTS65002` (first-party preauthorization). Do not grant broad
 permissions, switch application identities, or bypass the sanitizer to work
 around this. Use an authenticated tenant-administrator Azure Portal session
 for the supported setting below.
+
+Subsequent November 3 probes through the existing flow, first with a
+browser-local v20 substitution and then directly after activation, observed
+requests for `auth-theme.js` and correct light/dark theme attributes on the
+initial sign-in and phone sign-up pages against opposite OS preferences.
+The discrepancy with the earlier probe is unresolved. The remaining journey
+pages and theme continuity through completed authentication were not tested.
 
 Before enabling a candidate:
 
@@ -301,8 +319,18 @@ and `aria-hidden` states.
 
 Restore the complete prior configuration snapshot: all five layout URLs,
 localized overrides and JavaScript setting. Restore the exact URLs recorded
-before the change rather than assuming `v13-baseline` is the live baseline:
-the customer flow was observed using `v14-theme-4` on November 3, 2026.
+before the change rather than assuming `v13-baseline` is the live baseline.
+Before the November 3, 2026 v20 activation, the customer flow used these
+files under `https://creative-aigent.github.io/B2CAssets/releases/v14-theme-4/`:
+
+| Page | Prior file | Prior layout version |
+|---|---|---|
+| Unified sign-up/sign-in | `unified-clean.html` | `2.1.9` |
+| Multifactor | `phone-otp-clean.html` | `1.2.3` |
+| Phone sign-in | `signin-phone-clean.html` | `2.1.9` |
+| Phone sign-up | `phone-signup-clean.html` | `2.1.9` |
+| Phone sign-up recovery email | `selfasserted-clean.html` | `2.1.34` |
+
 Retain old bundles while sessions may still refer to them, and account for
-provider/CDN caches. Rehearse rollback on the candidate flow before changing
-the working flow.
+provider/CDN caches. The v20 activation did not include a rollback rehearsal.
+Rehearse rollback on a candidate flow before future working-flow changes.
