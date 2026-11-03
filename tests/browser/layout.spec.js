@@ -1,7 +1,7 @@
 const { test, expect, cases, assertTheme, pressTab } = require('./harness');
 const { releaseId } = require('./release');
 const identity = releaseId === 'v18-aiman-identity';
-const iris = releaseId === 'v19-aiman-iris';
+const iris = releaseId === 'v19-aiman-iris' || releaseId === 'v20-personal-edition';
 const expandedCandidate = identity || iris;
 
 const viewports = [

@@ -3,7 +3,8 @@ const {
 } = require('./harness');
 const { releaseId } = require('./release');
 
-const iris = releaseId === 'v19-aiman-iris';
+// Personal Edition keeps Iris's flat action and solid focus-ring contract.
+const iris = releaseId === 'v19-aiman-iris' || releaseId === 'v20-personal-edition';
 
 function actionContrast(sample) {
   const stops = sample.backgroundImage.match(/rgba?\([^)]+\)/g) || [];
