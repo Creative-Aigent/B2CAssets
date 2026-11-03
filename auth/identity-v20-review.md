@@ -26,6 +26,25 @@ fixture results establishes v20 compatibility with the actual layouts.
 The tenant was not changed. Record and recheck the actual configuration,
 including language overrides, before a candidate-flow rehearsal or activation.
 
+## Post-Activation Observation
+
+On November 3, 2026, the owner approved activation on the existing
+`creativeaigentdev` `B2C_1_signupsigninphone` flow without a separate
+candidate-flow rehearsal. All five custom page URLs were changed from
+`v14-theme-4` to `v20-personal-edition`; a portal reload confirmed the
+configured URLs and the original layout versions.
+
+Fresh unauthenticated Chromium contexts directly loaded the v20 initial
+sign-in and phone sign-up pages. Explicit light/dark hints were honored
+against opposite OS preferences with English, Spanish and French locale
+hints; localized wording was not verified. The development application's
+sign-in and sign-up entry routes reached the same flow. No credentials,
+account changes, SMS or forms were submitted.
+
+Completed sign-in and sign-up, SMS, recovery, existing-account data, other
+journey pages, other regions and devices, and rollback remain unverified.
+See the [rollback inventory](README.md#rollback) for the prior v14 mappings.
+
 ## Appearance Changes
 
 - Replaced the Iris authoring CSS with Personal Edition tokens from the app's
