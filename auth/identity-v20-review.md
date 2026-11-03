@@ -41,7 +41,8 @@ Validated locally. Local candidate only.
 | `B2C_RELEASE_ID=v20-personal-edition npx playwright test` | 271 passed, 1 skipped (WebKit forced-colors) |
 | `B2C_RELEASE_ID=v19-aiman-iris npx playwright test` | 271 passed, 1 skipped (regression) |
 
-Chromium and WebKit on macOS. Linux WebKitGTK and CI were not run.
+Local browser checks ran on macOS Chromium and WebKit. Linux WebKitGTK was not
+run; CI runs the retained v15 browser suite, not v20.
 
 ## Still Required Before Use
 

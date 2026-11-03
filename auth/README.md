@@ -241,8 +241,8 @@ Option-Tab to traverse all controls; Linux WebKit and Chromium use Tab. The same
 reachability and focus assertions apply. Native scrolling is allowed to settle
 before checking viewport bounds.
 
-The unchanged CI configuration still selects v15, with Chromium on Ubuntu and
-WebKit on macOS. v20 has been validated locally, not dispatched to CI.
+The CI configuration selects v15, with Chromium on Ubuntu 24.04 and WebKit on
+macOS. v20-specific browser tests have been run locally, not in CI.
 Historical v15 Linux WebKitGTK testing left six long-signup viewport failures
 where only the caret/text was revealed. The v18 authoring pass reproduced
 partial-field focus scrolling on macOS and fixed its candidate using CSS scroll

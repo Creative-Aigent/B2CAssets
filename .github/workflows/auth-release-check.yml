@@ -38,7 +38,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          # Playwright 1.58.1 does not support Ubuntu 26.04.
+          - os: ubuntu-24.04
             browser: chromium
           # Safari-native focus/scroll behavior; WebKitGTK reveals only the caret.
           - os: macos-15
