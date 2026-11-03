@@ -1,12 +1,4 @@
-/* AIMAN Iris appearance. B2C owns the controls, copy and verification state. */
-@font-face {
-  font-family: "Outfit";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("fonts/outfit-latin-wght-normal.woff2") format("woff2");
-}
-
+/* AIMAN Personal Edition appearance. B2C owns the controls, copy and verification state. */
 @font-face {
   font-family: "Inter Tight";
   font-style: normal;
@@ -25,28 +17,29 @@
 
 :root {
   color-scheme: light;
-  --aiman-font-heading: "Outfit", "Inter Tight", "Segoe UI", Arial, sans-serif;
+  --aiman-font-heading: "Inter Tight", "Segoe UI", Arial, sans-serif;
   --aiman-font-ui: "Inter Tight", "Segoe UI", Arial, sans-serif;
-  --aiman-canvas: #fafafc;
+  --aiman-canvas: #ffffff;
   --aiman-panel: #ffffff;
-  --aiman-panel-subtle: #f4f4f9;
-  --aiman-panel-raised: #ececf4;
+  --aiman-panel-subtle: #f6f7f9;
+  --aiman-panel-raised: #eef0f3;
   --aiman-input: #ffffff;
-  --aiman-ink: #0b0b12;
-  --aiman-copy: #53536a;
-  --aiman-muted: #53536a;
-  --aiman-rule: #e6e6ee;
-  --aiman-border: #d3d3e0;
-  --aiman-border-strong: #8b8ba0;
-  --aiman-link: #4a2fe0;
-  --aiman-link-hover: #3a22c9;
-  --aiman-focus: #5b3df5;
-  --aiman-selection: #ececf4;
-  --aiman-action-start: #5b3df5;
-  --aiman-action-highlight: #5b3df5;
+  --aiman-ink: #080808;
+  --aiman-copy: #595963;
+  --aiman-muted: #595963;
+  --aiman-rule: #e6e7eb;
+  --aiman-border: #d5d7dd;
+  --aiman-border-strong: #8a8d96;
+  --aiman-link: #0648ff;
+  --aiman-link-hover: #0039d6;
+  --aiman-focus: #0648ff;
+  --aiman-selection: #edf2ff;
+  --aiman-selection-text: #0036c2;
+  --aiman-action-start: #0648ff;
+  --aiman-action-highlight: #0648ff;
   --aiman-action-text: #ffffff;
-  --aiman-action-hover: #4a2fe0;
-  --aiman-action-pressed: #3a22c9;
+  --aiman-action-hover: #0039d6;
+  --aiman-action-pressed: #002fb3;
   --aiman-action-shadow: none;
   --aiman-action-shadow-hover: none;
   --aiman-panel-shadow: none;
@@ -59,73 +52,75 @@
   --aiman-error: #c8203a;
   --aiman-error-surface: #ffffff;
   --aiman-error-border: #c8203a;
-  --aiman-radius: 22px;
+  --aiman-radius: 12px;
   --aiman-control-radius: 12px;
   --aiman-button-radius: 999px;
-  --aiman-dialog-radius: 22px;
+  --aiman-dialog-radius: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-aiman-theme="light"]) {
     color-scheme: dark;
-    --aiman-canvas: #09090e;
-    --aiman-panel: #12121a;
-    --aiman-panel-subtle: #191924;
-    --aiman-panel-raised: #20202d;
-    --aiman-input: #12121a;
-    --aiman-ink: #f6f6fb;
-    --aiman-copy: #a9a9be;
-    --aiman-muted: #a9a9be;
-    --aiman-rule: #282836;
-    --aiman-border: #34344a;
-    --aiman-border-strong: #6e6e86;
-    --aiman-link: #a497ff;
-    --aiman-link-hover: #c3bbff;
-    --aiman-focus: #a497ff;
-    --aiman-selection: #20202d;
-    --aiman-action-start: #8e7dff;
-    --aiman-action-highlight: #8e7dff;
-    --aiman-action-text: #0b0b12;
-    --aiman-action-hover: #a497ff;
-    --aiman-action-pressed: #7a68f0;
+    --aiman-canvas: #08080a;
+    --aiman-panel: #111114;
+    --aiman-panel-subtle: #17171b;
+    --aiman-panel-raised: #1f1f25;
+    --aiman-input: #111114;
+    --aiman-ink: #f4f4f6;
+    --aiman-copy: #a0a0ab;
+    --aiman-muted: #a0a0ab;
+    --aiman-rule: #26262c;
+    --aiman-border: #34343c;
+    --aiman-border-strong: #75757f;
+    --aiman-link: #8aa8ff;
+    --aiman-link-hover: #a9c0ff;
+    --aiman-focus: #8aa8ff;
+    --aiman-selection: #0e1a3d;
+    --aiman-selection-text: #a9c0ff;
+    --aiman-action-start: #0648ff;
+    --aiman-action-highlight: #0648ff;
+    --aiman-action-text: #ffffff;
+    --aiman-action-hover: #2b63ff;
+    --aiman-action-pressed: #0039d6;
     --aiman-success: #5ee0aa;
     --aiman-success-surface: #0f261c;
     --aiman-warning: #ffb766;
     --aiman-warning-surface: #2a1d0d;
     --aiman-error: #ff7d8e;
-    --aiman-error-surface: #12121a;
+    --aiman-error-surface: #111114;
     --aiman-error-border: #ff7d8e;
   }
 }
 
 html[data-aiman-theme="dark"] {
   color-scheme: dark;
-  --aiman-canvas: #09090e;
-  --aiman-panel: #12121a;
-  --aiman-panel-subtle: #191924;
-  --aiman-panel-raised: #20202d;
-  --aiman-input: #12121a;
-  --aiman-ink: #f6f6fb;
-  --aiman-copy: #a9a9be;
-  --aiman-muted: #a9a9be;
-  --aiman-rule: #282836;
-  --aiman-border: #34344a;
-  --aiman-border-strong: #6e6e86;
-  --aiman-link: #a497ff;
-  --aiman-link-hover: #c3bbff;
-  --aiman-focus: #a497ff;
-  --aiman-selection: #20202d;
-  --aiman-action-start: #8e7dff;
-  --aiman-action-highlight: #8e7dff;
-  --aiman-action-text: #0b0b12;
-  --aiman-action-hover: #a497ff;
-  --aiman-action-pressed: #7a68f0;
+  --aiman-canvas: #08080a;
+  --aiman-panel: #111114;
+  --aiman-panel-subtle: #17171b;
+  --aiman-panel-raised: #1f1f25;
+  --aiman-input: #111114;
+  --aiman-ink: #f4f4f6;
+  --aiman-copy: #a0a0ab;
+  --aiman-muted: #a0a0ab;
+  --aiman-rule: #26262c;
+  --aiman-border: #34343c;
+  --aiman-border-strong: #75757f;
+  --aiman-link: #8aa8ff;
+  --aiman-link-hover: #a9c0ff;
+  --aiman-focus: #8aa8ff;
+  --aiman-selection: #0e1a3d;
+  --aiman-selection-text: #a9c0ff;
+  --aiman-action-start: #0648ff;
+  --aiman-action-highlight: #0648ff;
+  --aiman-action-text: #ffffff;
+  --aiman-action-hover: #2b63ff;
+  --aiman-action-pressed: #0039d6;
   --aiman-success: #5ee0aa;
   --aiman-success-surface: #0f261c;
   --aiman-warning: #ffb766;
   --aiman-warning-surface: #2a1d0d;
   --aiman-error: #ff7d8e;
-  --aiman-error-surface: #12121a;
+  --aiman-error-surface: #111114;
   --aiman-error-border: #ff7d8e;
 }
 
@@ -157,7 +152,7 @@ body {
 }
 
 ::selection {
-  color: var(--aiman-ink);
+  color: var(--aiman-selection-text);
   background: var(--aiman-selection);
 }
 
@@ -185,7 +180,7 @@ body {
   font-family: var(--aiman-font-heading) !important;
   font-size: 30px !important;
   font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
+  letter-spacing: -0.03em !important;
   line-height: 1.1 !important;
   text-wrap: balance;
 }
@@ -193,7 +188,7 @@ body {
 #api :is(h2, h3):not(.intro h2) {
   font-family: var(--aiman-font-heading) !important;
   font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.02em !important;
 }
 
 #api,
@@ -339,8 +334,8 @@ body {
   #cancel
 ) {
   color: var(--aiman-ink) !important;
-  background: var(--aiman-panel-subtle) !important;
-  border-color: var(--aiman-border) !important;
+  background: var(--aiman-panel) !important;
+  border-color: var(--aiman-border-strong) !important;
   box-shadow: var(--aiman-control-shadow) !important;
 }
 
@@ -357,8 +352,8 @@ body {
   #cancel
 ):hover {
   color: var(--aiman-ink) !important;
-  background: var(--aiman-panel-raised) !important;
-  border-color: var(--aiman-border) !important;
+  background: var(--aiman-panel-subtle) !important;
+  border-color: var(--aiman-border-strong) !important;
   box-shadow: var(--aiman-control-shadow) !important;
 }
 

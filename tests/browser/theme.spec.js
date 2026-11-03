@@ -2,7 +2,7 @@ const {
   test, expect, cases, assetBase, assertTheme, assertPlatformUntouched, attachJson,
 } = require('./harness');
 const { releaseId } = require('./release');
-const usesFullLogo = releaseId === 'v18-aiman-identity' || releaseId === 'v19-aiman-iris';
+const usesFullLogo = ['v18-aiman-identity', 'v19-aiman-iris', 'v20-personal-edition'].includes(releaseId);
 
 for (const fixture of cases) {
   for (const theme of ['light', 'dark']) {

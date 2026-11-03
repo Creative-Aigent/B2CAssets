@@ -442,6 +442,20 @@ class AuthReleaseTests(unittest.TestCase):
         self.assertFalse(any("plus-jakarta" in name for name in bundle))
         self.assertEqual(bundle["auth-theme.js"], (ROOT / "auth/theme.js").read_bytes())
 
+    def test_personal_edition_packages_inter_tight_and_brand_only(self):
+        overlay = release.theme_overlay(ROOT, release.PERSONAL_EDITION_RELEASE_ID)
+        bundle = self.bundle(release.PERSONAL_EDITION_RELEASE_ID, overlay=overlay)
+        manifest = json.loads(bundle[release.MANIFEST])
+        self.assertEqual(manifest["activationStatus"], "not-activated")
+        for name in release.PERSONAL_EDITION_THEME_ASSET_FILES:
+            self.assertEqual(bundle[name], (ROOT / "auth" / name).read_bytes())
+        self.assertIn("fonts/inter-tight-latin-wght-normal.woff2", bundle)
+        self.assertFalse(any("plus-jakarta" in name for name in bundle))
+        self.assertNotIn("fonts/outfit-latin-wght-normal.woff2", bundle)
+        css = bundle["auth-theme.css"].decode()
+        self.assertNotIn("Outfit", css)
+        self.assertIn("--aiman-action-start: #0648ff;", css)
+
     def test_partial_font_overlay_is_rejected(self):
         overlay = self.overlay()
         del overlay["fonts/OFL-PlusJakartaSans.txt"]

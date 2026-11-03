@@ -67,9 +67,12 @@ IRIS_THEME_FONT_FILES = LEGACY_THEME_FONT_FILES | {
 }
 THEME_ASSET_FILES = THEME_FONT_FILES | {"aiman.svg"}
 IRIS_THEME_ASSET_FILES = IRIS_THEME_FONT_FILES | {"aiman.svg"}
+PERSONAL_EDITION_THEME_ASSET_FILES = LEGACY_THEME_FONT_FILES | {"aiman.svg"}
+PERSONAL_EDITION_RELEASE_ID = "v20-personal-edition"
 # These exact inventories belong to retained immutable candidates.
 THEME_ASSET_INVENTORIES = (
     set(), LEGACY_THEME_FONT_FILES, EARLY_JOURNEY_FONT_FILES, THEME_ASSET_FILES, IRIS_THEME_ASSET_FILES,
+    PERSONAL_EDITION_THEME_ASSET_FILES,
 )
 LEGAL_STRINGS = {
     "disclaimer_link_1_url": ("https://creativeaigent.com/privacy-policy", "/privacy"),
@@ -374,6 +377,8 @@ def rewrite_locale(data, name, legal_origin):
 
 
 def theme_asset_files_for_release(release_id):
+    if release_id == PERSONAL_EDITION_RELEASE_ID:
+        return PERSONAL_EDITION_THEME_ASSET_FILES
     return IRIS_THEME_ASSET_FILES if release_id == "v19-aiman-iris" else THEME_ASSET_FILES
 
 

@@ -4,7 +4,7 @@ const crypto = require('node:crypto');
 const { test: base, expect } = require('@playwright/test');
 const { cases, platformBootstrap } = require('./fixtures');
 const { releaseId, releaseDirectory, assetBase } = require('./release');
-const iris = releaseId === 'v19-aiman-iris';
+const iris = releaseId === 'v19-aiman-iris' || releaseId === 'v20-personal-edition';
 
 const identityOrigin = 'https://identity.example.test';
 const contentTypes = {

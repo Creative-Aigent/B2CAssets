@@ -4,7 +4,9 @@ const {
 } = require('./harness');
 const { releaseId } = require('./release');
 const identity = releaseId === 'v18-aiman-identity';
-const iris = releaseId === 'v19-aiman-iris';
+const personal = releaseId === 'v20-personal-edition';
+// Personal Edition retains Iris's flat structure with its own palette, type and geometry.
+const iris = releaseId === 'v19-aiman-iris' || personal;
 const journey = identity || releaseId === 'v16-aiman-journey' || releaseId === 'v17-aiman-journey';
 
 const palette = {
@@ -55,6 +57,22 @@ if (iris) {
     backdropStops: ['rgb(9, 9, 14)', 'rgb(18, 18, 26)'],
   });
 }
+if (personal) {
+  Object.assign(palette.light, {
+    canvas: 'rgb(255, 255, 255)', panel: 'rgb(255, 255, 255)',
+    fill: 'rgb(255, 255, 255)', solid: 'rgb(246, 247, 249)',
+    ink: 'rgb(8, 8, 8)', chrome: 'rgb(77, 77, 87)',
+    action: 'rgb(6, 72, 255)', hover: 'rgb(0, 57, 214)', pressed: 'rgb(0, 47, 179)',
+    backdropStops: ['rgb(255, 255, 255)'],
+  });
+  Object.assign(palette.dark, {
+    canvas: 'rgb(8, 8, 10)', panel: 'rgb(17, 17, 20)',
+    fill: 'rgb(17, 17, 20)', solid: 'rgb(23, 23, 27)',
+    ink: 'rgb(244, 244, 246)', chrome: 'rgb(160, 160, 171)',
+    action: 'rgb(6, 72, 255)', hover: 'rgb(43, 99, 255)', pressed: 'rgb(0, 57, 214)',
+    backdropStops: ['rgb(8, 8, 10)', 'rgb(17, 17, 20)'],
+  });
+}
 
 async function material(page) {
   return page.locator('#api').evaluate(element => {
@@ -101,7 +119,7 @@ for (const theme of ['light', 'dark']) {
         expect(value.logo).toBe('none');
         expect(value.blur).toBe('none');
         expect(value.shadow).toBe('none');
-        expect(value.panelRadius).toBe('22px');
+        expect(value.panelRadius).toBe(personal ? '12px' : '22px');
         expect(auth.requests.some(url => url.endsWith('/aiman.svg'))).toBe(true);
       } else if (identity) {
         expect(value.glass).toBe(expected.ink);
@@ -123,14 +141,14 @@ for (const theme of ['light', 'dark']) {
       }
       if (releaseId === 'v16-aiman-journey' || iris) expect(value.lighting).toBe('none');
       else expect(value.lighting).toContain('radial-gradient');
-      expect(value.font).toContain(iris ? 'Outfit' : (journey ? 'Plus Jakarta Sans' : 'Inter Tight'));
+      expect(value.font).toContain(personal ? 'Inter Tight' : iris ? 'Outfit' : (journey ? 'Plus Jakarta Sans' : 'Inter Tight'));
       expect(value.bodyFont).toContain(iris ? 'Inter Tight' : (journey ? 'Plus Jakarta Sans' : 'Inter Tight'));
       expect(value.weight).toBe(iris ? '700' : (journey ? '800' : '550'));
-      if (iris) expect(value.letterSpacing).toBe('-0.6px');
+      if (iris) expect(value.letterSpacing).toBe(personal ? '-0.9px' : '-0.6px');
       expect(value.transparentForms).toEqual([]);
       expect(auth.requests.some(url => url.endsWith(journey
         ? '/fonts/plus-jakarta-sans-latin-800-normal.woff2' : '/fonts/inter-tight-latin-wght-normal.woff2'))).toBe(true);
-      if (iris) {
+      if (iris && !personal) {
         expect(auth.requests.some(url => /\/fonts\/(lora|outfit-latin-ext)/.test(url))).toBe(false);
       } else {
         expect(auth.requests.some(url => /\/fonts\/(lora|outfit)/.test(url))).toBe(false);
@@ -144,12 +162,23 @@ for (const theme of ['light', 'dark']) {
       expect(textContrast(await colors(page.locator('#pageError p')))).toBeGreaterThanOrEqual(4.5);
       if (iris) {
         expect(auth.requests.some(url => url.includes('/fonts/plus-jakarta'))).toBe(false);
-        expect(auth.requests.some(url => url.endsWith('/fonts/outfit-latin-wght-normal.woff2'))).toBe(true);
+        expect(auth.requests.some(url => url.endsWith('/fonts/outfit-latin-wght-normal.woff2'))).toBe(!personal);
         expect(auth.requests.some(url => url.endsWith('/fonts/inter-tight-latin-wght-normal.woff2'))).toBe(true);
         await expect(page.locator(fixture.primary)).toHaveCSS('border-radius', '999px');
         await expect(page.locator(fixture.primary)).toHaveCSS('font-weight', '700');
         await expect(page.locator(fixture.primary)).toHaveCSS('color',
-          theme === 'dark' ? 'rgb(11, 11, 18)' : 'rgb(255, 255, 255)');
+          theme === 'dark' && !personal ? 'rgb(11, 11, 18)' : 'rgb(255, 255, 255)');
+        if (personal) await expect(page.locator(fixture.primary)).toHaveCSS('background-color', expected.action);
+        if (personal && fixture.name === 'multifactor-otp') {
+          // Secondary actions are outlined on the panel, never a tinted fill.
+          const secondary = page.locator('#sendNewCode');
+          await secondary.evaluate(element => { element.style.display = 'inline-block'; });
+          await expect(secondary).toHaveCSS('background-color', expected.panel);
+          await expect(secondary).toHaveCSS('border-top-color',
+            theme === 'dark' ? 'rgb(117, 117, 127)' : 'rgb(138, 141, 150)');
+          await expect(secondary).toHaveCSS('color', expected.ink);
+          await secondary.evaluate(element => { element.style.display = 'none'; });
+        }
         await page.locator(fixture.input).focus();
         await expect(page.locator(fixture.input)).toHaveCSS('outline-width', '3px');
         await expect(page.locator(fixture.input)).toHaveCSS('outline-offset', '2px');
@@ -163,8 +192,7 @@ for (const theme of ['light', 'dark']) {
           theme === 'dark' ? 'rgb(15, 38, 28)' : 'rgb(226, 246, 236)');
         await expect(page.locator('#verificationSuccess')).toHaveCSS('color',
           theme === 'dark' ? 'rgb(94, 224, 170)' : 'rgb(11, 115, 80)');
-        await expect(page.locator('#verificationInfo')).toHaveCSS('background-color',
-          theme === 'dark' ? 'rgb(25, 25, 36)' : 'rgb(244, 244, 249)');
+        await expect(page.locator('#verificationInfo')).toHaveCSS('background-color', expected.solid);
         await expect(page.locator('#verificationInfo')).not.toHaveCSS('background-color',
           theme === 'dark' ? 'rgb(15, 38, 28)' : 'rgb(226, 246, 236)');
       } else if (identity) {
