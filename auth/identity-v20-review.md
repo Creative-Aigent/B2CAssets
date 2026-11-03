@@ -1,17 +1,30 @@
 # AIMAN Personal Edition v20: Local Review
 
-Validated locally. Local candidate only.
+At the November 3, 2026 pre-publication review, this candidate had been
+validated locally only.
 
 ## Candidate And Ownership
 
 - Candidate: `docs/releases/v20-personal-edition/`, 31 bundled files plus manifest.
-- Manifest status: `not-activated`; no publication or tenant activation.
+- Manifest status: `not-activated`; publication and tenant activation had not
+  occurred at review time.
 - Base commit: `4c455c20356d0baec216b8b272e2c5cdcfe788cb`.
 - Pinned template source: `5537be973028caae05cfb60e2fd23dc557fbf40a`.
 - Retained `v13`-`v19` release directories and root `docs/` assets were not
   edited or removed (`--verify-existing` passes for all eight releases).
 - `auth/theme.js` is unchanged: a valid per-tab `aiman_theme=light|dark` hint
   wins; otherwise CSS follows the OS.
+
+## Tenant Observation
+
+On November 3, 2026, read-only portal inspection found the five customer-flow
+custom page URLs using `v14-theme-4`, with JavaScript enabled. Several
+tenant-selected layout versions differ from the template metadata; see the
+[inventory](README.md#source-and-served-surface-inventory). The existing v14
+templates have the same metadata, but neither that observation nor the
+fixture results establishes v20 compatibility with the actual layouts.
+The tenant was not changed. Record and recheck the actual configuration,
+including language overrides, before a candidate-flow rehearsal or activation.
 
 ## Appearance Changes
 
@@ -42,7 +55,7 @@ Validated locally. Local candidate only.
 | `B2C_RELEASE_ID=v19-aiman-iris npx playwright test` | 271 passed, 1 skipped (regression) |
 
 Local browser checks ran on macOS Chromium and WebKit. Linux WebKitGTK was not
-run; CI runs the retained v15 browser suite, not v20.
+run; the CI configuration selects v20 on Linux Chromium and macOS WebKit.
 
 ## Still Required Before Use
 

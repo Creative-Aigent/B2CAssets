@@ -76,5 +76,5 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Verify candidate appearance and native control states
         env:
-          B2C_RELEASE_ID: v15-silver-glass
+          B2C_RELEASE_ID: v20-personal-edition
         run: npm run test:browser -- --project=${{ matrix.browser }}

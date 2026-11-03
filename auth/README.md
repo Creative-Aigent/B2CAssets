@@ -28,7 +28,7 @@ v19 Iris) leaves the
 root attribute unset and follows `prefers-color-scheme` in CSS. OS changes remain
 live and are never persisted as an explicit choice. This also works when B2C
 excludes the script; an explicit app choice cannot be honored in that case.
-The root/v13 assets and earlier v14 candidate retain their original dark fallback.
+The root/v13 assets and v14 release retain their original dark fallback.
 
 B2C is a separate origin. It cannot read the app's localStorage or automatically
 inherit the app's Glass/Solid preference. No new query parameter, storage key,
@@ -41,7 +41,7 @@ Microsoft's injected controls and are not part of these releases.
 ## AIMAN Personal Edition appearance contract
 
 `auth/theme.css` is now the authoring source for **v20-personal-edition**, a new
-immutable local candidate. It applies the approved Personal Edition language
+immutable release candidate. It applies the approved Personal Edition language
 from the app repository (`ux/DESIGN.md`): flat opaque white/near-black surfaces,
 black ink, one electric blue (`#0648FF`) for the primary action, links and the
 keyboard focus ring, and fact colours only for confirmed, needs-review and
@@ -81,7 +81,7 @@ provenance but are not requested by v20's CSS.
 
 ## Historical Iris appearance contract
 
-v19-aiman-iris remains an immutable, never-activated local candidate. It used
+v19-aiman-iris remains an immutable, never-activated candidate. It used
 flat Iris surfaces, violet `#5B3DF5` / `#8E7DFF` primary actions, Outfit 700
 headings with Inter Tight interface type, and neutral secondary controls. Its
 bundle and font inventory (Outfit + Inter Tight, no Plus Jakarta Sans) are
@@ -90,7 +90,7 @@ retained unchanged; v20 does not rewrite or remove it. See
 
 ## Historical Journey/Identity appearance contract
 
-v16-v18 remain immutable, never-activated local candidates. Their Journey and
+v16-v18 remain immutable, never-activated candidates. Their Journey and
 Identity appearance used warm neutral light surfaces, deep neutral/ocean dark
 surfaces, Ocean `#1f4fd8` primary actions and Plus Jakarta Sans. v18 restricted
 Sunflower `#ffc83d` to native successful verification and kept informational
@@ -101,15 +101,17 @@ or remove them.
 
 ## Source and served-surface inventory
 
-The pinned source is deployed v13 commit
-`5537be973028caae05cfb60e2fd23dc557fbf40a`. Mutable root `docs/` assets and
-`docs/releases/v13-baseline/` are deliberately unchanged. `v14-theme-4` is a
-historical, never-activated candidate; it is not overwritten. The retained
+The pinned template source is v13 commit
+`5537be973028caae05cfb60e2fd23dc557fbf40a`; that source is not evidence of
+the current tenant mappings. Mutable root `docs/` assets and
+`docs/releases/v13-baseline/` are deliberately unchanged. On November 3,
+2026, a read-only portal inspection found that the customer flow's five
+custom pages used `v14-theme-4`. That bundle is not overwritten. The retained
 `v15-silver-glass`, `v16-aiman-journey`, `v17-aiman-journey`,
 `v18-aiman-identity` and `v19-aiman-iris` bundles are also unchanged. The new
 candidate is **`docs/releases/v20-personal-edition/`**, marked `not-activated`.
 
-| Template | Existing layout contract | Shared stylesheet route |
+| Template | Template `pageLayout` metadata | Shared stylesheet route |
 |---|---|---|
 | `unified-clean.html` | `unifiedssp:2.1.9` | `unified-clean.css` imports `b2c-base.css` |
 | `signin-phone-clean.html` | `selfasserted:2.1.21` | `b2c-base.css` |
@@ -121,8 +123,17 @@ Each generated template still has exactly one empty `<div id="api"></div>`,
 the same layout metadata and no added form or body script. All five load the
 same `auth-theme.css` and deferred head-only `auth-theme.js`. Absolute template
 asset URLs, CSS imports, relative CSS font/logo URLs and manifest hashes resolve
-inside the selected immutable release. The real tenant mappings are not inferred
-from these files and were not inspected or changed for v20.
+inside the selected immutable release.
+
+The November 3, 2026 portal inspection showed these tenant-selected layout
+versions on the v14-backed customer flow: unified sign-up/sign-in `2.1.9`,
+multifactor `1.2.3`, phone sign-in `2.1.9`, phone sign-up `2.1.9`, and
+phone sign-up recovery-email collection `2.1.34`. Several differ from the
+template metadata above. The existing v14 templates have the same metadata as
+v20, but that is not proof that v20 works with the tenant's versions.
+[Microsoft's guidance](https://learn.microsoft.com/en-us/azure/active-directory-b2c/javascript-and-page-layout?pivots=b2c-user-flow)
+specifies the user-flow version in the portal; recheck the actual settings and
+validate v20 with them instead of inferring compatibility from a meta tag.
 
 ## Activation is a separate operation
 
@@ -146,8 +157,9 @@ Historical v14 investigation (not a v19 live test): an isolated unauthenticated
 probe of the existing phone flow confirmed the
 initial B2C document retains `aiman_theme=light`. A browser-local substitution
 adding the head script did not result in script execution; sign-in remained
-usable. The current JavaScript/layout configuration therefore remains an
-activation gate, not a completed handoff.
+usable. On November 3, 2026, the portal showed JavaScript enabled, but actual
+v20 script execution and theme continuity remain an activation gate, not a
+completed handoff.
 
 The full candidate was also substituted through the native loader in an
 isolated browser: its CSS loaded, but the native sanitizer excluded `script`
@@ -198,8 +210,8 @@ Microsoft references:
 
 ## Build and verify
 
-Run from this repository; the source Git object is the deployed v13 commit,
-not the possibly older checked-out `docs/` files:
+Run from this repository; the source Git object is the pinned v13 commit,
+not the current tenant mapping or the checked-out root `docs/` files:
 
 ```bash
 python3 scripts/build-auth-release.py \
@@ -241,8 +253,8 @@ Option-Tab to traverse all controls; Linux WebKit and Chromium use Tab. The same
 reachability and focus assertions apply. Native scrolling is allowed to settle
 before checking viewport bounds.
 
-The CI configuration selects v15, with Chromium on Ubuntu 24.04 and WebKit on
-macOS. v20-specific browser tests have been run locally, not in CI.
+The CI configuration selects v20, with Chromium on Ubuntu 24.04 and WebKit on
+macOS. These are synthetic browser tests, not live tenant acceptance.
 Historical v15 Linux WebKitGTK testing left six long-signup viewport failures
 where only the caret/text was revealed. The v18 authoring pass reproduced
 partial-field focus scrolling on macOS and fixed its candidate using CSS scroll
@@ -270,14 +282,14 @@ archived outside the publishable `docs/` tree: dark borders and hover text
 needed stronger contrast, and adjacent recovery/help links needed spacing.
 They are not activation targets.
 
-The historical v14 legal destinations are existing public **beta summaries**, not a newly
+The v14 legal destinations are existing public **beta summaries**, not a newly
 approved full privacy policy or terms of service. Deploy the corresponding
 application privacy wording before any separately approved legal overrides.
 
 Every bundle contains the five templates, CSS, logos, fonts and licenses,
 localization files, and a manifest of SHA-256 hashes and byte sizes. All
 loaded asset references stay inside that release. Candidates include only
-the theme script; the rollback baseline contains no custom scripts.
+the theme script; `v13-baseline` contains no custom scripts.
 
 An existing ID can be rebuilt only when every byte matches. After changing
 source, choose a new ID; do not edit a generated bundle or its manifest.
@@ -288,8 +300,9 @@ and `aria-hidden` states.
 ## Rollback
 
 Restore the complete prior configuration snapshot: all five layout URLs,
-localized overrides and JavaScript setting. Use the published immutable
-`v13-baseline` URLs, not an old query string on a mutable root filename.
+localized overrides and JavaScript setting. Restore the exact URLs recorded
+before the change rather than assuming `v13-baseline` is the live baseline:
+the customer flow was observed using `v14-theme-4` on November 3, 2026.
 Retain old bundles while sessions may still refer to them, and account for
 provider/CDN caches. Rehearse rollback on the candidate flow before changing
 the working flow.
